@@ -19,10 +19,10 @@ app.use("/api/laptops", laptopRouter);
 
 // Production mode
 if (process.env.NODE_ENV === "production") {
-	app.use("/", express.static(path.join(__dirname, "client", "build")));
+	app.use("/", express.static(path.join(__dirname, "../", "client", "build")));
 
 	app.get("*", (req, res) => {
-		res.sendfile(path.resolve((__dirname, "client", "build", "index.html")));
+		res.sendfile(path.join((__dirname, "../", "client", "build", "index.html")));
 	});
 }
 
