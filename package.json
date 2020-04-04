@@ -1,11 +1,11 @@
 {
-	"name": "fullstack",
+	"name": "online-shop",
 	"version": "1.0.0",
 	"description": "",
-	"main": "app.js",
+	"main": "src/app.js",
 	"scripts": {
-		"start": "cross-env NODE_ENV=production node app.js",
-		"server": "nodemon app.js",
+		"start": "cross-env NODE_ENV=production node src/app.js",
+		"server": "nodemon src/app.js",
 		"client": "npm run start --prefix client",
 		"client:install": "npm install --prefix client",
 		"client:build": "npm run build --prefix client",
@@ -18,8 +18,10 @@
 	"author": "Dmytro Borshch <borsch.dima@gmail.com>",
 	"license": "MIT",
 	"dependencies": {
+		"bcryptjs": "^2.4.3",
 		"config": "^3.3.1",
 		"express": "^4.17.1",
+		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^5.9.7"
 	},
 	"devDependencies": {

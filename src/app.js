@@ -1,12 +1,22 @@
 const express = require("express");
 const path = require("path");
 const config = require("config");
+const authRouter = require("./routers/auth");
+const laptopRouter = require("./routers/laptop");
+require("./db/mongoose");
 
-const PORT = config.get("port") || 3000;
+const PORT = config.get("port") || 5000;
 
 const app = express();
+
+// Middleware
 app.use(express.json({ extended: true }));
 
+// Routers
+app.use("/api/auth", authRouter);
+app.use("/api/laptops", laptopRouter);
+
+// Production mode
 if (process.env.NODE_ENV === "production") {
 	app.use("/", express.static(path.join(__dirname, "client", "build")));
 
