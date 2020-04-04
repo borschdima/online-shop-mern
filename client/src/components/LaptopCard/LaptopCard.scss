@@ -1,5 +1,9 @@
 .laptop-card {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
 	padding: 20px !important;
+	margin: 20px 0;
 	box-shadow: inset 6px 3px 4px #b3b5b8, inset -3px -6px 4px #fff;
 	border-radius: 20px;
 	background-color: #dde1e2;
@@ -30,6 +34,7 @@
 	&__description {
 		line-height: 1.2;
 		font-size: 0.9rem;
+		flex: 1;
 	}
 
 	&__price {

@@ -21,7 +21,7 @@ const LaptopCard = ({ laptop }) => {
 
 	return (
 		<MDBCol xs="12" md="6" lg="4">
-			<div className="laptop-card mt-3" onClick={() => history.push("/laptops/" + laptop._id)}>
+			<div className="laptop-card" onClick={() => history.push("/laptops/" + laptop._id)}>
 				<ToastContainer />
 				<img className="laptop-card__img" src={laptop.img} alt="preview" />
 				<div className="laptop-card__description">{laptop.description}</div>
