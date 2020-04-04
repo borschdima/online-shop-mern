@@ -5,7 +5,8 @@ const authRouter = require("./routers/auth");
 const laptopRouter = require("./routers/laptop");
 require("./db/mongoose");
 
-const PORT = config.get("port") || 5000;
+// const PORT = config.get("port") || 5000;
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 
