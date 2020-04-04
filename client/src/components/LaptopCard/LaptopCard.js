@@ -20,15 +20,17 @@ const LaptopCard = ({ laptop }) => {
 	};
 
 	return (
-		<MDBCol xs="12" md="6" lg="4" className="laptop-card" onClick={() => history.push("/laptops/" + laptop._id)}>
-			<ToastContainer />
-			<img className="laptop-card__img" src={laptop.img} alt="preview" />
-			<div className="laptop-card__description">{laptop.description}</div>
-			<div className="d-flex justify-content-between align-items-center mt-2">
-				<div className="laptop-card__price">{laptop.price}</div>
-				<MDBIcon icon="shopping-cart" className="laptop-card__add" onClick={addToCartHandler} />
+		<MDBCol xs="12" md="6" lg="4">
+			<div className="laptop-card mt-3" onClick={() => history.push("/laptops/" + laptop._id)}>
+				<ToastContainer />
+				<img className="laptop-card__img" src={laptop.img} alt="preview" />
+				<div className="laptop-card__description">{laptop.description}</div>
+				<div className="d-flex justify-content-between align-items-center mt-2">
+					<div className="laptop-card__price">{laptop.price}</div>
+					<MDBIcon icon="shopping-cart" className="laptop-card__add" onClick={addToCartHandler} />
+				</div>
+				<div className="laptop-card__presence">Есть в наличии</div>
 			</div>
-			<div className="laptop-card__presence">Есть в наличии</div>
 		</MDBCol>
 	);
 };
