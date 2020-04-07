@@ -1,4 +1,75 @@
 .cart {
 	padding: 10px;
 	padding-top: 0;
+
+	.dataTables_wrapper {
+		.table {
+			margin-top: 10px;
+		}
+		tbody tr {
+			&:hover {
+				cursor: pointer;
+				box-shadow: 0 0 7px rgba($color: #000000, $alpha: 0.7);
+			}
+			&:active {
+				box-shadow: inset 0 0 7px rgba($color: #000000, $alpha: 0.7);
+			}
+		}
+		thead {
+			background-color: #2fdbb6 !important;
+		}
+
+		.active.page-item a {
+			background-color: #2fdbb6 !important;
+		}
+
+		.dataTables_filter label {
+			border-radius: 25px !important;
+			padding: 5px 15px !important;
+			box-shadow: inset 8px 8px 8px #babbbd, inset -8px -8px 8px #fff, -5px -3px 6px #fff !important;
+
+			input {
+				border: none !important;
+				outline: none !important;
+				background: none !important;
+				font-size: 1rem !important;
+				color: #555 !important;
+				padding: 15px 10px 15px 5px !important;
+				margin-left: 5px !important;
+				width: 200px !important;
+
+				&::placeholder {
+					color: transparent !important;
+				}
+				&:active {
+					outline: none !important;
+					border: none !important;
+					box-shadow: none !important;
+				}
+				&::-webkit-search-cancel-button {
+					-webkit-appearance: none !important;
+					display: none;
+					appearance: none !important;
+				}
+				&:focus {
+					outline: none !important;
+					border: none !important;
+					box-shadow: none !important;
+				}
+
+				&:-webkit-autofill,
+				&:-webkit-autofill:hover,
+				&:-webkit-autofill:focus {
+					border: none !important;
+					box-shadow: 0 0 0px 1000px transparent inset !important;
+					-webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+					transition: background-color 5000s ease-in-out 0s !important;
+				}
+			}
+		}
+
+		.dataTables_length {
+			display: none !important;
+		}
+	}
 }
