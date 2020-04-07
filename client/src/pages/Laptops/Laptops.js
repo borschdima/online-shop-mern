@@ -6,6 +6,7 @@ import { clearMessage } from "../../redux/actions/cart";
 import SectionHeader from "../../ui/SectionHeader/SectionHeader";
 import LaptopCard from "../../components/LaptopCard/LaptopCard";
 import { useMessage } from "../../hooks/useMessage";
+import { ToastContainer } from "react-toastify";
 
 import "./Laptops.scss";
 
@@ -24,14 +25,14 @@ const Laptops = () => {
 		}
 		if (message) {
 			notify();
+			dispatchClearMsg();
 		}
-
-		return () => dispatchClearMsg();
 	}, [dispatchLaptops, dispatchClearMsg, notify, message, laptops.length]);
 
 	return (
 		<section className="laptops">
 			<MDBContainer>
+				<ToastContainer />
 				<SectionHeader title="Ноутбуки" />
 				<MDBRow className="laptops__list">
 					{laptops.map((laptop) => (

@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { MDBCol, MDBIcon } from "mdbreact";
 import { addItem } from "../../redux/actions/cart";
 import { useHistory } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 
 import "./LaptopCard.scss";
 
@@ -19,7 +18,6 @@ const LaptopCard = ({ laptop }) => {
 	return (
 		<MDBCol xs="12" md="6" lg="4" className="mt-4">
 			<div className="laptop-card" onClick={() => history.push("/laptops/" + laptop._id)}>
-				<ToastContainer />
 				<img className="laptop-card__img" src={laptop.img} alt="preview" />
 				<div className="laptop-card__name">{laptop.name}</div>
 				<div className="laptop-card__description">{laptop.description}</div>

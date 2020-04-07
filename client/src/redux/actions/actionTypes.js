@@ -13,6 +13,7 @@ export const LAPTOP_FETCH = "LAPTOP_FETCH";
 
 // Cart
 export const CART_ADD_SUCCESS = "CART_ADD_SUCCESS";
+export const CART_REMOVE_SUCCESS = "CART_REMOVE_SUCCESS";
 export const CART_FETCH_SUCCESS = "CART_FETCH_SUCCESS";
 export const CART_ERROR = "CART_ERROR";
 export const CART_LOADING = "CART_LOADING";

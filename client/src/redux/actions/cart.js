@@ -1,4 +1,4 @@
-import { CART_ADD_SUCCESS, CART_LOADING, CART_ERROR, CART_CLEAR_MESSAGE, CART_FETCH_SUCCESS } from "../actions/actionTypes";
+import { CART_ADD_SUCCESS, CART_REMOVE_SUCCESS, CART_LOADING, CART_ERROR, CART_CLEAR_MESSAGE, CART_FETCH_SUCCESS } from "../actions/actionTypes";
 import { request } from "../requestConfig";
 
 export function addItem(item) {
@@ -8,6 +8,19 @@ export function addItem(item) {
 			const data = await request("/api/cart/add", { id: item._id }, "POST");
 
 			dispatch(cartAddSuccess(data.laptop, data.message));
+		} catch (error) {
+			dispatch(cartError(error.message));
+		}
+	};
+}
+
+export function removeItem(id) {
+	return async (dispatch) => {
+		dispatch(cartLoading());
+		try {
+			const data = await request("/api/cart/remove", { id }, "DELETE");
+
+			dispatch(cartRemoveSuccess(id, data.message));
 		} catch (error) {
 			dispatch(cartError(error.message));
 		}
@@ -44,6 +57,14 @@ export function cartAddSuccess(item, message) {
 	return {
 		type: CART_ADD_SUCCESS,
 		item,
+		message,
+	};
+}
+
+export function cartRemoveSuccess(itemId, message) {
+	return {
+		type: CART_REMOVE_SUCCESS,
+		itemId,
 		message,
 	};
 }

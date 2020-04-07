@@ -32,4 +32,17 @@ router.post("/add", auth, async (req, res) => {
 	}
 });
 
+// /api/cart/remove
+router.delete("/remove", auth, async (req, res) => {
+	try {
+		const cartItemIndex = req.user.cart.findIndex((item) => item.equals(req.body.id));
+		req.user.cart.splice(cartItemIndex, 1);
+		await req.user.save();
+
+		res.status(200).json({ message: "Товар был удален из корзины" });
+	} catch (e) {
+		res.status(500).json({ message: "Что-то пошло не так, попробуйте снова" });
+	}
+});
+
 module.exports = router;

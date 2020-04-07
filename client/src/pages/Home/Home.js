@@ -16,11 +16,8 @@ const Home = () => {
 	useEffect(() => {
 		if (formMessage) {
 			notify();
+			dispatch(clearMessage());
 		}
-
-		return () => {
-			if (formMessage) dispatch(clearMessage());
-		};
 	}, [notify, dispatch, formMessage]);
 
 	return (
