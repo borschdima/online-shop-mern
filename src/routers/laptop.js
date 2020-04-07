@@ -22,7 +22,7 @@ router.post("/add", auth, async (req, res) => {
 		const newLaptop = new Laptop(req.body);
 		await newLaptop.save();
 
-		res.status(201).json({ message: "Товар добавлен в базу" });
+		res.status(201).json({ message: "Товар добавлен в базу", newLaptop });
 	} catch (e) {
 		res.status(500).json({ message: "Что-то пошло не так, попробуйте снова" });
 	}

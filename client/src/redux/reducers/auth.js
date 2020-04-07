@@ -4,7 +4,7 @@ const initialState = {
 	token: null,
 	formMessage: "",
 	loading: false,
-	error: false
+	error: false,
 };
 
 export default function authReducer(state = initialState, action) {
@@ -14,38 +14,38 @@ export default function authReducer(state = initialState, action) {
 				...state,
 				loading: true,
 				error: false,
-				formMessage: ""
+				formMessage: "",
 			};
 		case AUTH_SIGNUP:
 			return {
 				...state,
 				loading: false,
-				formMessage: action.message
+				formMessage: action.message,
 			};
 		case AUTH_LOGIN:
 			return {
 				...state,
 				loading: false,
 				token: action.token,
-				formMessage: "Здравствуйте, Вы вошли в систему!"
+				formMessage: "Здравствуйте, Вы вошли в систему!",
 			};
 		case AUTH_ERROR:
 			return {
 				...state,
 				error: true,
 				loading: false,
-				formMessage: action.errorMessage
+				formMessage: action.errorMessage,
 			};
 		case AUTH_LOGOUT:
 			return {
 				...state,
 				token: null,
-				formMessage: ""
+				formMessage: action.message,
 			};
 		case AUTH_CLEAR_MESSAGE:
 			return {
 				...state,
-				formMessage: ""
+				formMessage: "",
 			};
 		default:
 			return state;

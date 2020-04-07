@@ -9,8 +9,8 @@ router.post("/login", async (req, res) => {
 		const { email, password } = req.body;
 
 		const user = await User.findByCredentials(email, password);
-		const token = await user.generateAuthToken();
-		res.send({ user, token });
+		const { token, expiresIn } = await user.generateAuthToken();
+		res.send({ user, token, expiresIn });
 	} catch (e) {
 		res.status(500).json({ message: e.message });
 	}
@@ -19,12 +19,12 @@ router.post("/login", async (req, res) => {
 // /api/auth/logout
 router.post("/logout", auth, async (req, res) => {
 	try {
-		req.user.tokens = req.user.tokens.filter(token => {
+		req.user.tokens = req.user.tokens.filter((token) => {
 			return token.token !== req.token;
 		});
 		await req.user.save();
 
-		res.send();
+		res.status(200).json({ message: "Возвращайтесь 😉😊" });
 	} catch (e) {
 		res.status(500).json({ message: e.message });
 	}

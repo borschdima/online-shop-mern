@@ -4,63 +4,63 @@ const schema = Schema(
 	{
 		description: {
 			type: String,
-			trim: true
+			trim: true,
 		},
 		price: {
 			type: String,
-			trim: true
+			trim: true,
 		},
 		img: {
 			type: String,
-			trim: true
+			trim: true,
 		},
 		screen: {
 			type: String,
-			trim: true
+			trim: true,
 		},
 		processor: {
 			type: String,
-			trim: true
+			trim: true,
 		},
 		ram: {
 			type: String,
-			trim: true
+			trim: true,
 		},
 		os: {
 			type: String,
-			trim: true
+			trim: true,
 		},
 		color: {
 			type: String,
-			trim: true
+			trim: true,
 		},
 		keyboard: {
 			type: String,
-			trim: true
+			trim: true,
 		},
 		hardDrive: {
 			type: String,
-			trim: true
+			trim: true,
 		},
 		battery: {
 			type: String,
-			trim: true
+			trim: true,
 		},
 		weight: {
 			type: String,
-			trim: true
+			trim: true,
 		},
 		gpu: {
 			type: String,
-			trim: true
+			trim: true,
 		},
 		ports: {
 			type: String,
-			trim: true
+			trim: true,
 		}
 	},
 	{
-		timestamps: true
+		timestamps: true,
 	}
 );
 

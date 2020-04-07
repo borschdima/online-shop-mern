@@ -1,31 +1,22 @@
 import { AUTH_LOADING, AUTH_SIGNUP, AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CLEAR_MESSAGE } from "./actionTypes";
+import { request } from "../requestConfig";
 
 export function auth(email, password, isLogin) {
-	return async dispatch => {
+	return async (dispatch) => {
 		dispatch(authLoading());
-		const config = {
-			headers: { "Content-Type": "application/json" },
-			method: "POST",
-			body: JSON.stringify({ email, password })
-		};
-		let url = "/api/auth/login";
 
 		try {
 			if (isLogin) {
-				const response = await fetch(url, config);
-				const data = await response.json();
-				if (!response.ok) {
-					throw new Error(data.message);
-				}
+				const data = await request("/api/auth/login", { email, password }, "POST", false);
+
 				localStorage.setItem("token", data.token);
+				localStorage.setItem("expirationDate", data.expiresIn);
+
 				dispatch(authLogin(data.token));
+				dispatch(autoLogout(data.expiresIn));
 			} else {
-				url = "/api/auth/signup";
-				const response = await fetch(url, config);
-				const data = await response.json();
-				if (!response.ok) {
-					throw new Error(data.message);
-				}
+				const data = await request("/api/auth/signup", { email, password }, "POST", false);
+
 				dispatch(authSignup(data.message));
 			}
 		} catch (error) {
@@ -34,75 +25,89 @@ export function auth(email, password, isLogin) {
 	};
 }
 
+export function logout() {
+	return async (dispatch) => {
+		try {
+			const token = localStorage.getItem("token");
+			let logoutMessage = "";
+
+			if (token) {
+				const data = await request("/api/auth/logout", null, "POST");
+				logoutMessage = data.message;
+			}
+
+			localStorage.removeItem("token");
+			localStorage.removeItem("expirationDate");
+
+			dispatch({ type: AUTH_LOGOUT, message: logoutMessage });
+			dispatch(autoClearMessage(4000));
+		} catch (e) {
+			dispatch(authError(e.message));
+		}
+	};
+}
+
+export function autoLogin() {
+	return (dispatch) => {
+		const token = localStorage.getItem("token");
+		if (!token) {
+			dispatch(logout());
+		} else {
+			const expirationDate = new Date(localStorage.getItem("expirationDate") * 1000);
+
+			if (expirationDate <= new Date()) {
+				dispatch(logout());
+			} else {
+				dispatch(authLogin(token));
+				dispatch(autoLogout((expirationDate.getTime() - new Date().getTime()) / 1000));
+			}
+		}
+	};
+}
+
 export function clearMessage() {
 	return {
-		type: AUTH_CLEAR_MESSAGE
+		type: AUTH_CLEAR_MESSAGE,
 	};
 }
 
 export function authLoading() {
 	return {
-		type: AUTH_LOADING
+		type: AUTH_LOADING,
 	};
 }
 
 export function authLogin(token) {
 	return {
 		type: AUTH_LOGIN,
-		token
+		token,
 	};
 }
 
 export function authSignup(message) {
 	return {
 		type: AUTH_SIGNUP,
-		message
+		message,
 	};
 }
 
 export function authError(errorMessage) {
 	return {
 		type: AUTH_ERROR,
-		errorMessage
+		errorMessage,
 	};
 }
 
-// export function autoLogout(time) {
-// 	return async dispatch => {
-// 		setTimeout(() => dispatch(logout()), time * 1000 * 24);
-// 	};
-// }
-
-export function logout(token) {
-	return async dispatch => {
-		const userToken = token || localStorage.getItem("token");
-		localStorage.removeItem("token");
-		dispatch({ type: AUTH_LOGOUT });
-
-		if (userToken) {
-			const config = {
-				headers: { Authorization: `Bearer ${userToken}` },
-				method: "POST"
-			};
-			try {
-				const response = await fetch("/api/auth/logout", config);
-				if (!response.ok) {
-					throw new Error("Что-то пошло не так");
-				}
-			} catch (e) {
-				dispatch(authError(e.message));
-			}
-		}
+export function autoLogout(time) {
+	return async (dispatch) => {
+		// Выходим из системы если токен не актуальный
+		// за одну минуту  до истечения токена, чтобы можно было выполнить запрос на сервер для logout, когда мы еще авторизованы
+		setTimeout(() => dispatch(logout()), time * 1000 - 60000);
 	};
 }
 
-export function autoLogin() {
-	return dispatch => {
-		const token = localStorage.getItem("token");
-		if (!token) {
-			dispatch(logout(token));
-		} else {
-			dispatch(authLogin(token));
-		}
+export function autoClearMessage(time) {
+	return async (dispatch) => {
+		setTimeout(() => dispatch(clearMessage()), time);
 	};
 }

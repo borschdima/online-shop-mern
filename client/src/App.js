@@ -2,17 +2,19 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { autoLogin } from "./redux/actions/auth";
+import { getItems } from "./redux/actions/cart";
 import { Auth, Laptops, Home, Cart, AddLaptop, Profile } from "./pages";
 import Navbar from "./components/Navbar/Navbar";
 import LaptopDetails from "./pages/LatptopDetails/LaptopDetails";
 
 const App = () => {
 	const dispatch = useDispatch();
-	const isAuthenticated = useSelector(state => state.auth.token);
+	const isAuthenticated = useSelector((state) => state.auth.token);
 
 	useEffect(() => {
 		dispatch(autoLogin());
-	});
+		dispatch(getItems());
+	}, [dispatch]);
 
 	if (isAuthenticated) {
 		return (

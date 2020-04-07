@@ -9,7 +9,7 @@ import SectionHeader from "../../ui/SectionHeader/SectionHeader";
 import "./Home.scss";
 
 const Home = () => {
-	const formMessage = useSelector(state => state.auth.formMessage);
+	const formMessage = useSelector((state) => state.auth.formMessage);
 	const { notify } = useMessage(formMessage);
 	const dispatch = useDispatch();
 
@@ -18,7 +18,9 @@ const Home = () => {
 			notify();
 		}
 
-		return () => dispatch(clearMessage());
+		return () => {
+			if (formMessage) dispatch(clearMessage());
+		};
 	}, [notify, dispatch, formMessage]);
 
 	return (

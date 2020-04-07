@@ -12,4 +12,8 @@ export const LAPTOP_ERROR = "LAPTOP_ERROR";
 export const LAPTOP_FETCH = "LAPTOP_FETCH";
 
 // Cart
-export const CART_ADD = "CART_ADD";
+export const CART_ADD_SUCCESS = "CART_ADD_SUCCESS";
+export const CART_FETCH_SUCCESS = "CART_FETCH_SUCCESS";
+export const CART_ERROR = "CART_ERROR";
+export const CART_LOADING = "CART_LOADING";
+export const CART_CLEAR_MESSAGE = "CART_CLEAR_MESSAGE";
