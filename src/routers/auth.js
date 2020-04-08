@@ -10,7 +10,7 @@ router.post("/login", async (req, res) => {
 
 		const user = await User.findByCredentials(email, password);
 		const { token, expiresIn } = await user.generateAuthToken();
-		res.send({ user, token, expiresIn });
+		res.send({ user, token, expiresIn, message: "Здравствуйте, Вы вошли в систему! ✌🏻😎" });
 	} catch (e) {
 		res.status(500).json({ message: e.message });
 	}
@@ -38,15 +38,15 @@ router.post("/signup", async (req, res) => {
 		const candidate = await User.findOne({ email });
 
 		if (candidate) {
-			return res.status(400).json({ message: "Такой пользователь уже есть" });
+			return res.status(400).json({ message: "Такой пользователь уже есть 👤⛔" });
 		}
 
 		const user = new User({ email, password });
 		await user.save();
 
-		res.status(201).json({ message: "Вы зарегистрированы" });
+		res.status(201).json({ message: "Вы зарегистрированы ✅" });
 	} catch (e) {
-		res.status(500).json({ message: "Что-то пошло не так, попробуйте снова" });
+		res.status(500).json({ message: "Что-то пошло не так, попробуйте снова 🚫" });
 	}
 });
 

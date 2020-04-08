@@ -65,13 +65,13 @@ schema.statics.findByCredentials = async (email, password) => {
 	const user = await User.findOne({ email });
 
 	if (!user) {
-		throw new Error("Ошибка входа в систему");
+		throw new Error("Ошибка входа в систему 🚫");
 	}
 
 	const isMatch = await bcrypt.compare(password, user.password);
 
 	if (!isMatch) {
-		throw new Error("Ошибка входа в систему");
+		throw new Error("Ошибка входа в систему 🚫");
 	}
 
 	return user;

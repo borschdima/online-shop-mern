@@ -1,31 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import SectionHeader from "../../ui/SectionHeader/SectionHeader";
 import { MDBContainer, MDBDataTable } from "mdbreact";
 import { useHistory } from "react-router-dom";
-import { removeItem, clearMessage } from "../../redux/actions/cart";
-import { useMessage } from "../../hooks/useMessage";
+import { removeItem, clearMessage, buy } from "../../redux/actions/cart";
 import { ToastContainer } from "react-toastify";
+import { notify } from "../../utils/notify";
+import { prettifyPrice } from "../../utils/prettifyPrice";
+import Button from "../../ui/Button/Button";
+import SectionHeader from "../../ui/SectionHeader/SectionHeader";
 
 import "./Cart.scss";
 
 const Cart = () => {
 	const history = useHistory();
 	const dispatch = useDispatch();
-	const cartItems = useSelector((state) => state.cart.items);
-	const message = useSelector((state) => state.cart.message);
-	const loading = useSelector((state) => state.cart.loading);
-	const { notify } = useMessage(message);
+	const { message, loading, items: cartItems } = useSelector((state) => state.cart);
 
 	useEffect(() => {
 		if (message) {
-			notify();
+			notify(message);
 			dispatch(clearMessage());
 		}
-	}, [message, notify, dispatch]);
+	}, [message, dispatch]);
+
+	const totalPrice = useMemo(() => cartItems.reduce((acc, item) => (acc += item.price), 0), [cartItems]);
 
 	const rowItems = cartItems.map((item) => ({
 		...item,
+		price: prettifyPrice(item.price),
 		remove: (
 			<button className="remove-item" disabled={loading} onClick={(e) => removeItemHandler(e, item._id)}>
 				Убрать
@@ -65,7 +67,13 @@ const Cart = () => {
 			<MDBContainer>
 				<ToastContainer />
 				<SectionHeader title="Корзина" />
-				<p>Здесь будут добавленные товары</p>
+				<h5 className="cart__title">
+					В Вашей корзине{" "}
+					<span role="img" aria-label="cart emoji">
+						🛒
+					</span>{" "}
+					товаров на общую сумму: <span className="cart__total-price">{prettifyPrice(totalPrice)}</span>
+				</h5>
 
 				<MDBDataTable
 					striped
@@ -82,6 +90,7 @@ const Cart = () => {
 					displayEntries={false}
 					noRecordsFoundLabel="В вашей корзине пусто 😔"
 				/>
+				<Button label="Приобрести все" disabled={loading} clickHandler={dispatch.bind(null, buy())} small />
 			</MDBContainer>
 		</section>
 	);

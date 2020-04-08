@@ -5,16 +5,15 @@ import { fetchLaptops } from "../../redux/actions/laptop";
 import { clearMessage } from "../../redux/actions/cart";
 import SectionHeader from "../../ui/SectionHeader/SectionHeader";
 import LaptopCard from "../../components/LaptopCard/LaptopCard";
-import { useMessage } from "../../hooks/useMessage";
+import { notify } from "../../utils/notify";
 import { ToastContainer } from "react-toastify";
 
 import "./Laptops.scss";
 
 const Laptops = () => {
 	const dispatch = useDispatch();
-	const laptops = useSelector((state) => state.laptop.laptops);
-	const message = useSelector((state) => state.cart.message);
-	const { notify } = useMessage(message);
+	const { laptops } = useSelector((state) => state.laptop);
+	const { message } = useSelector((state) => state.cart);
 
 	const dispatchLaptops = useCallback(() => dispatch(fetchLaptops()), [dispatch]);
 	const dispatchClearMsg = useCallback(() => dispatch(clearMessage()), [dispatch]);
@@ -24,10 +23,10 @@ const Laptops = () => {
 			dispatchLaptops();
 		}
 		if (message) {
-			notify();
+			notify(message);
 			dispatchClearMsg();
 		}
-	}, [dispatchLaptops, dispatchClearMsg, notify, message, laptops.length]);
+	}, [dispatchLaptops, dispatchClearMsg, message, laptops.length]);
 
 	return (
 		<section className="laptops">

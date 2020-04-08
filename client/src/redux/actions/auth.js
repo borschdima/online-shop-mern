@@ -12,7 +12,7 @@ export function auth(email, password, isLogin) {
 				localStorage.setItem("token", data.token);
 				localStorage.setItem("expirationDate", data.expiresIn);
 
-				dispatch(authLogin(data.token));
+				dispatch(authLogin(data.token, data.message));
 				dispatch(autoLogout(data.expiresIn));
 			} else {
 				const data = await request("/api/auth/signup", { email, password }, "POST", false);
@@ -50,15 +50,13 @@ export function logout() {
 export function autoLogin() {
 	return (dispatch) => {
 		const token = localStorage.getItem("token");
-		if (!token) {
-			dispatch(logout());
-		} else {
+		if (token) {
 			const expirationDate = new Date(localStorage.getItem("expirationDate") * 1000);
 
 			if (expirationDate <= new Date()) {
 				dispatch(logout());
 			} else {
-				dispatch(authLogin(token));
+				dispatch(authLogin(token, "Здравствуйте, Вы вошли в систему! ✌🏻😎"));
 				dispatch(autoLogout((expirationDate.getTime() - new Date().getTime()) / 1000));
 			}
 		}
@@ -77,10 +75,11 @@ export function authLoading() {
 	};
 }
 
-export function authLogin(token) {
+export function authLogin(token, message) {
 	return {
 		type: AUTH_LOGIN,
 		token,
+		message,
 	};
 }
 

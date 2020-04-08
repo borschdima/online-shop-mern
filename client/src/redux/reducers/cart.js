@@ -1,4 +1,12 @@
-import { CART_ADD_SUCCESS, CART_REMOVE_SUCCESS, CART_ERROR, CART_LOADING, CART_CLEAR_MESSAGE, CART_FETCH_SUCCESS } from "../actions/actionTypes";
+import {
+	CART_ADD_SUCCESS,
+	CART_BUY_SUCCESS,
+	CART_REMOVE_SUCCESS,
+	CART_ERROR,
+	CART_LOADING,
+	CART_CLEAR_MESSAGE,
+	CART_FETCH_SUCCESS,
+} from "../actions/actionTypes";
 
 const initialState = {
 	itemsCount: 0,
@@ -11,6 +19,9 @@ const initialState = {
 export default function authReducer(state = initialState, action) {
 	let items, itemsCount;
 	switch (action.type) {
+		case CART_BUY_SUCCESS:
+			return { ...state, itemsCount: 0, items: [], message: action.message, loading: false, error: false };
+
 		case CART_ADD_SUCCESS:
 			itemsCount = state.itemsCount;
 			itemsCount += 1;

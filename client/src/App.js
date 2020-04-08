@@ -13,8 +13,10 @@ const App = () => {
 
 	useEffect(() => {
 		dispatch(autoLogin());
-		dispatch(getItems());
-	}, [dispatch]);
+		if (isAuthenticated) {
+			dispatch(getItems());
+		}
+	}, [dispatch, isAuthenticated]);
 
 	if (isAuthenticated) {
 		return (

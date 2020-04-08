@@ -5,14 +5,21 @@ const schema = Schema(
 		description: {
 			type: String,
 			trim: true,
+			required: true,
 		},
-		price: {
+		name: {
 			type: String,
 			trim: true,
+			required: true,
+		},
+		price: {
+			type: Number,
+			required: true,
 		},
 		img: {
 			type: String,
 			trim: true,
+			required: true,
 		},
 		screen: {
 			type: String,
@@ -57,7 +64,7 @@ const schema = Schema(
 		ports: {
 			type: String,
 			trim: true,
-		}
+		},
 	},
 	{
 		timestamps: true,

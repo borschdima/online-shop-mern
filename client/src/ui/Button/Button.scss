@@ -1,0 +1,45 @@
+.mybtn {
+	border: none;
+	cursor: pointer;
+	width: 100%;
+	// height: 60px;
+	padding: 15px 20px;
+	border-radius: 30px;
+	font-size: 1.2rem;
+	font-weight: 700;
+	font-family: "Lato", sans-serif;
+	color: #fff;
+	text-align: center;
+	background: #24cfaa;
+	box-shadow: 3px 3px 8px #b1b1b1, -5px -5px 8px #fff;
+	transition: 0.4s ease;
+	outline: none;
+
+	&:active {
+		background: #1da88a;
+		box-shadow: inset 3px 3px 5px #b1b1b1;
+		outline: none;
+	}
+	&:focus {
+		outline: none;
+	}
+	&:disabled {
+		background: #a1a0a0;
+	}
+}
+
+.mybtn.small {
+	max-width: 250px;
+	display: block;
+	margin: 0 auto;
+	font-size: 1.1rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.mybtn {
+		&:hover {
+			background: #2fdbb6;
+			outline: none;
+		}
+	}
+}

@@ -4,29 +4,27 @@ import { MDBIcon } from "mdbreact";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { auth } from "../../redux/actions/auth";
-import { useMessage } from "../../hooks/useMessage";
+import { notify } from "../../utils/notify";
 import { ToastContainer } from "react-toastify";
+import Button from "../../ui/Button/Button";
 
 import "./Form.scss";
 
 const Form = () => {
 	const [showPass, setShowPass] = useState(false);
 	const dispatch = useDispatch();
-	const error = useSelector(state => state.auth.error);
-	const loading = useSelector(state => state.auth.loading);
-	const formMessage = useSelector(state => state.auth.formMessage);
-	const { notify } = useMessage(formMessage);
+	const { error, loading, formMessage } = useSelector((state) => state.auth);
 
 	useEffect(() => {
 		if (formMessage) {
-			notify();
+			notify(formMessage);
 		}
-	}, [formMessage, notify]);
+	}, [formMessage]);
 
 	return (
 		<Formik
 			initialValues={{ email: "", password: "" }}
-			onSubmit={values => {
+			onSubmit={(values) => {
 				if (values.isSignup) {
 					dispatch(auth(values.email, values.password, false));
 				} else {
@@ -34,19 +32,15 @@ const Form = () => {
 				}
 			}}
 			validationSchema={Yup.object().shape({
-				email: Yup.string()
-					.email("Введите корректный email")
-					.required("Это поле обязательно"),
-				password: Yup.string()
-					.required("Это поле обязательно")
-					.min(6, "Должно быть не меньше 6 символов")
+				email: Yup.string().email("Введите корректный email").required("Это поле обязательно"),
+				password: Yup.string().required("Это поле обязательно").min(6, "Должно быть не меньше 6 символов"),
 			})}
 		>
-			{props => {
+			{(props) => {
 				const { touched, errors, handleChange, handleBlur, handleSubmit, setFieldValue } = props;
 
 				return (
-					<form className="auth__form form" onSubmit={e => e.preventDefault()}>
+					<form className="auth__form form" onSubmit={(e) => e.preventDefault()}>
 						<div className="form__logo"></div>
 						<div className="form__text form__title">Онлайн магазин</div>
 						<div className="form__text form__subtitle">BETA</div>
@@ -91,24 +85,21 @@ const Form = () => {
 							<div className="form__text form__success-message">{formMessage}</div>
 						)}
 
-						<button
-							className="form__btn"
-							type="submit"
+						<Button
+							label="Войти"
 							disabled={loading}
-							onClick={e => {
+							clickHandler={(e) => {
 								setFieldValue("isSignup", false);
 								handleSubmit(e);
 							}}
-						>
-							Войти
-						</button>
+						/>
 						<div className="form__signup form__text">
 							Нет аккаунта?{" "}
 							<button
 								className="form__btn-reg"
 								type="submit"
 								disabled={loading}
-								onClick={e => {
+								onClick={(e) => {
 									setFieldValue("isSignup", true);
 									handleSubmit(e);
 								}}

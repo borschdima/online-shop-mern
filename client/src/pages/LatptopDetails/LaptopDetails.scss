@@ -1,4 +1,36 @@
 .details {
 	padding: 10px;
 	padding-top: 0;
+
+	&__slider {
+		display: block;
+		margin: 0 auto;
+		max-width: 700px;
+		height: 500px;
+
+		.carousel-item {
+			height: 100% !important;
+
+			.view {
+				height: 100% !important;
+				text-align: center;
+
+				img {
+					display: inline-block !important;
+					height: 100%;
+					max-width: 100%;
+				}
+			}
+		}
+
+		.carousel-control-next-icon {
+			width: 70px !important;
+			height: 70px !important;
+		}
+
+		.carousel-control-prev-icon {
+			width: 70px !important;
+			height: 70px !important;
+		}
+	}
 }
