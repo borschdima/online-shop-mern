@@ -34,3 +34,18 @@
 		}
 	}
 }
+
+@media screen and (max-width: 680px) {
+	.details {
+		&__slider {
+			height: 320px;
+		}
+	}
+}
+@media screen and (max-width: 480px) {
+	.details {
+		&__slider {
+			height: 250px;
+		}
+	}
+}

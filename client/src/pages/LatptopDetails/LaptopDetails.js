@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { MDBContainer, MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBTable, MDBTableBody } from "mdbreact";
@@ -10,6 +10,10 @@ const LaptopDetails = () => {
 	const params = useParams();
 	const laptops = useSelector((state) => state.laptop.laptops);
 	const laptop = laptops.find((item) => item._id === params.id);
+
+	useEffect(() => {
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
+	});
 
 	const createSlides = () =>
 		laptop.images.map((image, index) => (

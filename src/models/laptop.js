@@ -16,11 +16,17 @@ const schema = Schema(
 			type: Number,
 			required: true,
 		},
-		img: {
+		preview: {
 			type: String,
 			trim: true,
 			required: true,
 		},
+		images: [
+			{
+				type: String,
+				trim: true,
+			},
+		],
 		screen: {
 			type: String,
 			trim: true,
