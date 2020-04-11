@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { MDBContainer, MDBDataTable } from "mdbreact";
 import { useHistory } from "react-router-dom";
-import { removeItem, clearMessage, buy } from "../../redux/actions/cart";
+import { removeItem, buy } from "../../redux/actions/cart";
 import { ToastContainer } from "react-toastify";
-import { notify } from "../../utils/notify";
 import { prettifyPrice } from "../../utils/prettifyPrice";
 import Button from "../../ui/Button/Button";
 import SectionHeader from "../../ui/SectionHeader/SectionHeader";
@@ -14,14 +13,7 @@ import "./Cart.scss";
 const Cart = () => {
 	const history = useHistory();
 	const dispatch = useDispatch();
-	const { message, loading, items: cartItems } = useSelector((state) => state.cart);
-
-	useEffect(() => {
-		if (message) {
-			notify(message);
-			dispatch(clearMessage());
-		}
-	}, [message, dispatch]);
+	const { loading, items: cartItems } = useSelector((state) => state.cart);
 
 	const totalPrice = useMemo(() => cartItems.reduce((acc, item) => (acc += item.price), 0), [cartItems]);
 

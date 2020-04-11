@@ -11,6 +11,7 @@ export const LAPTOP_LOADING = "LAPTOP_LOADING";
 export const LAPTOP_ERROR = "LAPTOP_ERROR";
 export const LAPTOP_FETCH = "LAPTOP_FETCH";
 export const LAPTOP_FETCH_ONE = "LAPTOP_FETCH_ONE";
+export const LAPTOP_CHANGE_SKIP = "LAPTOP_CHANGE_SKIP";
 
 // Cart
 export const CART_ADD_SUCCESS = "CART_ADD_SUCCESS";

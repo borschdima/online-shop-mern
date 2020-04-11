@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MDBNavbar, MDBIcon, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBCollapse, MDBHamburgerToggler } from "mdbreact";
 import { logout } from "../../redux/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
+import { clearMessage } from "../../redux/actions/cart";
+import { notify } from "../../utils/notify";
 
 import "./Navbar.scss";
 
 const Navbar = () => {
 	const [collapse, setCollapse] = useState(false);
 	const dispatch = useDispatch();
-	const cartItemsCount = useSelector(state => state.cart.itemsCount);
+	const { itemsCount: cartItemsCount, message } = useSelector((state) => state.cart);
+
+	useEffect(() => {
+		if (message) {
+			notify(message);
+			dispatch(clearMessage());
+		}
+	}, [message, dispatch]);
 
 	const onLinkClick = () => {
 		const isSmallScreen = window.matchMedia("(max-width: 768px)").matches;

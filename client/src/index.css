@@ -6,6 +6,11 @@
 body {
 	background-color: #ecf0f3;
 }
+
+#root {
+	min-height: 100vh;
+	position: relative;
+}
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }

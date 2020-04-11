@@ -30,6 +30,18 @@ const Home = () => {
 						<span role="img" aria-label="cart emoji">
 							✅
 						</span>{" "}
+						Добавлена пагинация на странице "Ноутбуки"
+					</li>
+					<li>
+						<span role="img" aria-label="cart emoji">
+							✅
+						</span>{" "}
+						Добавлен индикатор загрузки страницы
+					</li>
+					<li>
+						<span role="img" aria-label="cart emoji">
+							✅
+						</span>{" "}
 						Авторизация
 					</li>
 					<li>

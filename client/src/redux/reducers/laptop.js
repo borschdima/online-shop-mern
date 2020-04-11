@@ -1,7 +1,9 @@
-import { LAPTOP_ERROR, LAPTOP_LOADING, LAPTOP_FETCH, LAPTOP_FETCH_ONE } from "../actions/actionTypes";
+import { LAPTOP_ERROR, LAPTOP_LOADING, LAPTOP_FETCH, LAPTOP_FETCH_ONE, LAPTOP_CHANGE_SKIP } from "../actions/actionTypes";
 
 const initialState = {
 	laptops: [],
+	allLaptopsCount: 0,
+	querySkip: 0,
 	laptopDetails: null,
 	loading: false,
 	error: false,
@@ -13,8 +15,11 @@ export default function authReducer(state = initialState, action) {
 		case LAPTOP_FETCH_ONE:
 			return { ...state, loading: false, error: false, laptopDetails: action.laptop };
 
+		case LAPTOP_CHANGE_SKIP:
+			return { ...state, querySkip: action.skip };
+
 		case LAPTOP_FETCH:
-			return { ...state, loading: false, laptops: action.laptops, error: false };
+			return { ...state, loading: false, laptops: action.laptops, allLaptopsCount: action.allLaptopsCount, error: false };
 
 		case LAPTOP_LOADING:
 			return { ...state, loading: true, error: false };

@@ -1,32 +1,30 @@
 import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MDBContainer, MDBRow } from "mdbreact";
-import { fetchLaptops } from "../../redux/actions/laptop";
+import { fetchLaptops, laptopChangeQuerySkip } from "../../redux/actions/laptop";
 import { clearMessage } from "../../redux/actions/cart";
 import SectionHeader from "../../ui/SectionHeader/SectionHeader";
 import LaptopCard from "../../components/LaptopCard/LaptopCard";
-import { notify } from "../../utils/notify";
 import { ToastContainer } from "react-toastify";
+import Pagination from "../../components/Pagination/Pagination";
+import Spinner from "../../components/Spinner/Spinner";
 
 import "./Laptops.scss";
 
 const Laptops = () => {
 	const dispatch = useDispatch();
-	const { laptops } = useSelector((state) => state.laptop);
-	const { message } = useSelector((state) => state.cart);
+	const { laptops, allLaptopsCount, querySkip, loading } = useSelector((state) => state.laptop);
 
-	const dispatchLaptops = useCallback(() => dispatch(fetchLaptops()), [dispatch]);
+	const dispatchLaptops = useCallback(() => dispatch(fetchLaptops(querySkip)), [dispatch, querySkip]);
 	const dispatchClearMsg = useCallback(() => dispatch(clearMessage()), [dispatch]);
 
 	useEffect(() => {
-		if (!laptops.length) {
-			dispatchLaptops();
-		}
-		if (message) {
-			notify(message);
-			dispatchClearMsg();
-		}
-	}, [dispatchLaptops, dispatchClearMsg, message, laptops.length]);
+		dispatchLaptops();
+	}, [dispatchLaptops, dispatchClearMsg]);
+
+	const onChangePage = (skip) => dispatch(laptopChangeQuerySkip(skip));
+
+	if (loading) return <Spinner />;
 
 	return (
 		<section className="laptops">
@@ -38,6 +36,12 @@ const Laptops = () => {
 						<LaptopCard key={laptop._id} laptop={laptop} />
 					))}
 				</MDBRow>
+				<Pagination
+					skip={12}
+					initialPage={querySkip > 0 ? querySkip / 12 : querySkip}
+					arrayLength={allLaptopsCount}
+					onChangePage={(page) => onChangePage(page)}
+				/>
 			</MDBContainer>
 		</section>
 	);

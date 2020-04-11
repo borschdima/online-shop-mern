@@ -3,14 +3,26 @@ const Laptop = require("../models/laptop");
 const auth = require("../middleware/auth");
 const router = Router();
 
-// /api/laptops/
+// /api/laptops
+// /api/laptops?skip=12
+// /api/laptops?sortBy=createdAt:desc
 router.get("/", auth, async (req, res) => {
+	const match = {};
+	const sort = {};
+	const skip = parseInt(req.query.skip);
+
+	if (req.query.sortBy) {
+		const parts = req.query.sortBy.split(":");
+		sort[parts[0]] = parts[1] === "desc" ? -1 : 1;
+	}
+
 	try {
-		const laptops = await Laptop.find();
-		if (!laptops) {
+		const allLaptopsCount = await Laptop.countDocuments();
+		if (allLaptopsCount === 0) {
 			return res.status(404).json({ message: "Ноутбуков нет в наличии 😔. Попробуйте позже" });
 		}
-		res.json(laptops);
+		const laptops = await Laptop.find(match, null, { limit: 12, skip, sort });
+		res.json({ laptops, allLaptopsCount });
 	} catch (e) {
 		res.status(500).json({ message: e.message });
 	}
