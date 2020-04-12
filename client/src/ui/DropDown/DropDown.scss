@@ -1,4 +1,9 @@
 .my-dropdown {
+	.btn.dropdown-toggle {
+		font-size: 0.9rem !important;
+		padding: 0.5rem 1.6rem !important;
+	}
+
 	&__menu {
 		padding: 0 !important;
 		margin: 0 !important;
