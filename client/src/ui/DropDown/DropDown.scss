@@ -1,0 +1,10 @@
+.my-dropdown {
+	&__menu {
+		padding: 0 !important;
+		margin: 0 !important;
+		box-shadow: 0 5px 10px rgba($color: #000000, $alpha: 0.4) !important;
+	}
+	&__item.active {
+		background-color: #2fdbb6 !important;
+	}
+}

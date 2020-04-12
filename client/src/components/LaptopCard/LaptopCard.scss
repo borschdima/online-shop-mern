@@ -6,7 +6,6 @@
 	box-shadow: inset 6px 3px 4px #b3b5b8, inset -3px -6px 4px #fff;
 	border-radius: 20px;
 	background-color: #dde1e2;
-	transition: all 0.4s ease;
 	cursor: pointer;
 	position: relative;
 
@@ -25,7 +24,12 @@
 		transition: opacity 0.3s ease-in-out;
 	}
 
+	&__image {
+		height: 45%;
+		overflow: hidden;
+	}
 	&__img {
+		height: auto;
 		width: 100%;
 		margin-bottom: 20px;
 	}
@@ -40,6 +44,7 @@
 	&__description {
 		line-height: 1.2;
 		font-size: 0.9rem;
+		font-weight: 300;
 		flex: 1;
 	}
 
@@ -66,6 +71,12 @@
 	}
 }
 
+.laptop-card.small {
+	.laptop-card__image {
+		height: 35%;
+	}
+}
+
 @media (hover: hover) and (pointer: fine) {
 	.laptop-card {
 		&:hover {
@@ -81,6 +92,32 @@
 				color: #5a5858;
 				transition: 0.4s ease;
 			}
+		}
+	}
+}
+
+@media screen and (max-width: 992px) {
+	.laptop-card.small {
+		padding: 15px !important;
+
+		.laptop-card__image {
+			height: 30%;
+		}
+
+		.laptop-card__description {
+			font-size: 100%;
+		}
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.laptop-card.small,
+	.laptop-card.big {
+		padding: 15px !important;
+		font-size: 0.9rem !important;
+
+		.laptop-card__image {
+			height: 65% !important;
 		}
 	}
 }

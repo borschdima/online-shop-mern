@@ -34,7 +34,7 @@ const Navbar = () => {
 
 	return (
 		<MDBNavbar dark expand="md">
-			<MDBNavLink to="/" className="navbar-brand">
+			<MDBNavLink to="/" className="navbar-brand" onClick={onLinkClick}>
 				ROZETKA
 			</MDBNavLink>
 

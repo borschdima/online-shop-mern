@@ -1,9 +1,19 @@
-import { LAPTOP_ERROR, LAPTOP_LOADING, LAPTOP_FETCH, LAPTOP_FETCH_ONE, LAPTOP_CHANGE_SKIP } from "../actions/actionTypes";
+import {
+	LAPTOP_ERROR,
+	LAPTOP_LOADING,
+	LAPTOP_FETCH,
+	LAPTOP_FETCH_ONE,
+	LAPTOP_CHANGE_GRID_SIZE,
+	LAPTOP_CHANGE_SORT,
+	LAPTOP_CHANGE_SKIP,
+} from "../actions/actionTypes";
 
 const initialState = {
 	laptops: [],
 	allLaptopsCount: 0,
 	querySkip: 0,
+	sortBy: null,
+	gridSize: "big",
 	laptopDetails: null,
 	loading: false,
 	error: false,
@@ -17,6 +27,12 @@ export default function authReducer(state = initialState, action) {
 
 		case LAPTOP_CHANGE_SKIP:
 			return { ...state, querySkip: action.skip };
+
+		case LAPTOP_CHANGE_SORT:
+			return { ...state, sortBy: action.sortBy };
+
+		case LAPTOP_CHANGE_GRID_SIZE:
+			return { ...state, gridSize: action.size };
 
 		case LAPTOP_FETCH:
 			return { ...state, loading: false, laptops: action.laptops, allLaptopsCount: action.allLaptopsCount, error: false };

@@ -7,7 +7,7 @@ import { prettifyPrice } from "../../utils/prettifyPrice";
 
 import "./LaptopCard.scss";
 
-const LaptopCard = ({ laptop }) => {
+const LaptopCard = ({ laptop, size }) => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
@@ -16,10 +16,18 @@ const LaptopCard = ({ laptop }) => {
 		dispatch(addItem(laptop));
 	};
 
+	const cardSize = {
+		xs: "12",
+		md: size === "big" ? "6" : "4",
+		lg: size === "big" ? "4" : "3",
+	};
+
 	return (
-		<MDBCol xs="12" md="6" lg="4" className="mt-4">
-			<div className="laptop-card" onClick={() => history.push("/laptops/" + laptop._id)}>
-				<img className="laptop-card__img" src={laptop.preview} alt="preview" />
+		<MDBCol xs={cardSize.xs} md={cardSize.md} lg={cardSize.lg} className="mt-4">
+			<div className={`laptop-card ${size}`} onClick={() => history.push("/laptops/" + laptop._id)}>
+				<div className="laptop-card__image">
+					<img className="laptop-card__img" src={laptop.preview} alt="preview" />
+				</div>
 				<div className="laptop-card__name">{laptop.name}</div>
 				<div className="laptop-card__description">{laptop.description}</div>
 				<div className="d-flex justify-content-between align-items-center mt-3">

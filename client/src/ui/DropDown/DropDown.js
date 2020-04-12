@@ -1,0 +1,38 @@
+import React, { useState } from "react";
+import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
+
+import "./DropDown.scss";
+
+const DropDown = ({ items, clickHandler, active }) => {
+	const [activeItem, setActiveItem] = useState(active);
+
+	const onClickHandler = (item) => {
+		setActiveItem(item);
+		clickHandler(item);
+	};
+
+	const generateItems = (items) =>
+		items.map((item, index) => (
+			<MDBDropdownItem
+				className="my-dropdown__item"
+				active={activeItem && activeItem.label === item.label}
+				key={index + item.label}
+				onClick={onClickHandler.bind(null, item, index)}
+			>
+				{item.label}
+			</MDBDropdownItem>
+		));
+
+	return (
+		<MDBDropdown className="my-dropdown" size="sm">
+			<MDBDropdownToggle caret color="none">
+				Сортировать по:
+			</MDBDropdownToggle>
+			<MDBDropdownMenu basic color="default" className="my-dropdown__menu">
+				{generateItems(items)}
+			</MDBDropdownMenu>
+		</MDBDropdown>
+	);
+};
+
+export default DropDown;

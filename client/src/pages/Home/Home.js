@@ -25,7 +25,19 @@ const Home = () => {
 				<SectionHeader title="Главная страница" />
 				<p>Перейдите на страницу "Ноутбуки". Там можно взаимодействовать с карточками</p>
 				<h5>На данный момент реализовано:</h5>
-				<ul>
+				<ul style={{ listStyle: "none", padding: 0 }}>
+					<li>
+						<span role="img" aria-label="cart emoji">
+							✅
+						</span>{" "}
+						Реализована сортировка товара по нескольким критериям
+					</li>
+					<li>
+						<span role="img" aria-label="cart emoji">
+							✅
+						</span>{" "}
+						Добавлен режим отображения товаров GridSize"
+					</li>
 					<li>
 						<span role="img" aria-label="cart emoji">
 							✅

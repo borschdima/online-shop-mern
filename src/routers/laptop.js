@@ -6,6 +6,7 @@ const router = Router();
 // /api/laptops
 // /api/laptops?skip=12
 // /api/laptops?sortBy=createdAt:desc
+// /api/laptops?sortBy=price:desc
 router.get("/", auth, async (req, res) => {
 	const match = {};
 	const sort = {};
