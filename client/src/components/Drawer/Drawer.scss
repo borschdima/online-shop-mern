@@ -1,0 +1,17 @@
+.drawer {
+	.MuiPaper-root {
+		background-color: #ecf0f3 !important;
+		height: 100vh !important;
+	}
+
+	.MuiBackdrop-root {
+		height: 100vh !important;
+	}
+	&__list {
+		width: 250px;
+	}
+
+	&__list-item {
+		padding: 0 !important;
+	}
+}

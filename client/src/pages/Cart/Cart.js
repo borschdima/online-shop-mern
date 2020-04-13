@@ -5,8 +5,7 @@ import { useHistory } from "react-router-dom";
 import { removeItem, buy } from "../../redux/actions/cart";
 import { ToastContainer } from "react-toastify";
 import { prettifyPrice } from "../../utils/prettifyPrice";
-import Button from "../../ui/Button/Button";
-import SectionHeader from "../../ui/SectionHeader/SectionHeader";
+import { Button, SectionHeader } from "../../ui";
 
 import "./Cart.scss";
 
@@ -82,7 +81,7 @@ const Cart = () => {
 					displayEntries={false}
 					noRecordsFoundLabel="В вашей корзине пусто 😔"
 				/>
-				<Button label="Приобрести все" disabled={loading} clickHandler={dispatch.bind(null, buy())} small />
+				<Button label="Приобрести все" classes="center" disabled={loading} clickHandler={dispatch.bind(null, buy())} small />
 			</MDBContainer>
 		</section>
 	);

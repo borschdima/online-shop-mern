@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { MDBContainer, MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBTable, MDBTableBody } from "mdbreact";
-import SectionHeader from "../../ui/SectionHeader/SectionHeader";
+import { SectionHeader } from "../../ui";
 
 import "./LaptopDetails.scss";
 

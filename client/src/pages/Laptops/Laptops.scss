@@ -4,6 +4,7 @@
 
 	&__display-mode {
 		justify-content: flex-end;
+		margin: 20px 0;
 	}
 
 	&__mode-icon {
@@ -35,10 +36,11 @@
 	}
 }
 
-@media screen and (max-width: 768pxs) {
+@media screen and (max-width: 768px) {
 	.laptops {
 		&__display-mode {
-			justify-content: flex-start;
+			justify-content: flex-start !important;
+			margin: 0;
 		}
 	}
 }

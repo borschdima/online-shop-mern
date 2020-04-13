@@ -25,13 +25,20 @@
 	}
 
 	&__image {
-		height: 45%;
+		height: 200px;
+		margin-bottom: 20px;
 		overflow: hidden;
+		position: relative;
 	}
 	&__img {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		width: auto;
 		height: auto;
-		width: 100%;
-		margin-bottom: 20px;
+		max-width: 100%;
+		max-height: 100%;
 	}
 
 	&__name {
@@ -73,7 +80,7 @@
 
 .laptop-card.small {
 	.laptop-card__image {
-		height: 35%;
+		height: 150px;
 	}
 }
 
@@ -101,7 +108,7 @@
 		padding: 15px !important;
 
 		.laptop-card__image {
-			height: 30%;
+			margin-bottom: 0;
 		}
 
 		.laptop-card__description {
@@ -117,7 +124,16 @@
 		font-size: 0.9rem !important;
 
 		.laptop-card__image {
-			height: 65% !important;
+			height: 300px;
+		}
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.laptop-card.small,
+	.laptop-card.big {
+		.laptop-card__image {
+			height: 200px;
 		}
 	}
 }

@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { auth } from "../../redux/actions/auth";
 import { notify } from "../../utils/notify";
 import { ToastContainer } from "react-toastify";
-import Button from "../../ui/Button/Button";
+import { Button } from "../../ui";
 
 import "./Form.scss";
 

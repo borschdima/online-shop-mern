@@ -2,12 +2,9 @@ import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MDBContainer, MDBRow, MDBIcon } from "mdbreact";
 import { fetchLaptops, laptopChangeQuerySkip, laptopChangeGridSize, laptopChangeQuerySort } from "../../redux/actions/laptop";
-import SectionHeader from "../../ui/SectionHeader/SectionHeader";
-import LaptopCard from "../../components/LaptopCard/LaptopCard";
 import { ToastContainer } from "react-toastify";
-import Pagination from "../../components/Pagination/Pagination";
-import Spinner from "../../components/Spinner/Spinner";
-import DropDown from "../../ui/DropDown/DropDown";
+import { Spinner, LaptopCard, Pagination, Drawer } from "../../components";
+import { DropDown, SectionHeader } from "../../ui";
 
 import "./Laptops.scss";
 
@@ -43,7 +40,9 @@ const Laptops = () => {
 			<MDBContainer>
 				<ToastContainer />
 				<SectionHeader title="Ноутбуки" />
-				<div className="laptops__display-mode my-3 d-flex align-items-center">
+
+				<div className="laptops__display-mode d-flex align-items-center">
+					<Drawer />
 					<DropDown items={sortItems} active={sortBy} clickHandler={(item) => sortByClickHandler(item)} />
 					<MDBIcon
 						title="Большая плитка"
@@ -63,6 +62,7 @@ const Laptops = () => {
 						<LaptopCard key={laptop._id} laptop={laptop} size={gridSize} />
 					))}
 				</MDBRow>
+
 				<Pagination
 					skip={12}
 					initialPage={querySkip > 0 ? querySkip / 12 : querySkip}

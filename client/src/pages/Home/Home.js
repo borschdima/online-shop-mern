@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { notify } from "../../utils/notify";
 import { clearMessage } from "../../redux/actions/auth";
 import { MDBContainer } from "mdbreact";
-import SectionHeader from "../../ui/SectionHeader/SectionHeader";
+import { SectionHeader } from "../../ui";
 
 import "./Home.scss";
 
@@ -13,6 +13,7 @@ const Home = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		if (formMessage) {
 			notify(formMessage);
 			dispatch(clearMessage());

@@ -1,5 +1,5 @@
 import React from "react";
-import SectionHeader from "../../ui/SectionHeader/SectionHeader";
+import { SectionHeader } from "../../ui";
 import { MDBContainer } from "mdbreact";
 
 import "./Profile.scss";
