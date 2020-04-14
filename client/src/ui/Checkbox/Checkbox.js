@@ -2,11 +2,12 @@ import React, { useState } from "react";
 
 import "./Checkbox.scss";
 
-const Checkbox = ({ label }) => {
+const Checkbox = ({ label, onToggle }) => {
 	const [isChecked, setIsChecked] = useState(false);
 
 	const onClickHandler = () => {
 		setIsChecked(!isChecked);
+		onToggle(label);
 	};
 
 	const id = Math.random() + label;

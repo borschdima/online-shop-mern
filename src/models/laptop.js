@@ -12,6 +12,12 @@ const schema = Schema(
 			trim: true,
 			required: true,
 		},
+		brand: {
+			type: String,
+			trim: true,
+			uppercase: true,
+			required: true,
+		},
 		price: {
 			type: Number,
 			required: true,

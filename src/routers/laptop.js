@@ -7,6 +7,7 @@ const router = Router();
 // /api/laptops?skip=12
 // /api/laptops?sortBy=createdAt:desc
 // /api/laptops?sortBy=price:desc
+// /api/laptops?brand=ASUS,APPLE
 router.get("/", auth, async (req, res) => {
 	const match = {};
 	const sort = {};
@@ -16,6 +17,12 @@ router.get("/", auth, async (req, res) => {
 		const parts = req.query.sortBy.split(":");
 		sort[parts[0]] = parts[1] === "desc" ? -1 : 1;
 	}
+
+	if (req.query.brand) {
+		const values = req.query.brand.split(",");
+		match.brand = values;
+	}
+	console.log(match);
 
 	try {
 		const allLaptopsCount = await Laptop.countDocuments();
