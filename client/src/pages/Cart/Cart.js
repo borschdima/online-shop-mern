@@ -87,7 +87,7 @@ const Cart = () => {
 					displayEntries={false}
 					noRecordsFoundLabel="В вашей корзине пусто 😔"
 				/>
-				<Button label="Приобрести все" classes="center" disabled={loading} clickHandler={dispatch.bind(null, buy())} small />
+				<Button label="Приобрести все" labelShow classes="center" disabled={loading} clickHandler={dispatch.bind(null, buy())} small />
 			</MDBContainer>
 		</section>
 	);

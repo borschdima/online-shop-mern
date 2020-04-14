@@ -93,6 +93,7 @@ const Form = () => {
 						<Button
 							label="Войти"
 							disabled={loading}
+							labelShow
 							clickHandler={(e) => {
 								setFieldValue("isSignup", false);
 								handleSubmit(e);

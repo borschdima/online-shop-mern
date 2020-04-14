@@ -17,7 +17,7 @@ const LaptopsList = () => {
 		dispatchLaptops();
 	}, [dispatchLaptops]);
 
-	if (!laptops.length) return <div>Нет товаров, соответствующих критериям :(</div>;
+	if (!laptops.length && !loading) return <div>Нет товаров, соответствующих критериям :(</div>;
 
 	return (
 		<MDBRow className={`laptops__list ${loading ? "laptops__list_loading" : ""}`}>
