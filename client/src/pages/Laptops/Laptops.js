@@ -1,39 +1,41 @@
-import React, { useEffect, useCallback } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { MDBContainer, MDBRow, MDBIcon } from "mdbreact";
-import { fetchLaptops, laptopChangeQuerySkip, laptopChangeGridSize, laptopChangeQuerySort } from "../../redux/actions/laptop";
+import { MDBContainer, MDBIcon } from "mdbreact";
+import { laptopChangeQuerySkip, laptopChangeGridSize, laptopChangeQuerySort } from "../../redux/actions/laptop";
 import { ToastContainer } from "react-toastify";
-import { Spinner, LaptopCard, Pagination, Drawer } from "../../components";
+import { Pagination, Drawer, LaptopsList } from "../../components";
 import { DropDown, SectionHeader } from "../../ui";
 
 import "./Laptops.scss";
 
 const Laptops = () => {
 	const dispatch = useDispatch();
-	const { laptops, allLaptopsCount, querySkip, sortBy, gridSize, loading } = useSelector((state) => state.laptop);
+	const { allLaptopsCount, querySkip, sortBy, gridSize } = useSelector((state) => state.laptop);
 
-	const dispatchLaptops = useCallback(() => dispatch(fetchLaptops(querySkip, sortBy)), [dispatch, sortBy, querySkip]);
-
-	useEffect(() => {
-		dispatchLaptops();
-	}, [dispatchLaptops]);
-
+	// Pagination between pages
 	const onChangePage = (skip) => dispatch(laptopChangeQuerySkip(skip));
 
-	const sortByClickHandler = (item) => dispatch(laptopChangeQuerySort(item));
+	// Sorting by price and date
+	const sortByClickHandler = (item) => {
+		if (sortBy && sortBy.label === item.label) {
+			dispatch(laptopChangeQuerySort(null));
+		} else {
+			dispatch(laptopChangeQuerySort(item));
+		}
+	};
 
+	// Changing grid size
 	const onChangeGridSize = () => {
 		gridSize === "big" ? dispatch(laptopChangeGridSize("small")) : dispatch(laptopChangeGridSize("big"));
 	};
 
+	// Sort options
 	const sortItems = [
 		{ label: "От дорогих к дешевым", field: "price", order: "desc" },
 		{ label: "От дешевых к дорогим", field: "price", order: "asc" },
 		{ label: "По дате(сначала новые)", field: "createdAt", order: "desc" },
 		{ label: "По дате(сначала старые)", field: "createdAt", order: "asc" },
 	];
-
-	if (loading) return <Spinner />;
 
 	return (
 		<section className="laptops">
@@ -57,11 +59,8 @@ const Laptops = () => {
 						onClick={onChangeGridSize.bind(null)}
 					/>
 				</div>
-				<MDBRow className="laptops__list">
-					{laptops.map((laptop) => (
-						<LaptopCard key={laptop._id} laptop={laptop} size={gridSize} />
-					))}
-				</MDBRow>
+
+				<LaptopsList />
 
 				<Pagination
 					skip={12}

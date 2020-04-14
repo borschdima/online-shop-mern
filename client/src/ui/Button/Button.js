@@ -9,10 +9,10 @@ const Button = ({
 	label,
 	disabled = false,
 	clickHandler,
-	xs = false,
+	xs = false, // extra small button
 	small = false,
-	icon = null,
-	labelShow = false,
+	icon = null, // name of the icon which shows near label
+	labelShow = false, // display label or not
 }) => {
 	let classNames = "mybtn";
 	classNames += small ? " small " : "";

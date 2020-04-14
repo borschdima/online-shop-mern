@@ -1,31 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Drawer as SideNav, List, ListItem, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Checkbox } from "../../ui";
 import { MDBIcon } from "mdbreact";
+import { toggleBrand, filterApply } from "../../redux/actions/filter";
+import { laptopChangeQuerySkip } from "../../redux/actions/laptop";
 
 import "./Drawer.scss";
 
 const Drawer = () => {
 	const dispatch = useDispatch();
 
+	//Global State (Redux)
+	const { allBrands, filterBrands } = useSelector((state) => state.filter);
+
 	// Local State
 	const [open, setOpen] = useState(false);
 
-	//Global State (Redux)
-	const { allBrands } = useSelector((state) => state.filter);
-
+	// Open/Close Drawer menu
 	const toggleDrawer = () => {
 		setOpen(!open);
 	};
 
-	const onToggleBrand = (brandName) => console.log(brandName);
+	// Apply drawer filter and close Drawer
+	const applyFilter = () => {
+		dispatch(laptopChangeQuerySkip(0));
+		dispatch(filterApply());
+		toggleDrawer();
+	};
 
+	// Toggle Checkbox and save it to temperary state field
+	const onToggleBrand = useCallback((brandName) => dispatch(toggleBrand(filterBrands, brandName)), [dispatch, filterBrands]);
+
+	// Create Checkboxes List from State
+	const generateCheckboxes = useCallback(() => {
+		return allBrands.map((text, index) => {
+			const checked = !!filterBrands.find((brand) => brand === text);
+
+			return (
+				<ListItem className="drawer__list-item" button key={text + index}>
+					<Checkbox label={text} onToggle={(brandName) => onToggleBrand(brandName)} active={checked} />
+				</ListItem>
+			);
+		});
+	}, [allBrands, filterBrands, onToggleBrand]);
+
+	// Create Drawer Filter Groups
 	const list = () => (
 		<div role="presentation" className="drawer__list-group p-3">
 			<h3>Фильтры</h3>
 
-			<ExpansionPanel className="expansion">
+			<ExpansionPanel className="expansion" defaultExpanded TransitionProps={{ unmountOnExit: true }}>
 				<ExpansionPanelSummary
 					className="expansion__summary"
 					expandIcon={<MDBIcon icon="angle-down" />}
@@ -35,17 +60,11 @@ const Drawer = () => {
 					Производитель:
 				</ExpansionPanelSummary>
 				<ExpansionPanelDetails className="expansion__details">
-					<List className="drawer__list">
-						{allBrands.map((text, index) => (
-							<ListItem className="drawer__list-item" button key={text + index}>
-								<Checkbox label={text} onToggle={(brandName) => onToggleBrand(brandName)} />
-							</ListItem>
-						))}
-					</List>
+					<List className="drawer__list">{generateCheckboxes()}</List>
 				</ExpansionPanelDetails>
 			</ExpansionPanel>
 
-			<Button type="submit" classes="center mt-4" labelShow clickHandler={toggleDrawer} label="Применить" xs />
+			<Button type="submit" classes="center mt-4" labelShow clickHandler={applyFilter} label="Применить" xs />
 		</div>
 	);
 

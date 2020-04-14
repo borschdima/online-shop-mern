@@ -12,13 +12,17 @@ import "./Cart.scss";
 const Cart = () => {
 	const history = useHistory();
 	const dispatch = useDispatch();
+
 	const { loading, items: cartItems } = useSelector((state) => state.cart);
 
+	// Calculate Total Cart Price
 	const totalPrice = useMemo(() => cartItems.reduce((acc, item) => (acc += item.price), 0), [cartItems]);
 
+	// Generate Table rows from our Cart state (Items we added to the cart)
 	const rowItems = cartItems.map((item) => ({
 		...item,
-		price: prettifyPrice(item.price),
+		price: prettifyPrice(item.price), // Prettify Price (adding currency sign)
+		// Adding custom Delete button to Each Table Row
 		remove: (
 			<button className="remove-item" disabled={loading} onClick={(e) => removeItemHandler(e, item._id)}>
 				Убрать
@@ -29,11 +33,13 @@ const Cart = () => {
 		},
 	}));
 
+	// Remove from Cart click Handler
 	const removeItemHandler = (e, id) => {
 		e.stopPropagation();
 		dispatch(removeItem(id));
 	};
 
+	// Creating Table columns
 	const data = {
 		columns: [
 			{

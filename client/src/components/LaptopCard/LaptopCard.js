@@ -11,11 +11,13 @@ const LaptopCard = ({ laptop, size }) => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
+	// Adding item to Cart
 	const addToCartHandler = (e) => {
 		e.stopPropagation();
 		dispatch(addItem(laptop));
 	};
 
+	// Define size of the Card depending on "Grid Size"(global state) from parent Container
 	const cardSize = {
 		xs: "12",
 		md: size === "big" ? "6" : "4",

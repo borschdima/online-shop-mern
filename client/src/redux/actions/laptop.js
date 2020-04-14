@@ -9,17 +9,23 @@ import {
 } from "../actions/actionTypes";
 import { request } from "../requestConfig";
 
-export function fetchLaptops(skip, sortBy = null) {
+export function fetchLaptops(skip, sortBy = null, brands = []) {
 	return async (dispatch) => {
 		dispatch(laptopLoading());
 
 		let sortQuery = "";
+		let brandsQuery = "";
+
 		if (sortBy) {
 			sortQuery += `&sortBy=${sortBy.field}:${sortBy.order}`;
 		}
 
+		if (brands.length) {
+			brandsQuery += `&brand=${brands.toString()}`;
+		}
+
 		try {
-			const { laptops, allLaptopsCount } = await request(`/api/laptops?skip=${skip}${sortQuery}`);
+			const { laptops, allLaptopsCount } = await request(`/api/laptops?skip=${skip}${sortQuery}${brandsQuery}`);
 
 			dispatch(laptopFetch(laptops, allLaptopsCount));
 		} catch (error) {

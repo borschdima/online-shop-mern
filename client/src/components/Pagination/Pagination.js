@@ -6,8 +6,10 @@ import "./Pagination.scss";
 const Pagination = ({ arrayLength, skip, initialPage, onChangePage }) => {
 	const [activeItem, setActiveItem] = useState(initialPage);
 
+	// Define how much pages we have
 	const pagesLength = useMemo(() => Math.ceil(arrayLength / skip), [skip, arrayLength]);
 
+	// Render pagination numbers
 	const createPages = (pagesLength) => {
 		const pages = new Array(pagesLength).fill(0);
 
@@ -20,6 +22,7 @@ const Pagination = ({ arrayLength, skip, initialPage, onChangePage }) => {
 		));
 	};
 
+	// Changing active page
 	const changePageHandler = (value) => {
 		if (activeItem !== value) {
 			setActiveItem(value);

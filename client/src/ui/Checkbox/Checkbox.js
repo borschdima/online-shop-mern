@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 import "./Checkbox.scss";
 
-const Checkbox = ({ label, onToggle }) => {
-	const [isChecked, setIsChecked] = useState(false);
+const Checkbox = ({ label, onToggle, active = false }) => {
+	const [isChecked, setIsChecked] = useState(active);
 
 	const onClickHandler = () => {
 		setIsChecked(!isChecked);

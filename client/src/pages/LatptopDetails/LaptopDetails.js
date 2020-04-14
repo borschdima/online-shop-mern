@@ -9,12 +9,16 @@ import "./LaptopDetails.scss";
 const LaptopDetails = () => {
 	const params = useParams();
 	const laptops = useSelector((state) => state.laptop.laptops);
+
+	// Find needed laptop with id recieved from router history
 	const laptop = laptops.find((item) => item._id === params.id);
 
 	useEffect(() => {
+		// Scroll page to top when enter the page
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	});
 
+	// Generate slides from laptop images, received from server
 	const createSlides = () =>
 		laptop.images.map((image, index) => (
 			<MDBCarouselItem itemId={index + 1} key={index}>

@@ -11,8 +11,12 @@ import { Button } from "../../ui";
 import "./Form.scss";
 
 const Form = () => {
-	const [showPass, setShowPass] = useState(false);
 	const dispatch = useDispatch();
+
+	// Local State
+	const [showPass, setShowPass] = useState(false);
+
+	// Global State
 	const { error, loading, formMessage } = useSelector((state) => state.auth);
 
 	useEffect(() => {
@@ -24,6 +28,7 @@ const Form = () => {
 	return (
 		<Formik
 			initialValues={{ email: "", password: "" }}
+			// Define which button User has pressed
 			onSubmit={(values) => {
 				if (values.isSignup) {
 					dispatch(auth(values.email, values.password, false));

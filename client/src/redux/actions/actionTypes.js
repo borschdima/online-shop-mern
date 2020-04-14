@@ -23,3 +23,7 @@ export const CART_FETCH_SUCCESS = "CART_FETCH_SUCCESS";
 export const CART_ERROR = "CART_ERROR";
 export const CART_LOADING = "CART_LOADING";
 export const CART_CLEAR_MESSAGE = "CART_CLEAR_MESSAGE";
+
+// Filter
+export const FILTER_APPLY = "FILTER_APPLY";
+export const FILTER_TOGGLE_BRAND = "FILTER_TOGGLE_BRAND";

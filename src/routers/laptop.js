@@ -22,14 +22,11 @@ router.get("/", auth, async (req, res) => {
 		const values = req.query.brand.split(",");
 		match.brand = values;
 	}
-	console.log(match);
 
 	try {
-		const allLaptopsCount = await Laptop.countDocuments();
-		if (allLaptopsCount === 0) {
-			return res.status(404).json({ message: "Ноутбуков нет в наличии 😔. Попробуйте позже" });
-		}
 		const laptops = await Laptop.find(match, null, { limit: 12, skip, sort });
+		const allLaptopsCount = await Laptop.find(match).countDocuments();
+
 		res.json({ laptops, allLaptopsCount });
 	} catch (e) {
 		res.status(500).json({ message: e.message });

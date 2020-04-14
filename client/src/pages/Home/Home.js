@@ -31,6 +31,18 @@ const Home = () => {
 						<span role="img" aria-label="cart emoji">
 							✅
 						</span>{" "}
+						Реализована сортировка по фильтрам из бокового меню (синхронизировано с сервером)
+					</li>
+					<li>
+						<span role="img" aria-label="cart emoji">
+							✅
+						</span>{" "}
+						Добавлено боковое меню с фильтрами (только фронтенд)
+					</li>
+					<li>
+						<span role="img" aria-label="cart emoji">
+							✅
+						</span>{" "}
 						Реализована сортировка товара по нескольким критериям
 					</li>
 					<li>

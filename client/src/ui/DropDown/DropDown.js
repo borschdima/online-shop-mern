@@ -6,11 +6,18 @@ import "./DropDown.scss";
 const DropDown = ({ items, clickHandler, active }) => {
 	const [activeItem, setActiveItem] = useState(active);
 
+	// If current sort Option is enabled => disable this option
 	const onClickHandler = (item) => {
-		setActiveItem(item);
+		if (activeItem && activeItem.label === item.label) {
+			setActiveItem(null);
+		} else {
+			setActiveItem(item);
+		}
+
 		clickHandler(item);
 	};
 
+	// Render Dropdown Options
 	const generateItems = (items) =>
 		items.map((item, index) => (
 			<MDBDropdownItem
