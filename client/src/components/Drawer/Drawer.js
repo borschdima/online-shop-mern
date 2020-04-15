@@ -59,7 +59,7 @@ const Drawer = () => {
 		<div role="presentation" className="drawer__list-group p-3">
 			<h3 className="d-flex justify-content-between align-items-center">
 				<span>Фильтры</span>
-				{priceRange.length && resultBrands.length ? (
+				{priceRange.length || resultBrands.length ? (
 					<span className="drawer__filter-reset" onClick={resetFilter}>
 						Сбросить
 					</span>
