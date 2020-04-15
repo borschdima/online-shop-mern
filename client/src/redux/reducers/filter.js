@@ -1,4 +1,4 @@
-import { FILTER_TOGGLE_BRAND, FILTER_APPLY } from "../actions/actionTypes";
+import { FILTER_TOGGLE_BRAND, FILTER_APPLY, FILTER_RESET } from "../actions/actionTypes";
 
 const initialState = {
 	allBrands: [
@@ -28,12 +28,16 @@ const initialState = {
 	],
 	filterBrands: [],
 	resultBrands: [],
+	priceRange: [],
 };
 
 export default function filterReducer(state = initialState, action) {
 	switch (action.type) {
 		case FILTER_APPLY:
-			return { ...state, resultBrands: state.filterBrands };
+			return { ...state, resultBrands: state.filterBrands, priceRange: action.priceRange };
+
+		case FILTER_RESET:
+			return { ...state, resultBrands: [], filterBrands: [], priceRange: [] };
 
 		case FILTER_TOGGLE_BRAND:
 			return { ...state, filterBrands: action.brands };

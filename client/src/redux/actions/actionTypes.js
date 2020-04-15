@@ -27,3 +27,4 @@ export const CART_CLEAR_MESSAGE = "CART_CLEAR_MESSAGE";
 // Filter
 export const FILTER_APPLY = "FILTER_APPLY";
 export const FILTER_TOGGLE_BRAND = "FILTER_TOGGLE_BRAND";
+export const FILTER_RESET = "FILTER_RESET";

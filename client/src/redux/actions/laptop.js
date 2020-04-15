@@ -9,12 +9,13 @@ import {
 } from "../actions/actionTypes";
 import { request } from "../requestConfig";
 
-export function fetchLaptops(skip, sortBy = null, brands = []) {
+export function fetchLaptops(skip, sortBy = null, brands = [], priceRange = []) {
 	return async (dispatch) => {
 		dispatch(laptopLoading());
 
 		let sortQuery = "";
 		let brandsQuery = "";
+		let priceQuery = "";
 
 		if (sortBy) {
 			sortQuery += `&sortBy=${sortBy.field}:${sortBy.order}`;
@@ -24,8 +25,12 @@ export function fetchLaptops(skip, sortBy = null, brands = []) {
 			brandsQuery += `&brand=${brands.toString()}`;
 		}
 
+		if (priceRange.length) {
+			priceQuery += `&price=${priceRange.toString()}`;
+		}
+
 		try {
-			const { laptops, allLaptopsCount } = await request(`/api/laptops?skip=${skip}${sortQuery}${brandsQuery}`);
+			const { laptops, allLaptopsCount } = await request(`/api/laptops?skip=${skip}${sortQuery}${brandsQuery}${priceQuery}`);
 
 			dispatch(laptopFetch(laptops, allLaptopsCount));
 		} catch (error) {

@@ -1,4 +1,4 @@
-import { FILTER_TOGGLE_BRAND, FILTER_APPLY } from "../actions/actionTypes";
+import { FILTER_TOGGLE_BRAND, FILTER_APPLY, FILTER_RESET } from "../actions/actionTypes";
 
 export function toggleBrand(filterBrands, brandName) {
 	return (dispatch) => {
@@ -22,8 +22,15 @@ export function filterToggleBrand(brands) {
 	};
 }
 
-export function filterApply() {
+export function filterApply(priceRange) {
 	return {
 		type: FILTER_APPLY,
+		priceRange,
+	};
+}
+
+export function filterReset() {
+	return {
+		type: FILTER_RESET,
 	};
 }
