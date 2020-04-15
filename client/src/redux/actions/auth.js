@@ -13,7 +13,6 @@ export function auth(email, password, isLogin) {
 				localStorage.setItem("expirationDate", data.expiresIn);
 
 				dispatch(authLogin(data.token, data.message));
-				dispatch(autoLogout(data.expiresIn));
 			} else {
 				const data = await request("/api/auth/signup", { email, password }, "POST", false);
 

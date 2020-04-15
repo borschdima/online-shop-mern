@@ -55,6 +55,37 @@
 			padding: 0 !important;
 		}
 	}
+
+	.myslider {
+		box-shadow: inset 1px 4px 7px rgba(0, 0, 0, 0.3);
+		border-radius: 15px;
+		margin-bottom: 15px;
+		color: #29c7b8;
+		height: 12px !important;
+		padding: 7px 0 !important;
+
+		.MuiSlider-rail {
+			opacity: 0 !important;
+		}
+
+		.MuiSlider-track {
+			border-radius: 10px !important;
+			height: 12px !important;
+			box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.5);
+		}
+
+		.MuiSlider-thumb {
+			width: 30px;
+			height: 30px;
+			margin-top: -8px;
+			background-color: #dadada;
+			box-shadow: inset 0px 0px 5px rgba(255, 255, 255, 1), 0px 0px 4px rgba(0, 0, 0, 0.5);
+
+			&[data-index="1"] {
+				margin-left: -28px !important;
+			}
+		}
+	}
 }
 
 @media screen and (max-width: 768px) {

@@ -16,6 +16,7 @@ const Drawer = () => {
 
 	// Local State
 	const [open, setOpen] = useState(false);
+	// const [priceValue, setPriceValue] = useState([20, 37]);
 
 	// Open/Close Drawer menu
 	const toggleDrawer = () => {
@@ -63,6 +64,26 @@ const Drawer = () => {
 					<List className="drawer__list">{generateCheckboxes()}</List>
 				</ExpansionPanelDetails>
 			</ExpansionPanel>
+
+			{/* <ExpansionPanel className="expansion" TransitionProps={{ unmountOnExit: true }}>
+				<ExpansionPanelSummary
+					className="expansion__summary"
+					expandIcon={<MDBIcon icon="angle-down" />}
+					aria-controls="panel1a-content"
+					id="price"
+				>
+					Цена:
+				</ExpansionPanelSummary>
+				<ExpansionPanelDetails className="expansion__details">
+					<Slider
+						className="myslider"
+						value={priceValue}
+						onChange={(e, value) => setPriceValue(value)}
+						valueLabelDisplay="off"
+						aria-labelledby="range-slider"
+					/>
+				</ExpansionPanelDetails>
+			</ExpansionPanel> */}
 
 			<Button type="submit" classes="center mt-4" labelShow clickHandler={applyFilter} label="Применить" xs />
 		</div>
