@@ -1,4 +1,4 @@
-import { FILTER_TOGGLE_BRAND, FILTER_APPLY, FILTER_RESET } from "../actions/actionTypes";
+import { FILTER_TOGGLE_BRAND, FILTER_TOGGLE_CORE, FILTER_APPLY, FILTER_RESET } from "../actions/actionTypes";
 
 export function toggleBrand(filterBrands, brandName) {
 	return (dispatch) => {
@@ -15,10 +15,32 @@ export function toggleBrand(filterBrands, brandName) {
 	};
 }
 
+export function toggleCore(filterCores, coreName) {
+	return (dispatch) => {
+		const cores = [...filterCores];
+		const index = cores.findIndex((item) => item === coreName);
+
+		if (index === -1) {
+			cores.push(coreName);
+		} else {
+			cores.splice(index, 1);
+		}
+
+		dispatch(filterToggleCore(cores));
+	};
+}
+
 export function filterToggleBrand(brands) {
 	return {
 		type: FILTER_TOGGLE_BRAND,
 		brands,
+	};
+}
+
+export function filterToggleCore(cores) {
+	return {
+		type: FILTER_TOGGLE_CORE,
+		cores,
 	};
 }
 

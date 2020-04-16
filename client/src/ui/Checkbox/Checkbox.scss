@@ -7,6 +7,12 @@ $baseColor: hsl($baseHue, $baseSat, $baseLum);
 	border-radius: 10px;
 	width: 100%;
 
+	&_lowercase {
+		.checkbox__label {
+			text-transform: none;
+		}
+	}
+
 	&__label {
 		font-weight: 300;
 		text-transform: uppercase;

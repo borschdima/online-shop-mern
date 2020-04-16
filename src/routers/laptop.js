@@ -9,6 +9,7 @@ const router = Router();
 // /api/laptops?sortBy=price:desc
 // /api/laptops?brand=ASUS,APPLE
 // /api/laptops?price=5000,30000
+// /api/laptops?cores=2 ядра,4 ядра
 router.get("/", auth, async (req, res) => {
 	const match = {};
 	const sort = {};
@@ -29,6 +30,11 @@ router.get("/", auth, async (req, res) => {
 		const lowerPrice = parseInt(values[0]);
 		const upperPrice = parseInt(values[1]);
 		match.price = { $gte: lowerPrice, $lte: upperPrice };
+	}
+
+	if (req.query.cores) {
+		const values = req.query.cores.split(",").map((coreName) => parseInt(coreName));
+		match.coreNumber = values;
 	}
 
 	try {

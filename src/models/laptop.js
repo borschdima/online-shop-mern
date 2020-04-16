@@ -22,6 +22,10 @@ const schema = Schema(
 			type: Number,
 			required: true,
 		},
+		coreNumber: {
+			type: Number,
+			required: true,
+		},
 		preview: {
 			type: String,
 			trim: true,
