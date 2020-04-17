@@ -24,7 +24,7 @@
 
 	&:active {
 		background: #1da88a;
-		box-shadow: inset 3px 3px 5px #b1b1b1;
+		box-shadow: inset 3px 3px 5px #585858;
 		outline: none;
 	}
 	&:focus {
@@ -58,11 +58,24 @@
 	margin-left: auto !important;
 }
 
+.mybtn.darkmode {
+	box-shadow: 3px 3px 8px #000, -5px -5px 8px #424242;
+	background: #549788;
+	&:active {
+		box-shadow: inset 3px 3px 5px #000000;
+	}
+}
+
 @media (hover: hover) and (pointer: fine) {
 	.mybtn {
 		&:hover {
-			background: #2fdbb6;
+			background: #4caa96;
 			outline: none;
+		}
+	}
+	.mybtn.darkmode {
+		&:hover {
+			background: #2c5f54;
 		}
 	}
 }

@@ -8,11 +8,14 @@ import "./Profile.scss";
 
 const Profile = () => {
 	const dispatch = useDispatch();
+	const { darkmode } = useSelector((state) => state.user);
+
+	const THEME = darkmode ? "darkmode" : "";
 
 	return (
-		<section className="profile section_page">
+		<section className={`profile section_page ${THEME}`}>
 			<MDBContainer>
-				<SectionHeader title="Мой профиль" />
+				<SectionHeader title="Мой профиль" THEME={THEME} />
 				<MDBRow>
 					<MDBCol xs="12" lg="6">
 						<div className="profile__avatar avatar">
@@ -28,7 +31,7 @@ const Profile = () => {
 						<div className="profile__info info">
 							<h4 className="text-center">Информация</h4>
 							<h6 className="info__text">
-								Количество купленных Вами товаров: <span className="info__text_bold">2</span>
+								Количество купленных Вами товаров: <span className="info__text_bold">Число будет</span>
 							</h6>
 						</div>
 					</MDBCol>
@@ -40,7 +43,7 @@ const Profile = () => {
 							<div className="settings__block">
 								<div className="settings__name">Ночной режим: </div>
 								<div className="settings__option">
-									<Toggle onToggle={(value) => dispatch(changeDarkMode(value))} />
+									<Toggle onToggle={(value) => dispatch(changeDarkMode(value))} active={darkmode} THEME={THEME} />
 								</div>
 							</div>
 						</div>

@@ -11,6 +11,9 @@ import "./Laptops.scss";
 const Laptops = () => {
 	const dispatch = useDispatch();
 	const { allLaptopsCount, querySkip, sortBy, gridSize } = useSelector((state) => state.laptop);
+	const { darkmode } = useSelector((state) => state.user);
+
+	const THEME = darkmode ? "darkmode" : "";
 
 	// Pagination between pages
 	const onChangePage = (skip) => dispatch(laptopChangeQuerySkip(skip));
@@ -38,24 +41,24 @@ const Laptops = () => {
 	];
 
 	return (
-		<section className="laptops section_page">
+		<section className={`laptops section_page ${THEME}`}>
 			<MDBContainer>
 				<ToastContainer />
-				<SectionHeader title="Ноутбуки" />
+				<SectionHeader title="Ноутбуки" THEME={THEME} />
 
 				<div className="laptops__display-mode d-flex align-items-center">
 					<Drawer />
-					<DropDown items={sortItems} active={sortBy} clickHandler={(item) => sortByClickHandler(item)} />
+					<DropDown items={sortItems} active={sortBy} clickHandler={(item) => sortByClickHandler(item)} THEME={THEME} />
 					<MDBIcon
 						title="Большая плитка"
 						icon="th-large"
-						className={`d-none d-md-block laptops__mode-icon ${gridSize === "big" ? "laptops__mode-icon_active" : ""}`}
+						className={`d-none d-md-block laptops__mode-icon ${gridSize === "big" ? "laptops__mode-icon_active" : ""} ${THEME}`}
 						onClick={onChangeGridSize.bind(null)}
 					/>
 					<MDBIcon
 						title="Маленькая плитка"
 						icon="th"
-						className={`d-none d-md-block laptops__mode-icon ${gridSize === "small" ? "laptops__mode-icon_active" : ""}`}
+						className={`d-none d-md-block laptops__mode-icon ${gridSize === "small" ? "laptops__mode-icon_active" : ""} ${THEME}`}
 						onClick={onChangeGridSize.bind(null)}
 					/>
 				</div>
@@ -67,6 +70,7 @@ const Laptops = () => {
 					initialPage={querySkip > 0 ? querySkip / 12 : querySkip}
 					arrayLength={allLaptopsCount}
 					onChangePage={(page) => onChangePage(page)}
+					THEME={THEME}
 				/>
 			</MDBContainer>
 		</section>

@@ -2,8 +2,8 @@ import { CHANGE_DARKMODE } from "./actionTypes";
 
 export function changeDarkMode(value) {
 	return (dispatch) => {
-		localStorage.setItem("darmode", value);
+		localStorage.setItem("darkmode", value);
 
-		dispatch({ type: CHANGE_DARKMODE });
+		dispatch({ type: CHANGE_DARKMODE, darkmode: value });
 	};
 }

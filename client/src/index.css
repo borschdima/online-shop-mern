@@ -16,6 +16,12 @@ body {
 
 .section_page {
 	flex-grow: 1;
+	transition: 0.5s ease;
+}
+
+.section_page.darkmode {
+	background-color: #26292f;
+	color: #e7e6e6;
 }
 
 code {

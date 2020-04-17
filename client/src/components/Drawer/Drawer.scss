@@ -120,6 +120,55 @@
 	}
 }
 
+.drawer.darkmode {
+	.MuiPaper-root {
+		background-color: #26292f !important;
+		color: #e7e6e6;
+	}
+	.drawer__list {
+		&::-webkit-scrollbar-track {
+			background-color: transparent;
+		}
+
+		&::-webkit-scrollbar {
+			background-color: transparent;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background-color: transparent;
+			background-image: -webkit-linear-gradient(top, #e4f5fc18 0%, #34534a 100%);
+		}
+	}
+	.expansion {
+		.MuiIconButton-label {
+			color: #e7e6e6;
+		}
+	}
+
+	.drawer__price-label {
+		background: #26292f; /* fallback for old browsers */
+		background: -webkit-linear-gradient(to right, #33373d, #26292f); /* Chrome 10-25, Safari 5.1-6 */
+		background: linear-gradient(to right, #33373d, #26292f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+		color: #a7a4a4;
+		box-shadow: inset 3px 3px 3px #000, inset -3px -3px 2px #424242;
+	}
+
+	.myslider {
+		box-shadow: inset 1px 4px 7px #000;
+		color: #549788;
+
+		.MuiSlider-track {
+			box-shadow: inset 0px 0px 5px #000;
+		}
+
+		.MuiSlider-thumb {
+			background-color: #9b9999;
+			box-shadow: inset 0px 0px 5px #424242, 0px 0px 4px #000;
+			margin-left: -15px !important;
+		}
+	}
+}
+
 @media screen and (max-width: 768px) {
 	.drawer {
 		&__list-group {

@@ -2,8 +2,8 @@ import React from "react";
 
 import "./SectionHeader.scss";
 
-const SectionHeader = ({ title }) => {
-	return <h2 className="section-header">{title}</h2>;
+const SectionHeader = ({ title, THEME = "" }) => {
+	return <h2 className={`section-header ${THEME}`}>{title}</h2>;
 };
 
 export default SectionHeader;

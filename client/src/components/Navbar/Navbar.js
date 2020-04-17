@@ -11,6 +11,9 @@ const Navbar = () => {
 	const [collapse, setCollapse] = useState(false);
 	const dispatch = useDispatch();
 	const { itemsCount: cartItemsCount, message } = useSelector((state) => state.cart);
+	const { darkmode } = useSelector((state) => state.user);
+
+	const THEME = darkmode ? "darkmode" : "";
 
 	useEffect(() => {
 		if (message) {
@@ -33,7 +36,7 @@ const Navbar = () => {
 	};
 
 	return (
-		<MDBNavbar dark expand="md">
+		<MDBNavbar dark expand="md" className={THEME}>
 			<MDBNavLink to="/" className="navbar-brand" onClick={onLinkClick}>
 				ROZETKA
 			</MDBNavLink>
@@ -63,7 +66,11 @@ const Navbar = () => {
 					</MDBNavItem>
 					<MDBNavItem>
 						<MDBNavLink className="waves-effect waves-light d-flex align-items-center mr-3" to="/cart" onClick={onLinkClick}>
-							{cartItemsCount > 0 ? <span id="cart-number">{cartItemsCount}</span> : null}
+							{cartItemsCount > 0 ? (
+								<span id="cart-number" className={THEME}>
+									{cartItemsCount}
+								</span>
+							) : null}
 							<MDBIcon icon="shopping-cart" className="ml-1" />
 						</MDBNavLink>
 					</MDBNavItem>

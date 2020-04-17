@@ -3,7 +3,7 @@ import { MDBPagination, MDBPageItem, MDBPageNav } from "mdbreact";
 
 import "./Pagination.scss";
 
-const Pagination = ({ arrayLength, skip, initialPage, onChangePage }) => {
+const Pagination = ({ arrayLength, skip, initialPage, onChangePage, THEME = "" }) => {
 	const [activeItem, setActiveItem] = useState(initialPage);
 
 	// Define how much pages we have
@@ -31,7 +31,7 @@ const Pagination = ({ arrayLength, skip, initialPage, onChangePage }) => {
 	};
 
 	return (
-		<MDBPagination circle color="teal" className="my-pagination">
+		<MDBPagination circle color="teal" className={`my-pagination ${THEME}`}>
 			<MDBPageItem disabled={activeItem === 0}>
 				<MDBPageNav className="page-link" aria-label="Previous" onClick={() => changePageHandler(activeItem - 1)}>
 					<span aria-hidden="true">Назад</span>

@@ -78,6 +78,15 @@
 	}
 }
 
+.mytoggle.darkmode {
+	box-shadow: 2px 2px 4px #000, -2px -2px 4px #424242;
+	border-radius: 2em;
+
+	.mytoggle__label {
+		border: none;
+	}
+}
+
 @media screen and (max-width: 768px) {
 	.mytoggle {
 		&__input {

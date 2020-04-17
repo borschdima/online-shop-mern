@@ -1,4 +1,4 @@
-import { AUTH_LOADING, AUTH_SIGNUP, AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CLEAR_MESSAGE } from "./actionTypes";
+import { AUTH_LOADING, AUTH_SIGNUP, AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CLEAR_MESSAGE, CHANGE_DARKMODE } from "./actionTypes";
 import { request } from "../requestConfig";
 
 export function auth(email, password, isLogin) {
@@ -49,6 +49,12 @@ export function logout() {
 export function autoLogin() {
 	return (dispatch) => {
 		const token = localStorage.getItem("token");
+
+		if (localStorage.getItem("darkmode")) {
+			const darkmode = JSON.parse(localStorage.getItem("darkmode"));
+			dispatch({ type: CHANGE_DARKMODE, darkmode });
+		}
+
 		if (token) {
 			const expirationDate = new Date(localStorage.getItem("expirationDate") * 1000);
 

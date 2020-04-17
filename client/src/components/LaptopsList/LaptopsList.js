@@ -10,6 +10,9 @@ const LaptopsList = () => {
 	const dispatch = useDispatch();
 	const { laptops, querySkip, sortBy, gridSize, loading } = useSelector((state) => state.laptop);
 	const { resultBrands, resultCores, resultRAM, priceRange } = useSelector((state) => state.filter);
+	const { darkmode } = useSelector((state) => state.user);
+
+	const THEME = darkmode ? "darkmode" : "";
 
 	const dispatchLaptops = useCallback(() => dispatch(fetchLaptops(querySkip, sortBy, resultBrands, priceRange, resultCores, resultRAM)), [
 		dispatch,
@@ -29,7 +32,7 @@ const LaptopsList = () => {
 
 	return (
 		<MDBRow className={`laptops__list ${loading ? "laptops__list_loading" : ""}`}>
-			{loading ? <Spinner /> : laptops.map((laptop) => <LaptopCard key={laptop._id} laptop={laptop} size={gridSize} />)}
+			{loading ? <Spinner /> : laptops.map((laptop) => <LaptopCard key={laptop._id} laptop={laptop} size={gridSize} THEME={THEME} />)}
 		</MDBRow>
 	);
 };

@@ -1,4 +1,6 @@
 .profile {
+	transition: 0.5s ease;
+
 	&__avatar {
 		width: 100%;
 		max-width: 300px;
@@ -78,6 +80,28 @@
 		&__block {
 			display: flex;
 			align-items: center;
+		}
+	}
+}
+
+.profile.darkmode {
+	.avatar {
+		&__back {
+			box-shadow: -8px -3px 12px #424242, 6px 3px 10px #000;
+		}
+		&__front {
+			box-shadow: -6px -2px 9px #424242, 5px 2px 8px #000;
+		}
+
+		&__face {
+			box-shadow: -6px -4px 6px #424242, 5px 4px 8px #000;
+
+			background-color: #2fdbb6;
+		}
+		&__body {
+			box-shadow: -6px -2px 9px #424242, 5px 2px 8px #000;
+
+			background-color: #2fdbb6;
 		}
 	}
 }

@@ -1,5 +1,6 @@
 .navbar {
 	background-color: #2fdbb6;
+	transition: 0.5s ease;
 
 	.dropdown-menu.dropdown-default {
 		left: auto !important;
@@ -37,7 +38,16 @@
 		font-weight: bold;
 		transform: translateY(-5px);
 		box-shadow: inset 1px 1px 2px #aa1414, -2px -2px 3px #fff, 2px 2px 3px #b3b5b8;
+		transition: 0.5s ease;
+
+		&.darkmode {
+			box-shadow: inset 1px 1px 2px #aa1414, -2px -2px 3px #3f3f3f, 2px 2px 3px #000000;
+		}
 	}
+}
+
+.navbar.darkmode {
+	background-color: #26292f;
 }
 
 @media screen and (max-width: 768px) {

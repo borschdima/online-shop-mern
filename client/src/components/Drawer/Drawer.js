@@ -15,6 +15,9 @@ const Drawer = () => {
 	const { allBrands, filterBrands, resultBrands, allCores, filterCores, resultCores, allRAM, filterRAM, resultRAM, priceRange } = useSelector(
 		(state) => state.filter
 	);
+	const { darkmode } = useSelector((state) => state.user);
+
+	const THEME = darkmode ? "darkmode" : "";
 
 	// Local State
 	const [open, setOpen] = useState(false);
@@ -58,12 +61,13 @@ const Drawer = () => {
 							lowercase={isLowercase}
 							onToggle={(checkboxName) => onToggle(checkboxName, filterItems, filterType)}
 							active={checked}
+							THEME={THEME}
 						/>
 					</ListItem>
 				);
 			});
 		},
-		[onToggle]
+		[onToggle, THEME]
 	);
 
 	// Create Drawer Filter Groups
@@ -152,14 +156,14 @@ const Drawer = () => {
 				</ExpansionPanelDetails>
 			</ExpansionPanel>
 
-			<Button type="submit" classes="center mt-4" labelShow clickHandler={applyFilter} label="Применить" xs/>
+			<Button type="submit" classes="center mt-4" labelShow clickHandler={applyFilter} label="Применить" xs THEME={THEME} />
 		</div>
 	);
 
 	return (
 		<>
-			<Button type="button" classes="left" clickHandler={toggleDrawer} label="Фильтры" icon="sliders-h" xs />
-			<SideNav className="drawer" anchor="left" open={open} onClose={toggleDrawer}>
+			<Button type="button" classes="left" clickHandler={toggleDrawer} label="Фильтры" icon="sliders-h" xs THEME={THEME} />
+			<SideNav className={`drawer ${THEME}`} anchor="left" open={open} onClose={toggleDrawer}>
 				{list()}
 			</SideNav>
 		</>

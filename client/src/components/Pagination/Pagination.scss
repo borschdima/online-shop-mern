@@ -10,3 +10,17 @@
 		background-color: #2bbbad !important;
 	}
 }
+
+.my-pagination.darkmode {
+	.page-item .page-link {
+		color: #e7e6e6;
+	}
+
+	.page-item .page-link:hover {
+		background-color: #3b3d3d !important;
+	}
+
+	.page-item.active .page-link:hover {
+		background-color: #2bbbad !important;
+	}
+}

@@ -3,7 +3,7 @@ import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from
 
 import "./DropDown.scss";
 
-const DropDown = ({ items, clickHandler, active }) => {
+const DropDown = ({ items, clickHandler, active, THEME = "" }) => {
 	const [activeItem, setActiveItem] = useState(active);
 
 	// If current sort Option is enabled => disable this option
@@ -31,7 +31,7 @@ const DropDown = ({ items, clickHandler, active }) => {
 		));
 
 	return (
-		<MDBDropdown className="my-dropdown" size="sm">
+		<MDBDropdown className={`my-dropdown ${THEME}`} size="sm">
 			<MDBDropdownToggle caret color="none">
 				Сортировать по:
 			</MDBDropdownToggle>

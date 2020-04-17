@@ -10,7 +10,7 @@ import { Button } from "../../ui";
 
 import "./Form.scss";
 
-const Form = () => {
+const Form = ({ THEME = "" }) => {
 	const dispatch = useDispatch();
 
 	// Local State
@@ -45,7 +45,7 @@ const Form = () => {
 				const { touched, errors, handleChange, handleBlur, handleSubmit, setFieldValue } = props;
 
 				return (
-					<form className="auth__form form" onSubmit={(e) => e.preventDefault()}>
+					<form className={`auth__form form ${THEME}`} onSubmit={(e) => e.preventDefault()}>
 						<div className="form__logo"></div>
 						<div className="form__text form__title">Онлайн магазин</div>
 						<div className="form__text form__subtitle">BETA</div>
@@ -98,6 +98,7 @@ const Form = () => {
 								setFieldValue("isSignup", false);
 								handleSubmit(e);
 							}}
+							THEME={THEME}
 						/>
 						<div className="form__signup form__text">
 							Нет аккаунта?{" "}

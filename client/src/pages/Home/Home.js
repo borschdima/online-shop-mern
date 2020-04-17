@@ -9,8 +9,11 @@ import { SectionHeader } from "../../ui";
 import "./Home.scss";
 
 const Home = () => {
-	const formMessage = useSelector((state) => state.auth.formMessage);
 	const dispatch = useDispatch();
+	const formMessage = useSelector((state) => state.auth.formMessage);
+	const { darkmode } = useSelector((state) => state.user);
+
+	const THEME = darkmode ? "darkmode" : "";
 
 	useEffect(() => {
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -21,12 +24,18 @@ const Home = () => {
 	}, [dispatch, formMessage]);
 
 	return (
-		<section className="home section_page">
+		<section className={`home section_page ${THEME}`}>
 			<MDBContainer>
-				<SectionHeader title="Главная страница" />
+				<SectionHeader title="Главная страница" THEME={THEME} />
 				<p>Перейдите на страницу "Ноутбуки". Там можно взаимодействовать с карточками</p>
 				<h5>На данный момент реализовано:</h5>
 				<ul style={{ listStyle: "none", padding: 0 }}>
+					<li>
+						<span role="img" aria-label="cart emoji">
+							✅
+						</span>{" "}
+						Добавлена черная тема. В настройках акааунта
+					</li>
 					<li>
 						<span role="img" aria-label="cart emoji">
 							✅

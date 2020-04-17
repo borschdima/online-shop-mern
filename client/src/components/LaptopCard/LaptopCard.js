@@ -7,7 +7,7 @@ import { prettifyPrice } from "../../utils/prettifyPrice";
 
 import "./LaptopCard.scss";
 
-const LaptopCard = ({ laptop, size }) => {
+const LaptopCard = ({ laptop, size, THEME = "" }) => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
@@ -26,7 +26,7 @@ const LaptopCard = ({ laptop, size }) => {
 
 	return (
 		<MDBCol xs={cardSize.xs} md={cardSize.md} lg={cardSize.lg} className="mt-4">
-			<div className={`laptop-card ${size}`} onClick={() => history.push("/laptops/" + laptop._id)}>
+			<div className={`laptop-card ${size} ${THEME}`} onClick={() => history.push("/laptops/" + laptop._id)}>
 				<div className="laptop-card__image">
 					<img className="laptop-card__img" src={laptop.preview} alt="preview" />
 				</div>

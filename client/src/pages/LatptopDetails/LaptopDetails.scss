@@ -32,6 +32,15 @@
 	}
 }
 
+.details.darkmode {
+	.table {
+		color: #e7e6e6;
+	}
+	.table-striped tbody tr:nth-of-type(odd) {
+		background-color: rgba(0, 0, 0, 0.2);
+	}
+}
+
 @media screen and (max-width: 680px) {
 	.details {
 		&__slider {

@@ -10,7 +10,7 @@ const initialState = {
 export default function authReducer(state = initialState, action) {
 	switch (action.type) {
 		case CHANGE_DARKMODE:
-			return { ...state, darkmode: !state.darkmode };
+			return { ...state, darkmode: action.darkmode };
 
 		default:
 			return state;

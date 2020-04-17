@@ -9,6 +9,9 @@ import "./LaptopDetails.scss";
 const LaptopDetails = () => {
 	const params = useParams();
 	const laptops = useSelector((state) => state.laptop.laptops);
+	const { darkmode } = useSelector((state) => state.user);
+
+	const THEME = darkmode ? "darkmode" : "";
 
 	// Find needed laptop with id recieved from router history
 	const laptop = laptops.find((item) => item._id === params.id);
@@ -29,7 +32,7 @@ const LaptopDetails = () => {
 		));
 
 	return (
-		<section className="details section_page">
+		<section className={`details section_page ${THEME}`}>
 			<MDBContainer>
 				<SectionHeader title="Полное описание" />
 				<h4 className="my-4 text-center font-weight-bold">{laptop.name}</h4>

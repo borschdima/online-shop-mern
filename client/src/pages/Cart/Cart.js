@@ -14,6 +14,9 @@ const Cart = () => {
 	const dispatch = useDispatch();
 
 	const { loading, items: cartItems } = useSelector((state) => state.cart);
+	const { darkmode } = useSelector((state) => state.user);
+
+	const THEME = darkmode ? "darkmode" : "";
 
 	// Calculate Total Cart Price
 	const totalPrice = useMemo(() => cartItems.reduce((acc, item) => (acc += item.price), 0), [cartItems]);
@@ -60,7 +63,7 @@ const Cart = () => {
 		rows: rowItems,
 	};
 	return (
-		<section className="cart section_page">
+		<section className={`cart section_page ${THEME}`}>
 			<MDBContainer>
 				<ToastContainer />
 				<SectionHeader title="Корзина" />
@@ -87,7 +90,15 @@ const Cart = () => {
 					displayEntries={false}
 					noRecordsFoundLabel="В вашей корзине пусто 😔"
 				/>
-				<Button label="Приобрести все" labelShow classes="center" disabled={loading} clickHandler={dispatch.bind(null, buy())} small />
+				<Button
+					label="Приобрести все"
+					labelShow
+					classes="center"
+					disabled={loading}
+					clickHandler={dispatch.bind(null, buy())}
+					small
+					THEME={THEME}
+				/>
 			</MDBContainer>
 		</section>
 	);
