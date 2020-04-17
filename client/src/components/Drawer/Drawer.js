@@ -3,7 +3,7 @@ import { Drawer as SideNav, Slider, List, ListItem, ExpansionPanel, ExpansionPan
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Checkbox } from "../../ui";
 import { MDBIcon } from "mdbreact";
-import { toggleBrand, toggleCore, filterApply, filterReset } from "../../redux/actions/filter";
+import { toggleCheckbox, filterApply, filterReset } from "../../redux/actions/filter";
 import { laptopChangeQuerySkip } from "../../redux/actions/laptop";
 
 import "./Drawer.scss";
@@ -12,7 +12,9 @@ const Drawer = () => {
 	const dispatch = useDispatch();
 
 	//Global State (Redux)
-	const { allBrands, filterBrands, resultBrands, allCores, filterCores, resultCores, priceRange } = useSelector((state) => state.filter);
+	const { allBrands, filterBrands, resultBrands, allCores, filterCores, resultCores, allRAM, filterRAM, resultRAM, priceRange } = useSelector(
+		(state) => state.filter
+	);
 
 	// Local State
 	const [open, setOpen] = useState(false);
@@ -38,44 +40,38 @@ const Drawer = () => {
 		toggleDrawer();
 	};
 
-	// Toggle Brand Checkbox and save it to temperary state field
-	const onToggleBrand = useCallback((brandName) => dispatch(toggleBrand(filterBrands, brandName)), [dispatch, filterBrands]);
+	// Toggle Checkbox and save it to temperary state field
+	const onToggle = useCallback((checkboxName, filterParam, filterType) => dispatch(toggleCheckbox(filterParam, checkboxName, filterType)), [
+		dispatch,
+	]);
 
-	// Toggle Core Checkbox and save it to temperary state field
-	const onToggleCore = useCallback((coreName) => dispatch(toggleCore(filterCores, coreName)), [dispatch, filterCores]);
+	// Create Checkboxes List from State
+	const generateCheckboxes = useCallback(
+		(allItems, filterItems, filterType, isLowercase = false) => {
+			return allItems.map((text, index) => {
+				const checked = !!filterItems.find((item) => item === text);
 
-	// Create Brand Checkboxes List from State
-	const generateBrandCheckboxes = useCallback(() => {
-		return allBrands.map((text, index) => {
-			const checked = !!filterBrands.find((brand) => brand === text);
-
-			return (
-				<ListItem className="drawer__list-item" button key={text + index}>
-					<Checkbox label={text} onToggle={(brandName) => onToggleBrand(brandName)} active={checked} />
-				</ListItem>
-			);
-		});
-	}, [allBrands, filterBrands, onToggleBrand]);
-
-	// Create Core Checkboxes List from State
-	const generateCoreCheckboxes = useCallback(() => {
-		return allCores.map((text, index) => {
-			const checked = !!filterCores.find((core) => core === text);
-
-			return (
-				<ListItem className="drawer__list-item" button key={text + index}>
-					<Checkbox label={text} lowercase onToggle={(coreName) => onToggleCore(coreName)} active={checked} />
-				</ListItem>
-			);
-		});
-	}, [allCores, filterCores, onToggleCore]);
+				return (
+					<ListItem className="drawer__list-item" button key={text + index}>
+						<Checkbox
+							label={text}
+							lowercase={isLowercase}
+							onToggle={(checkboxName) => onToggle(checkboxName, filterItems, filterType)}
+							active={checked}
+						/>
+					</ListItem>
+				);
+			});
+		},
+		[onToggle]
+	);
 
 	// Create Drawer Filter Groups
 	const list = () => (
 		<div role="presentation" className="drawer__list-group p-3">
 			<h3 className="d-flex justify-content-between align-items-center">
 				<span>Фильтры</span>
-				{priceRange.length || resultBrands.length || resultCores.length ? (
+				{priceRange.length || resultBrands.length || resultCores.length || resultRAM.length ? (
 					<span className="drawer__filter-reset" onClick={resetFilter}>
 						Сбросить
 					</span>
@@ -93,7 +89,7 @@ const Drawer = () => {
 					Производитель:
 				</ExpansionPanelSummary>
 				<ExpansionPanelDetails className="expansion__details">
-					<List className="drawer__list">{generateBrandCheckboxes()}</List>
+					<List className="drawer__list">{generateCheckboxes(allBrands, filterBrands, "brand")}</List>
 				</ExpansionPanelDetails>
 			</ExpansionPanel>
 
@@ -137,7 +133,22 @@ const Drawer = () => {
 					Ядра:
 				</ExpansionPanelSummary>
 				<ExpansionPanelDetails className="expansion__details">
-					<List className="drawer__list">{generateCoreCheckboxes()}</List>
+					<List className="drawer__list">{generateCheckboxes(allCores, filterCores, "core", true)}</List>
+				</ExpansionPanelDetails>
+			</ExpansionPanel>
+
+			{/* // RAM section  */}
+			<ExpansionPanel className="expansion" TransitionProps={{ unmountOnExit: true }}>
+				<ExpansionPanelSummary
+					className="expansion__summary"
+					expandIcon={<MDBIcon icon="angle-down" />}
+					aria-controls="panel1a-content"
+					id="cores"
+				>
+					ОЗУ:
+				</ExpansionPanelSummary>
+				<ExpansionPanelDetails className="expansion__details">
+					<List className="drawer__list">{generateCheckboxes(allRAM, filterRAM, "ram", true)}</List>
 				</ExpansionPanelDetails>
 			</ExpansionPanel>
 

@@ -1,32 +1,26 @@
-import { FILTER_TOGGLE_BRAND, FILTER_TOGGLE_CORE, FILTER_APPLY, FILTER_RESET } from "../actions/actionTypes";
+import { FILTER_TOGGLE_BRAND, FILTER_TOGGLE_CORE, FILTER_TOGGLE_RAM, FILTER_APPLY, FILTER_RESET } from "../actions/actionTypes";
 
-export function toggleBrand(filterBrands, brandName) {
+export function toggleCheckbox(filterItems, checkboxName, filterType) {
 	return (dispatch) => {
-		const brands = [...filterBrands];
-		const index = brands.findIndex((item) => item === brandName);
+		const items = [...filterItems];
+		const index = items.findIndex((item) => item === checkboxName);
 
 		if (index === -1) {
-			brands.push(brandName);
+			items.push(checkboxName);
 		} else {
-			brands.splice(index, 1);
+			items.splice(index, 1);
 		}
 
-		dispatch(filterToggleBrand(brands));
-	};
-}
-
-export function toggleCore(filterCores, coreName) {
-	return (dispatch) => {
-		const cores = [...filterCores];
-		const index = cores.findIndex((item) => item === coreName);
-
-		if (index === -1) {
-			cores.push(coreName);
-		} else {
-			cores.splice(index, 1);
+		switch (filterType) {
+			case "brand":
+				return dispatch(filterToggleBrand(items));
+			case "core":
+				return dispatch(filterToggleCore(items));
+			case "ram":
+				return dispatch(filterToggleRAM(items));
+			default:
+				return;
 		}
-
-		dispatch(filterToggleCore(cores));
 	};
 }
 
@@ -41,6 +35,13 @@ export function filterToggleCore(cores) {
 	return {
 		type: FILTER_TOGGLE_CORE,
 		cores,
+	};
+}
+
+export function filterToggleRAM(ram) {
+	return {
+		type: FILTER_TOGGLE_RAM,
+		ram,
 	};
 }
 

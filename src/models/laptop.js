@@ -49,6 +49,10 @@ const schema = Schema(
 			type: String,
 			trim: true,
 		},
+		ramSize: {
+			type: Number,
+			required: true,
+		},
 		os: {
 			type: String,
 			trim: true,

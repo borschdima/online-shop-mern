@@ -9,15 +9,16 @@ import "./LaptopsList.scss";
 const LaptopsList = () => {
 	const dispatch = useDispatch();
 	const { laptops, querySkip, sortBy, gridSize, loading } = useSelector((state) => state.laptop);
-	const { resultBrands, resultCores, priceRange } = useSelector((state) => state.filter);
+	const { resultBrands, resultCores, resultRAM, priceRange } = useSelector((state) => state.filter);
 
-	const dispatchLaptops = useCallback(() => dispatch(fetchLaptops(querySkip, sortBy, resultBrands, priceRange, resultCores)), [
+	const dispatchLaptops = useCallback(() => dispatch(fetchLaptops(querySkip, sortBy, resultBrands, priceRange, resultCores, resultRAM)), [
 		dispatch,
 		sortBy,
 		querySkip,
 		resultBrands,
 		priceRange,
 		resultCores,
+		resultRAM,
 	]);
 
 	useEffect(() => {

@@ -9,7 +9,7 @@ import {
 } from "../actions/actionTypes";
 import { request } from "../requestConfig";
 
-export function fetchLaptops(skip, sortBy = null, brands = [], priceRange = [], cores = []) {
+export function fetchLaptops(skip, sortBy = null, brands = [], priceRange = [], cores = [], ram = []) {
 	return async (dispatch) => {
 		dispatch(laptopLoading());
 
@@ -17,6 +17,7 @@ export function fetchLaptops(skip, sortBy = null, brands = [], priceRange = [], 
 		let brandsQuery = "";
 		let priceQuery = "";
 		let coresQuery = "";
+		let ramQuery = "";
 
 		if (sortBy) {
 			sortQuery += `&sortBy=${sortBy.field}:${sortBy.order}`;
@@ -34,8 +35,14 @@ export function fetchLaptops(skip, sortBy = null, brands = [], priceRange = [], 
 			coresQuery += `&cores=${cores.toString()}`;
 		}
 
+		if (ram.length) {
+			ramQuery += `&ram=${ram.toString()}`;
+		}
+
 		try {
-			const { laptops, allLaptopsCount } = await request(`/api/laptops?skip=${skip}${sortQuery}${brandsQuery}${priceQuery}${coresQuery}`);
+			const { laptops, allLaptopsCount } = await request(
+				`/api/laptops?skip=${skip}${sortQuery}${brandsQuery}${priceQuery}${coresQuery}${ramQuery}`
+			);
 
 			dispatch(laptopFetch(laptops, allLaptopsCount));
 		} catch (error) {

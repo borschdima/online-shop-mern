@@ -10,6 +10,7 @@ const router = Router();
 // /api/laptops?brand=ASUS,APPLE
 // /api/laptops?price=5000,30000
 // /api/laptops?cores=2 ядра,4 ядра
+// /api/laptops?ram=4 Гб,8 Гб
 router.get("/", auth, async (req, res) => {
 	const match = {};
 	const sort = {};
@@ -35,6 +36,11 @@ router.get("/", auth, async (req, res) => {
 	if (req.query.cores) {
 		const values = req.query.cores.split(",").map((coreName) => parseInt(coreName));
 		match.coreNumber = values;
+	}
+
+	if (req.query.ram) {
+		const values = req.query.ram.split(",").map((ramName) => parseInt(ramName));
+		match.ramSize = values;
 	}
 
 	try {
