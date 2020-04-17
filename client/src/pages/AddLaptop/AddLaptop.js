@@ -6,7 +6,7 @@ import "./AddLaptop.scss";
 
 const AddLaptop = () => {
 	return (
-		<section className="add-laptop">
+		<section className="add-laptop section_page">
 			<MDBContainer>
 				<SectionHeader title="Добавить ноутбук" />
 				<p>Здесь будет форма добавления</p>

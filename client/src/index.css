@@ -10,7 +10,14 @@ body {
 #root {
 	min-height: 100vh;
 	position: relative;
+	display: flex;
+	flex-direction: column;
 }
+
+.section_page {
+	flex-grow: 1;
+}
+
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }

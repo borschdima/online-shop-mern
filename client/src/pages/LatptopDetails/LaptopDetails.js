@@ -29,7 +29,7 @@ const LaptopDetails = () => {
 		));
 
 	return (
-		<section className="details">
+		<section className="details section_page">
 			<MDBContainer>
 				<SectionHeader title="Полное описание" />
 				<h4 className="my-4 text-center font-weight-bold">{laptop.name}</h4>

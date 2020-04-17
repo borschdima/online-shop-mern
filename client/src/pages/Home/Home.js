@@ -21,7 +21,7 @@ const Home = () => {
 	}, [dispatch, formMessage]);
 
 	return (
-		<section className="home">
+		<section className="home section_page">
 			<MDBContainer>
 				<SectionHeader title="Главная страница" />
 				<p>Перейдите на страницу "Ноутбуки". Там можно взаимодействовать с карточками</p>

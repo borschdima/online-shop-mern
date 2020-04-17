@@ -6,7 +6,7 @@ import "./Auth.scss";
 
 const Auth = () => {
 	return (
-		<section className="auth">
+		<section className="auth section_page">
 			<MDBContainer className="d-flex justify-content-center">
 				<Form />
 			</MDBContainer>

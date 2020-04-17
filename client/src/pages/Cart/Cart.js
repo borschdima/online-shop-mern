@@ -60,7 +60,7 @@ const Cart = () => {
 		rows: rowItems,
 	};
 	return (
-		<section className="cart">
+		<section className="cart section_page">
 			<MDBContainer>
 				<ToastContainer />
 				<SectionHeader title="Корзина" />

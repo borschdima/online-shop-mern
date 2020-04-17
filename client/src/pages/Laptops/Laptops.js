@@ -38,7 +38,7 @@ const Laptops = () => {
 	];
 
 	return (
-		<section className="laptops">
+		<section className="laptops section_page">
 			<MDBContainer>
 				<ToastContainer />
 				<SectionHeader title="Ноутбуки" />

@@ -1,15 +1,51 @@
 import React from "react";
-import { SectionHeader } from "../../ui";
-import { MDBContainer } from "mdbreact";
+import { SectionHeader, Toggle } from "../../ui";
+import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import { useDispatch, useSelector } from "react-redux";
+import { changeDarkMode } from "../../redux/actions/user";
 
 import "./Profile.scss";
 
 const Profile = () => {
+	const dispatch = useDispatch();
+
 	return (
-		<section className="profile">
+		<section className="profile section_page">
 			<MDBContainer>
 				<SectionHeader title="Мой профиль" />
-				<p>Здесь будут настройки и сведения о профиле</p>
+				<MDBRow>
+					<MDBCol xs="12" lg="6">
+						<div className="profile__avatar avatar">
+							<div className="avatar__back">
+								<div className="avatar__front">
+									<div className="avatar__face"></div>
+									<div className="avatar__body"></div>
+								</div>
+							</div>
+						</div>
+					</MDBCol>
+					<MDBCol xs="12" lg="6">
+						<div className="profile__info info">
+							<h4 className="text-center">Информация</h4>
+							<h6 className="info__text">
+								Количество купленных Вами товаров: <span className="info__text_bold">2</span>
+							</h6>
+						</div>
+					</MDBCol>
+				</MDBRow>
+				<MDBRow>
+					<MDBCol xl="12">
+						<div className="profile__settings settings">
+							<h4 className="text-center">Настройки</h4>
+							<div className="settings__block">
+								<div className="settings__name">Ночной режим: </div>
+								<div className="settings__option">
+									<Toggle onToggle={(value) => dispatch(changeDarkMode(value))} />
+								</div>
+							</div>
+						</div>
+					</MDBCol>
+				</MDBRow>
 			</MDBContainer>
 		</section>
 	);

@@ -152,7 +152,7 @@ const Drawer = () => {
 				</ExpansionPanelDetails>
 			</ExpansionPanel>
 
-			<Button type="submit" classes="center mt-4" labelShow clickHandler={applyFilter} label="Применить" xs />
+			<Button type="submit" classes="center mt-4" labelShow clickHandler={applyFilter} label="Применить" xs/>
 		</div>
 	);
 
