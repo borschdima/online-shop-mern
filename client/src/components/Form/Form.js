@@ -100,10 +100,10 @@ const Form = ({ THEME = "" }) => {
 							}}
 							THEME={THEME}
 						/>
-						<div className="form__signup form__text">
-							Нет аккаунта?{" "}
+						<div className="form__signup form__text d-flex align-items-center">
+							<span>Нет аккаунта?</span>
 							<button
-								className="form__btn-reg"
+								className="form__btn-reg px-2 py-0"
 								type="submit"
 								disabled={loading}
 								onClick={(e) => {

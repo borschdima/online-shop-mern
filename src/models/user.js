@@ -2,7 +2,6 @@ const { Schema, model } = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("config");
-const Laptop = require("./laptop");
 
 const schema = Schema(
 	{
@@ -27,6 +26,9 @@ const schema = Schema(
 				},
 			},
 		],
+		purchasesNumber: {
+			type: Number,
+		},
 		cart: [
 			{
 				type: Schema.Types.ObjectId,
@@ -66,13 +68,13 @@ schema.statics.findByCredentials = async (email, password) => {
 	const user = await User.findOne({ email });
 
 	if (!user) {
-		throw new Error("Ошибка входа в систему 🚫");
+		throw new Error("Ошибка входа в систему 🚫. Возможно вы не зарегистрированы или ввели неправильный пароль");
 	}
 
 	const isMatch = await bcrypt.compare(password, user.password);
 
 	if (!isMatch) {
-		throw new Error("Ошибка входа в систему 🚫");
+		throw new Error("Ошибка входа в систему 🚫. Возможно вы не зарегистрированы или ввели неправильный пароль");
 	}
 
 	return user;

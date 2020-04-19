@@ -7,8 +7,8 @@ const router = Router();
 // /api/cart
 router.get("/", auth, async (req, res) => {
 	try {
-		const { cart } = await User.findById(req.user._id).populate("cart");
-		res.json(cart);
+		const { cart, purchasesNumber } = await User.findById(req.user._id).populate("cart");
+		res.json({ cart, purchasesNumber });
 	} catch (e) {
 		res.status(500).json({ message: e.message });
 	}
@@ -51,10 +51,11 @@ router.post("/buy", auth, async (req, res) => {
 		if (!req.user.cart.length) {
 			return res.status(400).json({ message: "Ваша корзина пустая ⛔" });
 		}
+		req.user.purchasesNumber += req.user.cart.length;
 		req.user.cart = [];
 		await req.user.save();
 
-		res.status(200).json({ message: "Спасибо за покупку! Машинка выехала 🚛" });
+		res.status(200).json({ user: req.user, message: "Спасибо за покупку! Машинка выехала 🚛" });
 	} catch (e) {
 		res.status(500).json({ message: "Что-то пошло не так, попробуйте снова ⛔" });
 	}

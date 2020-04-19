@@ -8,7 +8,7 @@ import "./Profile.scss";
 
 const Profile = () => {
 	const dispatch = useDispatch();
-	const { darkmode } = useSelector((state) => state.user);
+	const { darkmode, purchasesNumber } = useSelector((state) => state.user);
 
 	const THEME = darkmode ? "darkmode" : "";
 
@@ -31,7 +31,7 @@ const Profile = () => {
 						<div className="profile__info info">
 							<h4 className="text-center">Информация</h4>
 							<h6 className="info__text">
-								Количество купленных Вами товаров: <span className="info__text_bold">Число будет</span>
+								Количество купленных Вами товаров: <span className="info__text_bold">{purchasesNumber}</span>
 							</h6>
 						</div>
 					</MDBCol>

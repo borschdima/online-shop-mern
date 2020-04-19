@@ -153,33 +153,7 @@
 			box-shadow: inset 8px 8px 8px #000, inset -8px -8px 8px #424242, -5px -3px 8px #424242 !important;
 
 			input {
-				border: none !important;
-				outline: none !important;
-				background: none !important;
-				font-size: 1rem !important;
-				color: #555 !important;
-				padding: 15px 10px 15px 5px !important;
-				margin-left: 5px !important;
-				width: 200px !important;
-
-				&::placeholder {
-					color: transparent !important;
-				}
-				&:active {
-					outline: none !important;
-					border: none !important;
-					box-shadow: none !important;
-				}
-				&::-webkit-search-cancel-button {
-					-webkit-appearance: none !important;
-					display: none;
-					appearance: none !important;
-				}
-				&:focus {
-					outline: none !important;
-					border: none !important;
-					box-shadow: none !important;
-				}
+				color: #d4d1d1 !important;
 
 				&:-webkit-autofill,
 				&:-webkit-autofill:hover,

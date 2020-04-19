@@ -6,6 +6,7 @@ import {
 	CART_ERROR,
 	CART_CLEAR_MESSAGE,
 	CART_FETCH_SUCCESS,
+	UPDATE_PURCHASES,
 } from "../actions/actionTypes";
 import { request } from "../requestConfig";
 
@@ -41,7 +42,8 @@ export function getItems() {
 		try {
 			const data = await request("/api/cart");
 
-			dispatch(cartFetchSuccess(data));
+			dispatch(cartFetchSuccess(data.cart));
+			dispatch({ type: UPDATE_PURCHASES, purchasesNumber: data.purchasesNumber });
 		} catch (error) {
 			dispatch(cartError(error.message));
 		}
@@ -55,6 +57,7 @@ export function buy() {
 			const data = await request("/api/cart/buy", null, "POST");
 
 			dispatch(cartBuySuccess(data.message));
+			dispatch({ type: UPDATE_PURCHASES, purchasesNumber: data.user.purchasesNumber });
 		} catch (error) {
 			dispatch(cartError(error.message));
 		}

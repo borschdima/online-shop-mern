@@ -33,3 +33,4 @@ export const FILTER_RESET = "FILTER_RESET";
 
 // User
 export const CHANGE_DARKMODE = "CHANGE_DARKMODE";
+export const UPDATE_PURCHASES = "UPDATE_PURCHASES";
