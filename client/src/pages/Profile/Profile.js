@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SectionHeader, Toggle } from "../../ui";
-import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import { MDBContainer, MDBRow, MDBCol, MDBIcon } from "mdbreact";
 import { useDispatch, useSelector } from "react-redux";
-import { changeDarkMode } from "../../redux/actions/user";
+import { changeDarkMode, getUserData } from "../../redux/actions/user";
 
 import "./Profile.scss";
 
 const Profile = () => {
 	const dispatch = useDispatch();
-	const { darkmode, purchasesNumber } = useSelector((state) => state.user);
+	const { darkmode, purchasesNumber, name, email } = useSelector((state) => state.user);
 
 	const THEME = darkmode ? "darkmode" : "";
+
+	useEffect(() => {
+		dispatch(getUserData());
+	}, [dispatch]);
 
 	return (
 		<section className={`profile section_page ${THEME}`}>
@@ -29,9 +33,17 @@ const Profile = () => {
 					</MDBCol>
 					<MDBCol xs="12" lg="6">
 						<div className="profile__info info">
-							<h4 className="text-center">Информация</h4>
+							<h4 className="text-center">
+								Информация <MDBIcon icon="info-circle" />
+							</h4>
 							<h6 className="info__text">
 								Количество купленных Вами товаров: <span className="info__text_bold">{purchasesNumber}</span>
+							</h6>
+							<h6 className="info__text">
+								Ваше имя: <span className={`info__text_bold ${name ? "" : "info__text_undefined"}`}>{name || "Не задано"}</span>
+							</h6>
+							<h6 className="info__text">
+								Ваш email: <span className="info__text_bold">{email}</span>
 							</h6>
 						</div>
 					</MDBCol>
@@ -39,7 +51,9 @@ const Profile = () => {
 				<MDBRow>
 					<MDBCol xl="12">
 						<div className="profile__settings settings">
-							<h4 className="text-center">Настройки</h4>
+							<h4 className="text-center">
+								Настройки <MDBIcon icon="cog" />
+							</h4>
 							<div className="settings__block">
 								<div className="settings__name">Ночной режим: </div>
 								<div className="settings__option">

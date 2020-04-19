@@ -34,3 +34,8 @@ export const FILTER_RESET = "FILTER_RESET";
 // User
 export const CHANGE_DARKMODE = "CHANGE_DARKMODE";
 export const UPDATE_PURCHASES = "UPDATE_PURCHASES";
+export const UPDATE_NAME = "UPDATE_NAME";
+export const UPDATE_EMAIL = "UPDATE_EMAIL";
+export const UPDATE_INFO = "UPDATE_INFO";
+export const USER_ERROR = "USER_ERROR";
+export const USER_LOADING = "USER_LOADING";

@@ -7,8 +7,8 @@ const router = Router();
 // /api/cart
 router.get("/", auth, async (req, res) => {
 	try {
-		const { cart, purchasesNumber } = await User.findById(req.user._id).populate("cart");
-		res.json({ cart, purchasesNumber });
+		const { cart } = await User.findById(req.user._id).populate("cart");
+		res.json({ cart });
 	} catch (e) {
 		res.status(500).json({ message: e.message });
 	}

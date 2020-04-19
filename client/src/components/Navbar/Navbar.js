@@ -74,11 +74,11 @@ const Navbar = () => {
 							<MDBIcon icon="shopping-cart" className="ml-1" />
 						</MDBNavLink>
 					</MDBNavItem>
-					<MDBNavItem>
-						<MDBNavLink to="/logout" onClick={() => dispatch(logout())}>
+					<MDBNavItem onClick={() => dispatch(logout())}>
+						<div className="nav-link Ripple-parent waves-effect waves-light d-flex align-items-center mr-3">
 							<MDBIcon icon="sign-out-alt" className="mr-1" />
 							Выйти
-						</MDBNavLink>
+						</div>
 					</MDBNavItem>
 				</MDBNavbarNav>
 			</MDBCollapse>

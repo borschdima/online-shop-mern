@@ -10,7 +10,8 @@ router.post("/login", async (req, res) => {
 
 		const user = await User.findByCredentials(email, password);
 		const { token, expiresIn } = await user.generateAuthToken();
-		res.send({ user, token, expiresIn, message: "Здравствуйте, Вы вошли в систему! ✌🏻😎" });
+
+		res.json({ user, token, expiresIn, message: `Здравствуйте, Вы вошли в систему! ✌🏻😎` });
 	} catch (e) {
 		res.status(500).json({ message: e.message });
 	}
@@ -41,7 +42,10 @@ router.post("/signup", async (req, res) => {
 			return res.status(400).json({ message: "Такой пользователь уже есть 👤⛔" });
 		}
 
-		const user = new User({ email, password });
+		const purchasesNumber = 0;
+		const name = "";
+
+		const user = new User({ email, password, purchasesNumber, name });
 		await user.save();
 
 		res.status(201).json({ message: "Вы зарегистрированы ✅" });

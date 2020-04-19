@@ -4,6 +4,7 @@ const config = require("config");
 const authRouter = require("./routers/auth");
 const laptopRouter = require("./routers/laptop");
 const cartRouter = require("./routers/cart");
+const userRouter = require("./routers/user");
 require("./db/mongoose");
 
 const PORT = process.env.PORT || config.get("port") || 5000;
@@ -17,6 +18,7 @@ app.use(express.json({ extended: true }));
 app.use("/api/auth", authRouter);
 app.use("/api/laptops", laptopRouter);
 app.use("/api/cart", cartRouter);
+app.use("/api/user", userRouter);
 
 // Production mode
 if (process.env.NODE_ENV === "production") {

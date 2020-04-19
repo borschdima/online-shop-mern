@@ -43,7 +43,6 @@ export function getItems() {
 			const data = await request("/api/cart");
 
 			dispatch(cartFetchSuccess(data.cart));
-			dispatch({ type: UPDATE_PURCHASES, purchasesNumber: data.purchasesNumber });
 		} catch (error) {
 			dispatch(cartError(error.message));
 		}

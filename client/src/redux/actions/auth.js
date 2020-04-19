@@ -7,12 +7,17 @@ export function auth(email, password, isLogin) {
 
 		try {
 			if (isLogin) {
-				const data = await request("/api/auth/login", { email, password }, "POST", false);
+				const { user, token, message, expiresIn } = await request("/api/auth/login", { email, password }, "POST", false);
 
-				localStorage.setItem("token", data.token);
-				localStorage.setItem("expirationDate", data.expiresIn);
+				localStorage.setItem("token", token);
+				localStorage.setItem("expirationDate", expiresIn);
 
-				dispatch(authLogin(data.token, data.message));
+				if (user.name) {
+					const userName = user.name[0].toUpperCase() + user.name.slice(1);
+					localStorage.setItem("userName", userName);
+				}
+
+				dispatch(authLogin(token, message));
 			} else {
 				const data = await request("/api/auth/signup", { email, password }, "POST", false);
 
@@ -36,6 +41,7 @@ export function logout() {
 			}
 
 			localStorage.removeItem("token");
+			localStorage.removeItem("userName");
 			localStorage.removeItem("expirationDate");
 
 			dispatch({ type: AUTH_LOGOUT, message: logoutMessage });
@@ -61,7 +67,8 @@ export function autoLogin() {
 			if (expirationDate <= new Date()) {
 				dispatch(logout());
 			} else {
-				dispatch(authLogin(token, "Здравствуйте, Вы вошли в систему! ✌🏻😎"));
+				const userName = localStorage.getItem("userName") || "";
+				dispatch(authLogin(token, `Здравствуйте ${userName}, Вы вошли в систему! ✌🏻😎`));
 				dispatch(autoLogout((expirationDate.getTime() - new Date().getTime()) / 1000));
 			}
 		}

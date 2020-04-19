@@ -12,6 +12,11 @@ const schema = Schema(
 			trim: true,
 			lowercase: true,
 		},
+		name: {
+			type: String,
+			trim: true,
+			lowercase: true,
+		},
 		password: {
 			type: String,
 			required: true,
