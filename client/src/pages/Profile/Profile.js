@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { SectionHeader, Toggle } from "../../ui";
 import { MDBContainer, MDBRow, MDBCol, MDBIcon } from "mdbreact";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { changeDarkMode, getUserData } from "../../redux/actions/user";
 
 import "./Profile.scss";
@@ -28,6 +29,13 @@ const Profile = () => {
 									<div className="avatar__face"></div>
 									<div className="avatar__body"></div>
 								</div>
+								<Link to="/profile/settings">
+									<div className="profile__edit_back">
+										<div className="profile__edit_front">
+											<MDBIcon icon="pencil-alt" />
+										</div>
+									</div>
+								</Link>
 							</div>
 						</div>
 					</MDBCol>

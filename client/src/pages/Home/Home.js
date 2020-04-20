@@ -34,6 +34,12 @@ const Home = () => {
 						<span role="img" aria-label="cart emoji">
 							✅
 						</span>{" "}
+						Добавлен рейтинг ноутбуков и сортировка по нему
+					</li>
+					<li>
+						<span role="img" aria-label="cart emoji">
+							✅
+						</span>{" "}
 						Добавлена черная тема. В настройках акааунта
 					</li>
 					<li>

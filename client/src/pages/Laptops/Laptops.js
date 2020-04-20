@@ -38,6 +38,8 @@ const Laptops = () => {
 		{ label: "От дешевых к дорогим", field: "price", order: "asc" },
 		{ label: "По дате(сначала новые)", field: "createdAt", order: "desc" },
 		{ label: "По дате(сначала старые)", field: "createdAt", order: "asc" },
+		{ label: "По рейтингу(убывание)", field: "rating", order: "desc" },
+		{ label: "По рейтингу(возрастание)", field: "rating", order: "asc" },
 	];
 
 	return (

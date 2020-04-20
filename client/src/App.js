@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { autoLogin } from "./redux/actions/auth";
 import { getItems } from "./redux/actions/cart";
-import { Auth, Laptops, Home, Cart, AddLaptop, Profile, LaptopDetails } from "./pages";
+import { Auth, Laptops, Home, Cart, AddLaptop, Profile, LaptopDetails, ProfileSettings } from "./pages";
 import { Navbar } from "./components";
 
 const App = () => {
@@ -27,7 +27,8 @@ const App = () => {
 					<Route path="/laptops/:id" component={LaptopDetails} />
 					<Route path="/cart" component={Cart} />
 					<Route path="/add" component={AddLaptop} />
-					<Route path="/profile" component={Profile} />
+					<Route path="/profile" exact component={Profile} />
+					<Route path="/profile/settings" exact component={ProfileSettings} />
 					<Redirect to="/" />
 				</Switch>
 			</Router>
