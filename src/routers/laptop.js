@@ -7,6 +7,7 @@ const router = Router();
 // /api/laptops?skip=12
 // /api/laptops?sortBy=createdAt:desc
 // /api/laptops?sortBy=price:desc
+// /api/laptops?sortBy=rating:desc
 // /api/laptops?brand=ASUS,APPLE
 // /api/laptops?price=5000,30000
 // /api/laptops?cores=2 ядра,4 ядра

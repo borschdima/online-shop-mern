@@ -3,19 +3,24 @@ import { SectionHeader, Toggle } from "../../ui";
 import { MDBContainer, MDBRow, MDBCol, MDBIcon } from "mdbreact";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { changeDarkMode, getUserData } from "../../redux/actions/user";
+import { changeDarkMode, changeMailing, clearMessage } from "../../redux/actions/user";
+import { notify } from "../../utils/notify";
+import { ToastContainer } from "react-toastify";
 
 import "./Profile.scss";
 
 const Profile = () => {
 	const dispatch = useDispatch();
-	const { darkmode, purchasesNumber, name, email } = useSelector((state) => state.user);
+	const { darkmode, purchasesNumber, recieveEmails, name, email, message } = useSelector((state) => state.user);
 
 	const THEME = darkmode ? "darkmode" : "";
 
 	useEffect(() => {
-		dispatch(getUserData());
-	}, [dispatch]);
+		if (message) {
+			notify(message);
+			dispatch(clearMessage());
+		}
+	}, [dispatch, message]);
 
 	return (
 		<section className={`profile section_page ${THEME}`}>
@@ -62,15 +67,22 @@ const Profile = () => {
 							<h4 className="text-center">
 								Настройки <MDBIcon icon="cog" />
 							</h4>
-							<div className="settings__block">
+							<div className="settings__block mb-2">
 								<div className="settings__name">Ночной режим: </div>
 								<div className="settings__option">
 									<Toggle onToggle={(value) => dispatch(changeDarkMode(value))} active={darkmode} THEME={THEME} />
 								</div>
 							</div>
+							<div className="settings__block mb-2">
+								<div className="settings__name">Получать уведомления на почту о поступивших товарах:</div>
+								<div className="settings__option">
+									<Toggle onToggle={(value) => dispatch(changeMailing(value))} active={recieveEmails} THEME={THEME} />
+								</div>
+							</div>
 						</div>
 					</MDBCol>
 				</MDBRow>
+				<ToastContainer />
 			</MDBContainer>
 		</section>
 	);

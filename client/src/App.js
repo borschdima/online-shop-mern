@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { autoLogin } from "./redux/actions/auth";
-import { getItems } from "./redux/actions/cart";
+import { getCartItems } from "./redux/actions/cart";
+import { getUserData } from "./redux/actions/user";
 import { Auth, Laptops, Home, Cart, AddLaptop, Profile, LaptopDetails, ProfileSettings } from "./pages";
 import { Navbar } from "./components";
 
@@ -13,7 +14,8 @@ const App = () => {
 	useEffect(() => {
 		dispatch(autoLogin());
 		if (isAuthenticated) {
-			dispatch(getItems());
+			dispatch(getCartItems());
+			dispatch(getUserData());
 		}
 	}, [dispatch, isAuthenticated]);
 

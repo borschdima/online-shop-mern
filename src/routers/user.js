@@ -12,4 +12,17 @@ router.get("/me", auth, async (req, res) => {
 	}
 });
 
+router.patch("/me", auth, async (req, res) => {
+	try {
+		const value = req.body.recieveEmails;
+		req.user.recieveEmails = value;
+		const message = value ? "Вы подключили уведомления 📩" : "Вы отменили рассылку";
+		await req.user.save();
+
+		res.json({ user: req.user, message });
+	} catch (e) {
+		res.status(500).json({ message: e.message });
+	}
+});
+
 module.exports = router;

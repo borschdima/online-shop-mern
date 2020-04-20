@@ -36,7 +36,7 @@ export function removeItem(id) {
 	};
 }
 
-export function getItems() {
+export function getCartItems() {
 	return async (dispatch) => {
 		dispatch(cartLoading());
 		try {

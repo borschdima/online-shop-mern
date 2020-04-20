@@ -23,6 +23,10 @@ const schema = Schema(
 			minlength: 6,
 			trim: true,
 		},
+		recieveEmails: {
+			type: Boolean,
+			default: false,
+		},
 		tokens: [
 			{
 				token: {
@@ -33,6 +37,7 @@ const schema = Schema(
 		],
 		purchasesNumber: {
 			type: Number,
+			default: 0,
 		},
 		cart: [
 			{

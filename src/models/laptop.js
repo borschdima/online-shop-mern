@@ -22,6 +22,12 @@ const schema = Schema(
 			type: Number,
 			required: true,
 		},
+		rating: {
+			type: Number,
+			max: 5,
+			min: 1,
+			required: true,
+		},
 		coreNumber: {
 			type: Number,
 			required: true,
