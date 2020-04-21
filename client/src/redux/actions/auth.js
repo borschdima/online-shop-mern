@@ -1,5 +1,6 @@
 import { AUTH_LOADING, AUTH_SIGNUP, AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CLEAR_MESSAGE, CHANGE_DARKMODE } from "./actionTypes";
 import { request } from "../requestConfig";
+import { prettifyName } from "../../utils/prettifyName";
 
 export function auth(email, password, isLogin) {
 	return async (dispatch) => {
@@ -13,7 +14,7 @@ export function auth(email, password, isLogin) {
 				localStorage.setItem("expirationDate", expiresIn);
 
 				if (user.name) {
-					const userName = user.name[0].toUpperCase() + user.name.slice(1);
+					const userName = prettifyName(user.name);
 					localStorage.setItem("userName", userName);
 				}
 

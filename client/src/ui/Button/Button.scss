@@ -35,6 +35,11 @@
 	}
 }
 
+.mybtn.secondary {
+	background: transparent;
+	color: #24cfaa;
+}
+
 .mybtn.small {
 	max-width: 250px;
 	font-size: 1.1rem;
@@ -65,6 +70,14 @@
 		box-shadow: inset 3px 3px 5px #000000;
 	}
 }
+.mybtn.darkmode.secondary {
+	color: #888787;
+	border: none;
+	background: transparent;
+	&:active {
+		background: #202227 !important;
+	}
+}
 
 @media (hover: hover) and (pointer: fine) {
 	.mybtn {
@@ -73,9 +86,20 @@
 			outline: none;
 		}
 	}
+	.mybtn.secondary {
+		&:hover {
+			background: #dfe1e2;
+			color: #838080;
+		}
+	}
 	.mybtn.darkmode {
 		&:hover {
 			background: #2c5f54;
+		}
+	}
+	.mybtn.secondary.darkmode {
+		&:hover {
+			background: #3e434b;
 		}
 	}
 }

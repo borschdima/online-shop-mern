@@ -14,12 +14,14 @@ const Button = ({
 	icon = null, // name of the icon which shows near label
 	labelShow = false, // display label or not
 	THEME = "",
+	secondary = false,
 }) => {
 	let classNames = "mybtn";
 	classNames += small ? " small " : "";
 	classNames += xs ? " xs " : "";
 	classNames += classes ? ` ${classes} ` : "";
 	classNames += ` ${THEME} `;
+	classNames += secondary ? ` secondary ` : "";
 
 	return (
 		<button type={type} className={classNames} disabled={disabled} onClick={clickHandler}>

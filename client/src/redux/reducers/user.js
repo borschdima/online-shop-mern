@@ -33,6 +33,7 @@ export default function authReducer(state = initialState, action) {
 				name: action.userInfo.name,
 				email: action.userInfo.email,
 				recieveEmails: action.userInfo.recieveEmails,
+				message: action.message,
 				loading: false,
 			};
 

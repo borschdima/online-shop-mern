@@ -1,6 +1,8 @@
 import { CHANGE_DARKMODE, UPDATE_NAME, UPDATE_EMAIL, UPDATE_MAILING, UPDATE_INFO, USER_ERROR, USER_LOADING, USER_CLEAR_MESSAGE } from "./actionTypes";
 import { request } from "../requestConfig";
+import { prettifyName } from "../../utils/prettifyName";
 
+// Receiving Data from server when app initialized
 export function getUserData() {
 	return async (dispatch) => {
 		dispatch(userLoading());
@@ -9,7 +11,7 @@ export function getUserData() {
 			const userInfo = { ...data };
 
 			if (userInfo.name) {
-				userInfo.name = userInfo.name[0].toUpperCase() + userInfo.name.slice(1);
+				userInfo.name = prettifyName(userInfo.name);
 			}
 			if (!userInfo.recieveEmails) {
 				userInfo.recieveEmails = false;
@@ -22,17 +24,35 @@ export function getUserData() {
 	};
 }
 
-export function updateUser(userInfo) {
+export function updateUser(userInfo, message = "") {
 	return {
 		type: UPDATE_INFO,
 		userInfo,
+		message,
 	};
 }
 
+// Send request to update name and email
+export function updateInfo(name, email) {
+	return async (dispatch) => {
+		dispatch(userLoading());
+		try {
+			const { user, message } = await request("/api/user/me/info", { name, email }, "PATCH");
+			user.name = prettifyName(user.name);
+			localStorage.setItem("userName", user.name);
+
+			dispatch(updateUser(user, message));
+		} catch (error) {
+			dispatch(userError(error.message));
+		}
+	};
+}
+
+// Sending request to server to change mailing option
 export function changeMailing(value) {
 	return async (dispatch) => {
 		try {
-			const data = await request("/api/user/me", { recieveEmails: value }, "PATCH");
+			const data = await request("/api/user/me/mailing", { recieveEmails: value }, "PATCH");
 
 			dispatch({ type: UPDATE_MAILING, recieveEmails: value, message: data.message });
 		} catch (error) {
