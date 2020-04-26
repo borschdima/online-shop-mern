@@ -12,8 +12,9 @@ const App = () => {
 	const isAuthenticated = useSelector((state) => state.auth.token);
 
 	useEffect(() => {
-		dispatch(autoLogin());
-		if (isAuthenticated) {
+		if (!isAuthenticated) {
+			dispatch(autoLogin());
+		} else {
 			dispatch(getCartItems());
 			dispatch(getUserData());
 		}

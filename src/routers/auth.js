@@ -54,4 +54,13 @@ router.post("/signup", async (req, res) => {
 	}
 });
 
+// /api/auth/check
+router.get("/check", auth, async (req, res) => {
+	try {
+		res.json({ message: "OK" });
+	} catch (e) {
+		res.status(500).json({ message: "Что-то пошло не так, попробуйте снова 🚫" });
+	}
+});
+
 module.exports = router;

@@ -30,7 +30,7 @@ export function auth(email, password, isLogin) {
 	};
 }
 
-export function logout() {
+export function logout(message = "") {
 	return async (dispatch) => {
 		try {
 			const token = localStorage.getItem("token");
@@ -45,7 +45,7 @@ export function logout() {
 			localStorage.removeItem("userName");
 			localStorage.removeItem("expirationDate");
 
-			dispatch({ type: AUTH_LOGOUT, message: logoutMessage });
+			dispatch({ type: AUTH_LOGOUT, message: message || logoutMessage });
 			dispatch(autoClearMessage(4000));
 		} catch (e) {
 			dispatch(authError(e.message));
@@ -54,7 +54,7 @@ export function logout() {
 }
 
 export function autoLogin() {
-	return (dispatch) => {
+	return async (dispatch) => {
 		const token = localStorage.getItem("token");
 
 		if (localStorage.getItem("darkmode")) {
@@ -63,14 +63,25 @@ export function autoLogin() {
 		}
 
 		if (token) {
-			const expirationDate = new Date(localStorage.getItem("expirationDate") * 1000);
+			try {
+				await request("/api/auth/check");
 
-			if (expirationDate <= new Date()) {
-				dispatch(logout());
-			} else {
-				const userName = localStorage.getItem("userName") || "";
-				dispatch(authLogin(token, `Здравствуйте ${userName}, Вы вошли в систему! ✌🏻😎`));
-				dispatch(autoLogout((expirationDate.getTime() - new Date().getTime()) / 1000));
+				const expirationDate = new Date(localStorage.getItem("expirationDate") * 1000);
+
+				if (expirationDate <= new Date()) {
+					dispatch(logout());
+				} else {
+					const userName = localStorage.getItem("userName") || "";
+					dispatch(authLogin(token, `Здравствуйте ${userName}, Вы вошли в систему! ✌🏻😎`));
+					dispatch(autoLogout((expirationDate.getTime() - new Date().getTime()) / 1000));
+				}
+			} catch (e) {
+				dispatch({ type: AUTH_LOGOUT, message: "" });
+				localStorage.removeItem("token");
+				localStorage.removeItem("userName");
+				localStorage.removeItem("expirationDate");
+				dispatch(authError("Время сессии истекло!"));
+				dispatch(autoClearMessage(4000));
 			}
 		}
 	};
@@ -114,7 +125,7 @@ export function autoLogout(time) {
 	return async (dispatch) => {
 		// Выходим из системы если токен не актуальный
 		// за одну минуту  до истечения токена, чтобы можно было выполнить запрос на сервер для logout, когда мы еще авторизованы
-		setTimeout(() => dispatch(logout()), time * 1000 - 60000);
+		setTimeout(() => dispatch(logout("Вреия сессии истекло")), time * 1000 - 60000);
 	};
 }
 

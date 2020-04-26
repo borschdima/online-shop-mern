@@ -21,6 +21,8 @@ const Home = () => {
 			notify(formMessage);
 			dispatch(clearMessage());
 		}
+
+		// return () => dispatch(clearMessage());
 	}, [dispatch, formMessage]);
 
 	return (
