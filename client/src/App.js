@@ -4,12 +4,13 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-d
 import { autoLogin } from "./redux/actions/auth";
 import { getCartItems } from "./redux/actions/cart";
 import { getUserData } from "./redux/actions/user";
-import { Auth, Laptops, Home, Cart, AddLaptop, Profile, LaptopDetails, ProfileSettings } from "./pages";
+import { Auth, Laptops, Home, Cart, AddLaptop, Profile, LaptopDetails, ProfileSettings, Roles } from "./pages";
 import { Navbar } from "./components";
 
 const App = () => {
 	const dispatch = useDispatch();
 	const isAuthenticated = useSelector((state) => state.auth.token);
+	const userRole = useSelector((state) => state.user.role);
 
 	useEffect(() => {
 		if (!isAuthenticated) {
@@ -29,9 +30,10 @@ const App = () => {
 					<Route path="/laptops" exact component={Laptops} />
 					<Route path="/laptops/:id" component={LaptopDetails} />
 					<Route path="/cart" component={Cart} />
-					<Route path="/add" component={AddLaptop} />
 					<Route path="/profile" exact component={Profile} />
 					<Route path="/profile/settings" exact component={ProfileSettings} />
+					{userRole === "admin" || userRole === "owner" ? <Route path="/add" component={AddLaptop} /> : null}
+					{userRole === "owner" ? <Route path="/roles" component={Roles} /> : null}
 					<Redirect to="/" />
 				</Switch>
 			</Router>

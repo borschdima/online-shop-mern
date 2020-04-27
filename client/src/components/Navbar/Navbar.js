@@ -11,10 +11,11 @@ const Navbar = () => {
 	const [collapse, setCollapse] = useState(false);
 	const dispatch = useDispatch();
 	const { itemsCount: cartItemsCount, message } = useSelector((state) => state.cart);
-	const { darkmode } = useSelector((state) => state.user);
+	const { darkmode, role } = useSelector((state) => state.user);
 
 	const THEME = darkmode ? "darkmode" : "";
 
+	// using message Toaster on Laptop page to display adding laptop to cart message
 	useEffect(() => {
 		if (message) {
 			notify(message);
@@ -22,6 +23,7 @@ const Navbar = () => {
 		}
 	}, [message, dispatch]);
 
+	// Collapse mobile menu depending on screen size
 	const onLinkClick = () => {
 		const isSmallScreen = window.matchMedia("(max-width: 768px)").matches;
 
@@ -38,7 +40,7 @@ const Navbar = () => {
 	return (
 		<MDBNavbar dark expand="md" className={THEME}>
 			<MDBNavLink to="/" className="navbar-brand" onClick={onLinkClick}>
-				ROZETKA
+				ADAPTER.RU
 			</MDBNavLink>
 
 			<MDBHamburgerToggler className="d-inline d-md-none" color="#fff" id="hamburger" onClick={toggleSingleCollapse} />
@@ -50,12 +52,24 @@ const Navbar = () => {
 							Ноутбуки
 						</MDBNavLink>
 					</MDBNavItem>
-					<MDBNavItem>
-						<MDBNavLink to="/add" exact onClick={onLinkClick}>
-							<MDBIcon icon="plus-circle" className="mr-1" />
-							Добавить товар
-						</MDBNavLink>
-					</MDBNavItem>
+
+					{role === "admin" || role === "owner" ? (
+						<MDBNavItem>
+							<MDBNavLink to="/add" exact onClick={onLinkClick}>
+								<MDBIcon icon="plus-circle" className="mr-1" />
+								Добавить товар
+							</MDBNavLink>
+						</MDBNavItem>
+					) : null}
+
+					{role === "owner" ? (
+						<MDBNavItem>
+							<MDBNavLink to="/roles" exact onClick={onLinkClick}>
+								<MDBIcon icon="shield-alt" className="mr-1" />
+								Админка
+							</MDBNavLink>
+						</MDBNavItem>
+					) : null}
 				</MDBNavbarNav>
 				<MDBNavbarNav right>
 					<MDBNavItem>

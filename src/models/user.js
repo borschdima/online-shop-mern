@@ -27,6 +27,12 @@ const schema = Schema(
 			type: Boolean,
 			default: false,
 		},
+		role: {
+			type: String,
+			required: true,
+			enum: ["user", "admin", "owner"],
+			default: "user",
+		},
 		tokens: [
 			{
 				token: {

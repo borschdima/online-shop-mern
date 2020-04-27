@@ -16,6 +16,7 @@ const initialState = {
 	purchasesNumber: 0,
 	recieveEmails: false,
 	darkmode: false,
+	role: "user",
 	error: false,
 	loading: false,
 	message: "",
@@ -33,6 +34,7 @@ export default function authReducer(state = initialState, action) {
 				name: action.userInfo.name,
 				email: action.userInfo.email,
 				recieveEmails: action.userInfo.recieveEmails,
+				role: action.userInfo.role,
 				message: action.message,
 				loading: false,
 			};

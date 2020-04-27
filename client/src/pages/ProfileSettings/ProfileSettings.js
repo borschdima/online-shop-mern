@@ -35,7 +35,6 @@ const ProfileSettings = () => {
 				<SectionHeader title="Редактировать" THEME={THEME} />
 				<Formik
 					initialValues={{ email, name }}
-					// Define which button User has pressed
 					onSubmit={({ name, email }) => {
 						dispatch(updateInfo(name, email));
 					}}
@@ -48,7 +47,7 @@ const ProfileSettings = () => {
 						const { errors, handleChange, handleBlur, handleSubmit } = props;
 
 						return (
-							<form className={`auth__form form ${THEME} mt-5`} onSubmit={(e) => e.preventDefault()}>
+							<form className={`profile-form form ${THEME} mt-5`} onSubmit={(e) => e.preventDefault()}>
 								<div className="form__text form__title pt-0">Введите данные</div>
 
 								<div className="form__fields">

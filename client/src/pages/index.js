@@ -6,3 +6,4 @@ export { default as Laptops } from "./Laptops/Laptops";
 export { default as Profile } from "./Profile/Profile";
 export { default as LaptopDetails } from "./LaptopDetails/LaptopDetails";
 export { default as ProfileSettings } from "./ProfileSettings/ProfileSettings";
+export { default as Roles } from "./Roles/Roles";
