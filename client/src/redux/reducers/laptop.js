@@ -1,5 +1,6 @@
 import {
-	LAPTOP_ERROR,
+	LAPTOP_MESSAGE,
+	LAPTOP_CLEAR_MESSAGE,
 	LAPTOP_LOADING,
 	LAPTOP_FETCH,
 	LAPTOP_FETCH_ONE,
@@ -17,7 +18,7 @@ const initialState = {
 	laptopDetails: null,
 	loading: false,
 	error: false,
-	errorMessage: "",
+	message: "",
 };
 
 export default function authReducer(state = initialState, action) {
@@ -40,8 +41,11 @@ export default function authReducer(state = initialState, action) {
 		case LAPTOP_LOADING:
 			return { ...state, loading: true, error: false };
 
-		case LAPTOP_ERROR:
-			return { ...state, error: true, loading: false, errorMessage: action.errorMessage };
+		case LAPTOP_MESSAGE:
+			return { ...state, loading: false, message: action.message };
+
+		case LAPTOP_CLEAR_MESSAGE:
+			return { ...state, message: "" };
 
 		default:
 			return state;

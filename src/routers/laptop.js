@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const Laptop = require("../models/laptop");
 const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
 const router = Router();
 
 // /api/laptops
@@ -68,7 +69,7 @@ router.get("/:id", auth, async (req, res) => {
 });
 
 // /api/laptops/add
-router.post("/add", auth, async (req, res) => {
+router.post("/add", auth, admin, async (req, res) => {
 	try {
 		const newLaptop = new Laptop(req.body);
 		await newLaptop.save();
