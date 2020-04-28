@@ -4,6 +4,7 @@ import laptopReducer from "./laptop";
 import cartReducer from "./cart";
 import filterReducer from "./filter";
 import userReducer from "./user";
+import messagerReducer from "./messager";
 
 export default combineReducers({
 	auth: authReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
 	cart: cartReducer,
 	filter: filterReducer,
 	user: userReducer,
+	messager: messagerReducer,
 });

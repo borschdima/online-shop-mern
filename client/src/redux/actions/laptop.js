@@ -1,14 +1,15 @@
 import {
-	LAPTOP_MESSAGE,
-	LAPTOP_CLEAR_MESSAGE,
 	LAPTOP_CHANGE_SKIP,
 	LAPTOP_CHANGE_SORT,
 	LAPTOP_CHANGE_GRID_SIZE,
 	LAPTOP_LOADING,
 	LAPTOP_FETCH,
 	LAPTOP_FETCH_ONE,
+	LAPTOP_ERROR,
+	LAPTOP_SUCCESS,
 } from "../actions/actionTypes";
 import { request } from "../requestConfig";
+import { toastMessage } from "./messager";
 
 export function fetchLaptops(skip, sortBy = null, brands = [], priceRange = [], cores = [], ram = []) {
 	return async (dispatch) => {
@@ -47,7 +48,8 @@ export function fetchLaptops(skip, sortBy = null, brands = [], priceRange = [], 
 
 			dispatch(laptopFetch(laptops, allLaptopsCount));
 		} catch (error) {
-			dispatch(laptopMessage(error.message));
+			dispatch(laptopError());
+			dispatch(toastMessage(error.message));
 		}
 	};
 }
@@ -61,7 +63,8 @@ export function fetchOneLaptop(id) {
 
 			dispatch(laptopFetchOne(data));
 		} catch (error) {
-			dispatch(laptopMessage(error.message));
+			dispatch(laptopError());
+			dispatch(toastMessage(error.message));
 		}
 	};
 }
@@ -74,11 +77,12 @@ export function addLaptop(laptop) {
 			const laptopCopy = { ...laptop };
 			laptopCopy.images = laptopCopy.images.trim().split(",");
 			const { message } = await request(`/api/laptops/add`, laptopCopy, "POST");
-			console.log(message);
 
-			dispatch(laptopMessage(message));
+			dispatch(laptopSuccess());
+			dispatch(toastMessage(message));
 		} catch (error) {
-			dispatch(laptopMessage(error.message));
+			dispatch(laptopError());
+			dispatch(toastMessage(error.message));
 		}
 	};
 }
@@ -110,16 +114,15 @@ export function laptopLoading() {
 	};
 }
 
-export function laptopMessage(message) {
+export function laptopSuccess() {
 	return {
-		type: LAPTOP_MESSAGE,
-		message,
+		type: LAPTOP_SUCCESS,
 	};
 }
 
-export function clearMessage() {
+export function laptopError() {
 	return {
-		type: LAPTOP_CLEAR_MESSAGE,
+		type: LAPTOP_ERROR,
 	};
 }
 

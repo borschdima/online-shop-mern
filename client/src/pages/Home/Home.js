@@ -1,29 +1,18 @@
 import React, { useEffect } from "react";
-import { ToastContainer } from "react-toastify";
-import { useSelector, useDispatch } from "react-redux";
-import { notify } from "../../utils/notify";
-import { clearMessage } from "../../redux/actions/auth";
+import { useSelector } from "react-redux";
 import { MDBContainer } from "mdbreact";
 import { SectionHeader } from "../../ui";
 
 import "./Home.scss";
 
 const Home = () => {
-	const dispatch = useDispatch();
-	const formMessage = useSelector((state) => state.auth.formMessage);
 	const { darkmode } = useSelector((state) => state.user);
 
 	const THEME = darkmode ? "darkmode" : "";
 
 	useEffect(() => {
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
-		if (formMessage) {
-			notify(formMessage);
-			dispatch(clearMessage());
-		}
-
-		// return () => dispatch(clearMessage());
-	}, [dispatch, formMessage]);
+	});
 
 	return (
 		<section className={`home section_page ${THEME}`}>
@@ -153,7 +142,6 @@ const Home = () => {
 						Реализованы действия на странице "Корзина"
 					</li>
 				</ul>
-				<ToastContainer />
 			</MDBContainer>
 		</section>
 	);

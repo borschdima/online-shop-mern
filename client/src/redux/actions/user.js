@@ -1,6 +1,7 @@
-import { CHANGE_DARKMODE, UPDATE_NAME, UPDATE_EMAIL, UPDATE_MAILING, UPDATE_INFO, USER_ERROR, USER_LOADING, USER_CLEAR_MESSAGE } from "./actionTypes";
+import { CHANGE_DARKMODE, UPDATE_NAME, UPDATE_EMAIL, UPDATE_MAILING, UPDATE_INFO, USER_ERROR, USER_LOADING } from "./actionTypes";
 import { request } from "../requestConfig";
 import { prettifyName } from "../../utils/prettifyName";
+import { toastMessage } from "./messager";
 
 // Receiving Data from server when app initialized
 export function getUserData() {
@@ -19,16 +20,16 @@ export function getUserData() {
 
 			dispatch(updateUser(userInfo));
 		} catch (error) {
-			dispatch(userError(error.message));
+			dispatch(userError());
+			dispatch(toastMessage(error.message));
 		}
 	};
 }
 
-export function updateUser(userInfo, message = "") {
+export function updateUser(userInfo) {
 	return {
 		type: UPDATE_INFO,
 		userInfo,
-		message,
 	};
 }
 
@@ -41,9 +42,11 @@ export function updateInfo(name, email) {
 			user.name = prettifyName(user.name);
 			localStorage.setItem("userName", user.name);
 
-			dispatch(updateUser(user, message));
+			dispatch(updateUser(user));
+			dispatch(toastMessage(message));
 		} catch (error) {
-			dispatch(userError(error.message));
+			dispatch(userError());
+			dispatch(toastMessage(error.message));
 		}
 	};
 }
@@ -52,11 +55,13 @@ export function updateInfo(name, email) {
 export function changeMailing(value) {
 	return async (dispatch) => {
 		try {
-			const data = await request("/api/user/me/mailing", { recieveEmails: value }, "PATCH");
+			const { message } = await request("/api/user/me/mailing", { recieveEmails: value }, "PATCH");
 
-			dispatch({ type: UPDATE_MAILING, recieveEmails: value, message: data.message });
+			dispatch({ type: UPDATE_MAILING, recieveEmails: value });
+			dispatch(toastMessage(message));
 		} catch (error) {
-			dispatch(userError(error.message));
+			dispatch(userError());
+			dispatch(toastMessage(error.message));
 		}
 	};
 }
@@ -81,16 +86,9 @@ export function changeEmail(email) {
 	};
 }
 
-export function clearMessage() {
-	return {
-		type: USER_CLEAR_MESSAGE,
-	};
-}
-
-export function userError(errorMessage) {
+export function userError() {
 	return {
 		type: USER_ERROR,
-		errorMessage,
 	};
 }
 

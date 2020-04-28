@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { SectionHeader } from "../../ui";
 import { MDBContainer } from "mdbreact";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,9 +6,7 @@ import { useHistory } from "react-router-dom";
 import { Button } from "../../ui";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { addLaptop, clearMessage } from "../../redux/actions/laptop";
-import { notify } from "../../utils/notify";
-import { ToastContainer } from "react-toastify";
+import { addLaptop } from "../../redux/actions/laptop";
 
 import "./AddLaptop.scss";
 
@@ -16,16 +14,8 @@ const AddLaptop = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const { darkmode } = useSelector((state) => state.user);
-	const { message } = useSelector((state) => state.laptop);
 
 	const THEME = darkmode ? "darkmode" : "";
-
-	useEffect(() => {
-		if (message) {
-			notify(message);
-			dispatch(clearMessage());
-		}
-	}, [message, dispatch]);
 
 	const fields = [
 		{ name: "name", element: "input", placeholder: "Заголовок товара" },
@@ -182,7 +172,6 @@ const AddLaptop = () => {
 						);
 					}}
 				</Formik>
-				<ToastContainer />
 			</MDBContainer>
 		</section>
 	);

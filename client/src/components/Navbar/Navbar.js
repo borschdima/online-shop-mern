@@ -1,27 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { MDBNavbar, MDBIcon, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBCollapse, MDBHamburgerToggler } from "mdbreact";
 import { logout } from "../../redux/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { clearMessage } from "../../redux/actions/cart";
-import { notify } from "../../utils/notify";
 
 import "./Navbar.scss";
 
 const Navbar = () => {
 	const [collapse, setCollapse] = useState(false);
 	const dispatch = useDispatch();
-	const { itemsCount: cartItemsCount, message } = useSelector((state) => state.cart);
+	const { itemsCount: cartItemsCount } = useSelector((state) => state.cart);
 	const { darkmode, role } = useSelector((state) => state.user);
 
 	const THEME = darkmode ? "darkmode" : "";
-
-	// using message Toaster on Laptop page to display adding laptop to cart message
-	useEffect(() => {
-		if (message) {
-			notify(message);
-			dispatch(clearMessage());
-		}
-	}, [message, dispatch]);
 
 	// Collapse mobile menu depending on screen size
 	const onLinkClick = () => {
@@ -33,9 +23,7 @@ const Navbar = () => {
 		}
 	};
 
-	const toggleSingleCollapse = () => {
-		setCollapse(!collapse);
-	};
+	const toggleSingleCollapse = () => setCollapse(!collapse);
 
 	return (
 		<MDBNavbar dark expand="md" className={THEME}>

@@ -4,21 +4,23 @@ import {
 	CART_REMOVE_SUCCESS,
 	CART_LOADING,
 	CART_ERROR,
-	CART_CLEAR_MESSAGE,
 	CART_FETCH_SUCCESS,
 	UPDATE_PURCHASES,
 } from "../actions/actionTypes";
 import { request } from "../requestConfig";
+import { toastMessage } from "./messager";
 
 export function addItem(item) {
 	return async (dispatch) => {
 		dispatch(cartLoading());
 		try {
-			const data = await request("/api/cart/add", { id: item._id }, "POST");
+			const { laptop, message } = await request("/api/cart/add", { id: item._id }, "POST");
 
-			dispatch(cartAddSuccess(data.laptop, data.message));
+			dispatch(cartAddSuccess(laptop));
+			dispatch(toastMessage(message));
 		} catch (error) {
-			dispatch(cartError(error.message));
+			dispatch(toastMessage(error.message));
+			dispatch(cartError());
 		}
 	};
 }
@@ -27,11 +29,13 @@ export function removeItem(id) {
 	return async (dispatch) => {
 		dispatch(cartLoading());
 		try {
-			const data = await request("/api/cart/remove", { id }, "DELETE");
+			const { message } = await request("/api/cart/remove", { id }, "DELETE");
 
-			dispatch(cartRemoveSuccess(id, data.message));
+			dispatch(cartRemoveSuccess(id));
+			dispatch(toastMessage(message));
 		} catch (error) {
-			dispatch(cartError(error.message));
+			dispatch(toastMessage(error.message));
+			dispatch(cartError());
 		}
 	};
 }
@@ -40,11 +44,12 @@ export function getCartItems() {
 	return async (dispatch) => {
 		dispatch(cartLoading());
 		try {
-			const data = await request("/api/cart");
+			const { cart } = await request("/api/cart");
 
-			dispatch(cartFetchSuccess(data.cart));
+			dispatch(cartFetchSuccess(cart));
 		} catch (error) {
-			dispatch(cartError(error.message));
+			dispatch(cartError());
+			dispatch(toastMessage(error.message));
 		}
 	};
 }
@@ -53,20 +58,21 @@ export function buy() {
 	return async (dispatch) => {
 		dispatch(cartLoading());
 		try {
-			const data = await request("/api/cart/buy", null, "POST");
+			const { message, user } = await request("/api/cart/buy", null, "POST");
 
-			dispatch(cartBuySuccess(data.message));
-			dispatch({ type: UPDATE_PURCHASES, purchasesNumber: data.user.purchasesNumber });
+			dispatch(cartBuySuccess());
+			dispatch(toastMessage(message));
+			dispatch({ type: UPDATE_PURCHASES, purchasesNumber: user.purchasesNumber });
 		} catch (error) {
-			dispatch(cartError(error.message));
+			dispatch(cartError());
+			dispatch(toastMessage(error.message));
 		}
 	};
 }
 
-export function cartError(errorMessage) {
+export function cartError() {
 	return {
 		type: CART_ERROR,
-		errorMessage,
 	};
 }
 
@@ -76,26 +82,23 @@ export function cartLoading() {
 	};
 }
 
-export function cartAddSuccess(item, message) {
+export function cartAddSuccess(item) {
 	return {
 		type: CART_ADD_SUCCESS,
 		item,
-		message,
 	};
 }
 
-export function cartBuySuccess(message) {
+export function cartBuySuccess() {
 	return {
 		type: CART_BUY_SUCCESS,
-		message,
 	};
 }
 
-export function cartRemoveSuccess(itemId, message) {
+export function cartRemoveSuccess(itemId) {
 	return {
 		type: CART_REMOVE_SUCCESS,
 		itemId,
-		message,
 	};
 }
 
@@ -103,11 +106,5 @@ export function cartFetchSuccess(items) {
 	return {
 		type: CART_FETCH_SUCCESS,
 		items,
-	};
-}
-
-export function clearMessage() {
-	return {
-		type: CART_CLEAR_MESSAGE,
 	};
 }

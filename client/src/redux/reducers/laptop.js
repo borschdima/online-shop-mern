@@ -1,12 +1,12 @@
 import {
-	LAPTOP_MESSAGE,
-	LAPTOP_CLEAR_MESSAGE,
 	LAPTOP_LOADING,
 	LAPTOP_FETCH,
 	LAPTOP_FETCH_ONE,
 	LAPTOP_CHANGE_GRID_SIZE,
 	LAPTOP_CHANGE_SORT,
 	LAPTOP_CHANGE_SKIP,
+	LAPTOP_SUCCESS,
+	LAPTOP_ERROR,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -18,7 +18,6 @@ const initialState = {
 	laptopDetails: null,
 	loading: false,
 	error: false,
-	message: "",
 };
 
 export default function authReducer(state = initialState, action) {
@@ -41,11 +40,11 @@ export default function authReducer(state = initialState, action) {
 		case LAPTOP_LOADING:
 			return { ...state, loading: true, error: false };
 
-		case LAPTOP_MESSAGE:
-			return { ...state, loading: false, message: action.message };
+		case LAPTOP_SUCCESS:
+			return { ...state, loading: false, error: false };
 
-		case LAPTOP_CLEAR_MESSAGE:
-			return { ...state, message: "" };
+		case LAPTOP_ERROR:
+			return { ...state, loading: false, error: true };
 
 		default:
 			return state;

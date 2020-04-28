@@ -1,10 +1,12 @@
-import { AUTH_LOADING, AUTH_SIGNUP, AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CLEAR_MESSAGE, CHANGE_DARKMODE } from "./actionTypes";
+import { AUTH_LOADING, AUTH_SIGNUP, AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, CHANGE_DARKMODE } from "./actionTypes";
 import { request } from "../requestConfig";
 import { prettifyName } from "../../utils/prettifyName";
+import { toastMessage, clearMessage } from "./messager";
 
 export function auth(email, password, isLogin) {
 	return async (dispatch) => {
 		dispatch(authLoading());
+		dispatch(clearMessage());
 
 		try {
 			if (isLogin) {
@@ -18,14 +20,17 @@ export function auth(email, password, isLogin) {
 					localStorage.setItem("userName", userName);
 				}
 
-				dispatch(authLogin(token, message));
+				dispatch(authLogin(token));
+				dispatch(toastMessage(message));
 			} else {
-				const data = await request("/api/auth/signup", { email, password }, "POST", false);
+				const { message } = await request("/api/auth/signup", { email, password }, "POST", false);
 
-				dispatch(authSignup(data.message));
+				dispatch(authSignup());
+				dispatch(toastMessage(message, true));
 			}
 		} catch (error) {
-			dispatch(authError(error.message));
+			dispatch(authError());
+			dispatch(toastMessage(error.message, true));
 		}
 	};
 }
@@ -45,10 +50,12 @@ export function logout(message = "") {
 			localStorage.removeItem("userName");
 			localStorage.removeItem("expirationDate");
 
-			dispatch({ type: AUTH_LOGOUT, message: message || logoutMessage });
-			dispatch(autoClearMessage(4000));
+			dispatch({ type: AUTH_LOGOUT });
+
+			dispatch(toastMessage(message || logoutMessage, true));
 		} catch (e) {
-			dispatch(authError(e.message));
+			dispatch(authError());
+			dispatch(toastMessage(e.message));
 		}
 	};
 }
@@ -72,24 +79,21 @@ export function autoLogin() {
 					dispatch(logout());
 				} else {
 					const userName = localStorage.getItem("userName") || "";
-					dispatch(authLogin(token, `Здравствуйте ${userName}, Вы вошли в систему! ✌🏻😎`));
+					dispatch(authLogin(token));
+					dispatch(toastMessage(`Здравствуйте ${userName}, Вы вошли в систему! ✌🏻😎`));
 					dispatch(autoLogout((expirationDate.getTime() - new Date().getTime()) / 1000));
 				}
 			} catch (e) {
-				dispatch({ type: AUTH_LOGOUT, message: "" });
+				dispatch({ type: AUTH_LOGOUT });
+
 				localStorage.removeItem("token");
 				localStorage.removeItem("userName");
 				localStorage.removeItem("expirationDate");
-				dispatch(authError("Время сессии истекло!"));
-				dispatch(autoClearMessage(4000));
+
+				dispatch(authError());
+				dispatch(toastMessage("Время сессии истекло!", true));
 			}
 		}
-	};
-}
-
-export function clearMessage() {
-	return {
-		type: AUTH_CLEAR_MESSAGE,
 	};
 }
 
@@ -99,25 +103,22 @@ export function authLoading() {
 	};
 }
 
-export function authLogin(token, message) {
+export function authError() {
+	return {
+		type: AUTH_ERROR,
+	};
+}
+
+export function authLogin(token) {
 	return {
 		type: AUTH_LOGIN,
 		token,
-		message,
 	};
 }
 
-export function authSignup(message) {
+export function authSignup() {
 	return {
 		type: AUTH_SIGNUP,
-		message,
-	};
-}
-
-export function authError(errorMessage) {
-	return {
-		type: AUTH_ERROR,
-		errorMessage,
 	};
 }
 
@@ -126,11 +127,5 @@ export function autoLogout(time) {
 		// Выходим из системы если токен не актуальный
 		// за одну минуту  до истечения токена, чтобы можно было выполнить запрос на сервер для logout, когда мы еще авторизованы
 		setTimeout(() => dispatch(logout("Вреия сессии истекло")), time * 1000 - 60000);
-	};
-}
-
-export function autoClearMessage(time) {
-	return async (dispatch) => {
-		setTimeout(() => dispatch(clearMessage()), time);
 	};
 }

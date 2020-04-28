@@ -1,26 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { SectionHeader, Toggle } from "../../ui";
 import { MDBContainer, MDBRow, MDBCol, MDBIcon } from "mdbreact";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { changeDarkMode, changeMailing, clearMessage } from "../../redux/actions/user";
-import { notify } from "../../utils/notify";
-import { ToastContainer } from "react-toastify";
+import { changeDarkMode, changeMailing } from "../../redux/actions/user";
 
 import "./Profile.scss";
 
 const Profile = () => {
 	const dispatch = useDispatch();
-	const { darkmode, purchasesNumber, recieveEmails, name, email, message } = useSelector((state) => state.user);
+	const { darkmode, purchasesNumber, recieveEmails, name, email } = useSelector((state) => state.user);
 
 	const THEME = darkmode ? "darkmode" : "";
-
-	useEffect(() => {
-		if (message) {
-			notify(message);
-			dispatch(clearMessage());
-		}
-	}, [dispatch, message]);
 
 	return (
 		<section className={`profile section_page ${THEME}`}>
@@ -82,7 +73,6 @@ const Profile = () => {
 						</div>
 					</MDBCol>
 				</MDBRow>
-				<ToastContainer />
 			</MDBContainer>
 		</section>
 	);

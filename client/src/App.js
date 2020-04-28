@@ -5,7 +5,7 @@ import { autoLogin } from "./redux/actions/auth";
 import { getCartItems } from "./redux/actions/cart";
 import { getUserData } from "./redux/actions/user";
 import { Auth, Laptops, Home, Cart, AddLaptop, Profile, LaptopDetails, ProfileSettings, Roles } from "./pages";
-import { Navbar } from "./components";
+import { Navbar, Messager } from "./components";
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -25,6 +25,7 @@ const App = () => {
 		return (
 			<Router>
 				{isAuthenticated && <Navbar />}
+				<Messager />
 				<Switch>
 					<Route path="/" exact component={Home} />
 					<Route path="/laptops" exact component={Laptops} />
@@ -42,6 +43,7 @@ const App = () => {
 
 	return (
 		<Router>
+			<Messager />
 			<Switch>
 				<Route path="/auth" component={Auth} />
 				<Redirect to="/auth" />

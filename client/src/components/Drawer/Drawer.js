@@ -24,9 +24,7 @@ const Drawer = () => {
 	const [priceValue, setPriceValue] = useState([5000, 300000]);
 
 	// Open/Close Drawer menu
-	const toggleDrawer = () => {
-		setOpen(!open);
-	};
+	const toggleDrawer = () => setOpen(!open);
 
 	// Apply drawer filter and close Drawer
 	const applyFilter = () => {

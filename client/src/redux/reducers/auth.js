@@ -1,8 +1,7 @@
-import { AUTH_LOADING, AUTH_SIGNUP, AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CLEAR_MESSAGE } from "../actions/actionTypes";
+import { AUTH_LOADING, AUTH_SIGNUP, AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR } from "../actions/actionTypes";
 
 const initialState = {
 	token: null,
-	formMessage: "",
 	loading: false,
 	error: false,
 };
@@ -10,22 +9,19 @@ const initialState = {
 export default function authReducer(state = initialState, action) {
 	switch (action.type) {
 		case AUTH_LOADING:
-			return { ...state, loading: true, error: false, formMessage: "" };
+			return { ...state, loading: true, error: false };
 
 		case AUTH_SIGNUP:
-			return { ...state, loading: false, formMessage: action.message };
+			return { ...state, loading: false };
 
 		case AUTH_LOGIN:
-			return { ...state, loading: false, token: action.token, formMessage: action.message };
+			return { ...state, loading: false, token: action.token };
 
 		case AUTH_ERROR:
-			return { ...state, error: true, loading: false, formMessage: action.errorMessage };
+			return { ...state, error: true, loading: false };
 
 		case AUTH_LOGOUT:
-			return { ...state, token: null, formMessage: action.message };
-
-		case AUTH_CLEAR_MESSAGE:
-			return { ...state, formMessage: "" };
+			return { ...state, token: null };
 		default:
 			return state;
 	}

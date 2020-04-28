@@ -6,16 +6,15 @@ import { MDBContainer, MDBIcon } from "mdbreact";
 import { Button } from "../../ui";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { updateInfo, clearMessage } from "../../redux/actions/user";
-import { notify } from "../../utils/notify";
-import { ToastContainer } from "react-toastify";
+import { updateInfo } from "../../redux/actions/user";
 
 import "./ProfileSettings.scss";
 
 const ProfileSettings = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const { darkmode, name, email, loading, message, error } = useSelector((state) => state.user);
+	const { darkmode, name, email, loading, error } = useSelector((state) => state.user);
+	const { message } = useSelector((state) => state.messager);
 
 	const THEME = darkmode ? "darkmode" : "";
 
@@ -23,11 +22,7 @@ const ProfileSettings = () => {
 		if (message && !error) {
 			history.push("/profile");
 		}
-		if (message && error) {
-			notify(message);
-			dispatch(clearMessage());
-		}
-	}, [dispatch, message, error, history]);
+	}, [message, error, history]);
 
 	return (
 		<section className={`profile section_page ${THEME} `}>
@@ -96,7 +91,6 @@ const ProfileSettings = () => {
 						);
 					}}
 				</Formik>
-				<ToastContainer />
 			</MDBContainer>
 		</section>
 	);

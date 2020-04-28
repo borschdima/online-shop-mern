@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MDBIcon } from "mdbreact";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { auth } from "../../redux/actions/auth";
-import { notify } from "../../utils/notify";
-import { ToastContainer } from "react-toastify";
 import { Button } from "../../ui";
 
 import "./Form.scss";
@@ -17,13 +15,8 @@ const Form = ({ THEME = "" }) => {
 	const [showPass, setShowPass] = useState(false);
 
 	// Global State
-	const { error, loading, formMessage } = useSelector((state) => state.auth);
-
-	useEffect(() => {
-		if (formMessage) {
-			notify(formMessage);
-		}
-	}, [formMessage]);
+	const { error, loading } = useSelector((state) => state.auth);
+	const { message } = useSelector((state) => state.messager);
 
 	return (
 		<Formik
@@ -85,9 +78,9 @@ const Form = ({ THEME = "" }) => {
 						</div>
 
 						{error ? (
-							<div className="form__text form__error-message">{formMessage}</div>
+							<div className="form__text form__error-message">{message}</div>
 						) : (
-							<div className="form__text form__success-message">{formMessage}</div>
+							<div className="form__text form__success-message">{message}</div>
 						)}
 
 						<Button
@@ -114,7 +107,6 @@ const Form = ({ THEME = "" }) => {
 								Зарегистрируйтесь
 							</button>
 						</div>
-						<ToastContainer />
 					</form>
 				);
 			}}

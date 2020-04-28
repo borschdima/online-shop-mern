@@ -7,7 +7,6 @@ import {
 	UPDATE_INFO,
 	USER_ERROR,
 	USER_LOADING,
-	USER_CLEAR_MESSAGE,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -19,7 +18,6 @@ const initialState = {
 	role: "user",
 	error: false,
 	loading: false,
-	message: "",
 };
 
 export default function authReducer(state = initialState, action) {
@@ -35,12 +33,11 @@ export default function authReducer(state = initialState, action) {
 				email: action.userInfo.email,
 				recieveEmails: action.userInfo.recieveEmails,
 				role: action.userInfo.role,
-				message: action.message,
 				loading: false,
 			};
 
 		case UPDATE_MAILING:
-			return { ...state, recieveEmails: action.recieveEmails, message: action.message };
+			return { ...state, recieveEmails: action.recieveEmails };
 
 		case UPDATE_PURCHASES:
 			return { ...state, purchasesNumber: action.purchasesNumber };
@@ -51,14 +48,11 @@ export default function authReducer(state = initialState, action) {
 		case UPDATE_EMAIL:
 			return { ...state, email: action.email };
 
-		case USER_CLEAR_MESSAGE:
-			return { ...state, message: "" };
-
 		case USER_LOADING:
 			return { ...state, loading: true, error: false };
 
 		case USER_ERROR:
-			return { ...state, error: true, loading: false, message: action.errorMessage };
+			return { ...state, error: true, loading: false };
 
 		default:
 			return state;

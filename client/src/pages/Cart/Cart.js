@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { MDBContainer, MDBDataTable } from "mdbreact";
 import { useHistory } from "react-router-dom";
 import { removeItem, buy } from "../../redux/actions/cart";
-import { ToastContainer } from "react-toastify";
 import { prettifyPrice } from "../../utils/prettifyPrice";
 import { Button, SectionHeader } from "../../ui";
 
@@ -65,7 +64,6 @@ const Cart = () => {
 	return (
 		<section className={`cart section_page ${THEME}`}>
 			<MDBContainer>
-				<ToastContainer />
 				<SectionHeader title="Корзина" />
 				<h5 className="cart__title">
 					В Вашей корзине{" "}

@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MDBContainer, MDBIcon } from "mdbreact";
 import { laptopChangeQuerySkip, laptopChangeGridSize, laptopChangeQuerySort } from "../../redux/actions/laptop";
-import { ToastContainer } from "react-toastify";
 import { Pagination, Drawer, LaptopsList } from "../../components";
 import { DropDown, SectionHeader } from "../../ui";
 
@@ -45,7 +44,6 @@ const Laptops = () => {
 	return (
 		<section className={`laptops section_page ${THEME}`}>
 			<MDBContainer>
-				<ToastContainer />
 				<SectionHeader title="Ноутбуки" THEME={THEME} />
 
 				<div className="laptops__display-mode d-flex align-items-center">

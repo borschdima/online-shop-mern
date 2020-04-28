@@ -4,12 +4,11 @@ export const AUTH_LOGIN = "AUTH_LOGIN";
 export const AUTH_ERROR = "AUTH_ERROR";
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
 export const AUTH_LOADING = "AUTH_LOADING";
-export const AUTH_CLEAR_MESSAGE = "AUTH_CLEAR_MESSAGE";
 
 // Laptop
 export const LAPTOP_LOADING = "LAPTOP_LOADING";
-export const LAPTOP_MESSAGE = "LAPTOP_MESSAGE";
-export const LAPTOP_CLEAR_MESSAGE = "LAPTOP_CLEAR_MESSAGE";
+export const LAPTOP_SUCCESS = "LAPTOP_SUCCESS";
+export const LAPTOP_ERROR = "LAPTOP_ERROR";
 export const LAPTOP_FETCH = "LAPTOP_FETCH";
 export const LAPTOP_FETCH_ONE = "LAPTOP_FETCH_ONE";
 export const LAPTOP_CHANGE_SKIP = "LAPTOP_CHANGE_SKIP";
@@ -42,3 +41,7 @@ export const UPDATE_INFO = "UPDATE_INFO";
 export const USER_CLEAR_MESSAGE = "USER_CLEAR_MESSAGE";
 export const USER_ERROR = "USER_ERROR";
 export const USER_LOADING = "USER_LOADING";
+
+// Messager
+export const TOAST_MESSAGE = "TOAST_MESSAGE";
+export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
