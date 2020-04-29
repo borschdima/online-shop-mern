@@ -6,3 +6,4 @@ export { default as Spinner } from "./Spinner/Spinner";
 export { default as Drawer } from "./Drawer/Drawer";
 export { default as LaptopsList } from "./LaptopsList/LaptopsList";
 export { default as Messager } from "./Messager/Messager";
+export { default as Modal } from "./Modal/Modal";

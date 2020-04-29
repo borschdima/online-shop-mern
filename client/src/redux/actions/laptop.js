@@ -69,6 +69,22 @@ export function fetchOneLaptop(id) {
 	};
 }
 
+export function deleteLaptop(id) {
+	return async (dispatch) => {
+		dispatch(laptopLoading());
+
+		try {
+			const { message } = await request(`/api/laptops/delete/${id}`, null, "DELETE");
+
+			dispatch(laptopSuccess());
+			dispatch(toastMessage(message));
+		} catch (error) {
+			dispatch(laptopError());
+			dispatch(toastMessage(error.message));
+		}
+	};
+}
+
 export function addLaptop(laptop) {
 	return async (dispatch) => {
 		dispatch(laptopLoading());

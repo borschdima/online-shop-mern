@@ -1,15 +1,21 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams, useHistory } from "react-router-dom";
 import { MDBContainer, MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBTable, MDBTableBody } from "mdbreact";
-import { SectionHeader } from "../../ui";
+import { SectionHeader, Button } from "../../ui";
+import { deleteLaptop } from "../../redux/actions/laptop";
+import { Modal } from "../../components";
+import { toggleModal } from "../../redux/actions/modal";
 
 import "./LaptopDetails.scss";
 
 const LaptopDetails = () => {
 	const params = useParams();
-	const laptops = useSelector((state) => state.laptop.laptops);
-	const { darkmode } = useSelector((state) => state.user);
+	const dispatch = useDispatch();
+	const history = useHistory();
+	const { laptops, error, loading } = useSelector((state) => state.laptop);
+	const { message } = useSelector((state) => state.messager);
+	const { darkmode, role } = useSelector((state) => state.user);
 
 	const THEME = darkmode ? "darkmode" : "";
 
@@ -19,7 +25,10 @@ const LaptopDetails = () => {
 	useEffect(() => {
 		// Scroll page to top when enter the page
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
-	});
+		if (message && !error) {
+			history.push("/laptops");
+		}
+	}, [message, error, history]);
 
 	// Generate slides from laptop images, received from server
 	const createSlides = () =>
@@ -30,6 +39,11 @@ const LaptopDetails = () => {
 				</MDBView>
 			</MDBCarouselItem>
 		));
+
+	const onDeleteLaptop = () => {
+		dispatch(deleteLaptop(laptop._id));
+		dispatch(toggleModal());
+	};
 
 	return (
 		<section className={`details section_page ${THEME}`}>
@@ -99,6 +113,26 @@ const LaptopDetails = () => {
 						</tr>
 					</MDBTableBody>
 				</MDBTable>
+				{role !== "user" && (
+					<Button
+						label="Удалить товар"
+						icon="trash-alt"
+						classes="center"
+						small
+						disabled={loading}
+						labelShow
+						clickHandler={dispatch.bind(null, toggleModal())}
+						THEME={THEME}
+					/>
+				)}
+				{role !== "user" && (
+					<Modal
+						title="Подтвердите действия"
+						body="Вы уверены что хотите удалить этот товар из базы данных? Это действие невозможно будет отменить"
+					>
+						<Button label="Удалить" xs disabled={loading} labelShow clickHandler={onDeleteLaptop} THEME={THEME} />
+					</Modal>
+				)}
 			</MDBContainer>
 		</section>
 	);

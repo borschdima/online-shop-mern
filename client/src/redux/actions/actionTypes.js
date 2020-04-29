@@ -45,3 +45,6 @@ export const USER_LOADING = "USER_LOADING";
 // Messager
 export const TOAST_MESSAGE = "TOAST_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
+
+// Modal
+export const TOGGLE_MODAL = "TOGGLE_MODAL";

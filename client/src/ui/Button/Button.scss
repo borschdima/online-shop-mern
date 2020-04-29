@@ -59,8 +59,8 @@
 	margin-left: auto;
 }
 .mybtn.center {
-	margin-right: auto !important;
-	margin-left: auto !important;
+	margin-right: auto;
+	margin-left: auto;
 }
 
 .mybtn.darkmode {
@@ -75,7 +75,7 @@
 	border: none;
 	background: transparent;
 	&:active {
-		background: #202227 !important;
+		background: #202227;
 	}
 }
 

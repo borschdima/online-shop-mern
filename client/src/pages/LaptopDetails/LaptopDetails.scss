@@ -1,4 +1,10 @@
 .details {
+	padding-bottom: 30px;
+
+	.mybtn {
+		background-color: #f92929;
+	}
+
 	&__slider {
 		display: block;
 		margin: 0 auto;
@@ -52,6 +58,16 @@
 	.details {
 		&__slider {
 			height: 250px;
+		}
+	}
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.details {
+		.mybtn {
+			&:hover {
+				background-color: #dd1f1f;
+			}
 		}
 	}
 }

@@ -5,6 +5,7 @@ import cartReducer from "./cart";
 import filterReducer from "./filter";
 import userReducer from "./user";
 import messagerReducer from "./messager";
+import modalReducer from "./modal";
 
 export default combineReducers({
 	auth: authReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
 	filter: filterReducer,
 	user: userReducer,
 	messager: messagerReducer,
+	modal: modalReducer,
 });

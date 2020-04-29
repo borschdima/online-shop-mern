@@ -25,6 +25,18 @@ const Home = () => {
 						<span role="img" aria-label="cart emoji">
 							✅
 						</span>{" "}
+						Добавлена возможность добавления и удаления товара из базы для администраторов
+					</li>
+					<li>
+						<span role="img" aria-label="cart emoji">
+							✅
+						</span>{" "}
+						Добавлена админка
+					</li>
+					<li>
+						<span role="img" aria-label="cart emoji">
+							✅
+						</span>{" "}
 						Добавлена возможность редактирования данных пользователя
 					</li>
 					<li>
@@ -43,7 +55,7 @@ const Home = () => {
 						<span role="img" aria-label="cart emoji">
 							✅
 						</span>{" "}
-						Добавлена черная тема. В настройках акааунта
+						Добавлена черная тема. В настройках аккаунта
 					</li>
 					<li>
 						<span role="img" aria-label="cart emoji">

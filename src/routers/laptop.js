@@ -80,4 +80,15 @@ router.post("/add", auth, admin, async (req, res) => {
 	}
 });
 
+// /api/laptops/delete/:id
+router.delete("/delete/:id", auth, admin, async (req, res) => {
+	try {
+		await Laptop.findOneAndDelete({ _id: req.params.id });
+
+		res.json({ message: "Товар удален из базы ✅" });
+	} catch (e) {
+		res.status(500).json({ message: "Что-то пошло не так, попробуйте снова 🚫" });
+	}
+});
+
 module.exports = router;
