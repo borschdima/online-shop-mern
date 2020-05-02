@@ -7,6 +7,9 @@ import {
 	UPDATE_INFO,
 	USER_ERROR,
 	USER_LOADING,
+	GET_USERS_SUCCESS,
+	UPDATE_ROLE,
+	USER_CHANGE_SKIP,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -16,6 +19,9 @@ const initialState = {
 	recieveEmails: false,
 	darkmode: false,
 	role: "user",
+	querySkip: 0,
+	users: [],
+	allUsersCount: 0,
 	error: false,
 	loading: false,
 };
@@ -36,11 +42,23 @@ export default function authReducer(state = initialState, action) {
 				loading: false,
 			};
 
+		case GET_USERS_SUCCESS:
+			return { ...state, users: action.users, allUsersCount: action.allUsersCount, loading: false };
+
+		case USER_CHANGE_SKIP:
+			return { ...state, querySkip: action.skip };
+
 		case UPDATE_MAILING:
 			return { ...state, recieveEmails: action.recieveEmails };
 
 		case UPDATE_PURCHASES:
 			return { ...state, purchasesNumber: action.purchasesNumber };
+
+		case UPDATE_ROLE:
+			const usersCopy = [...state.users];
+			const updatedUser = usersCopy.find((user) => user._id === action.id);
+			updatedUser.role = action.role;
+			return { ...state, users: usersCopy, loading: false, error: false };
 
 		case UPDATE_NAME:
 			return { ...state, name: action.name };

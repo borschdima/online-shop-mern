@@ -26,7 +26,7 @@ const Pagination = ({ arrayLength, skip, initialPage, onChangePage, THEME = "" }
 	const changePageHandler = (value) => {
 		if (activeItem !== value) {
 			setActiveItem(value);
-			onChangePage(value * 12);
+			onChangePage(value * skip);
 		}
 	};
 

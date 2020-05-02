@@ -1,4 +1,15 @@
-import { CHANGE_DARKMODE, UPDATE_NAME, UPDATE_EMAIL, UPDATE_MAILING, UPDATE_INFO, USER_ERROR, USER_LOADING } from "./actionTypes";
+import {
+	CHANGE_DARKMODE,
+	UPDATE_NAME,
+	UPDATE_EMAIL,
+	UPDATE_MAILING,
+	UPDATE_INFO,
+	USER_ERROR,
+	USER_LOADING,
+	GET_USERS_SUCCESS,
+	UPDATE_ROLE,
+	USER_CHANGE_SKIP,
+} from "./actionTypes";
 import { request } from "../requestConfig";
 import { prettifyName } from "../../utils/prettifyName";
 import { toastMessage } from "./messager";
@@ -26,10 +37,35 @@ export function getUserData() {
 	};
 }
 
-export function updateUser(userInfo) {
-	return {
-		type: UPDATE_INFO,
-		userInfo,
+// Get all users for Role page
+export function getUsers(skip) {
+	return async (dispatch) => {
+		dispatch(userLoading());
+		try {
+			const { users, allUsersCount } = await request(`/api/user/users?skip=${skip}`);
+
+			dispatch(getUsersSuccess(users, allUsersCount));
+		} catch (error) {
+			dispatch(userError());
+			dispatch(toastMessage(error.message));
+		}
+	};
+}
+
+// Change user role
+export function changeRole(id, value) {
+	return async (dispatch) => {
+		dispatch(userLoading());
+		try {
+			const role = value ? "admin" : "user";
+			const { message } = await request(`/api/user?id=${id}`, { role }, "PATCH");
+
+			dispatch(updateRole(id, role));
+			dispatch(toastMessage(message));
+		} catch (error) {
+			dispatch(userError());
+			dispatch(toastMessage(error.message));
+		}
 	};
 }
 
@@ -66,6 +102,13 @@ export function changeMailing(value) {
 	};
 }
 
+function updateUser(userInfo) {
+	return {
+		type: UPDATE_INFO,
+		userInfo,
+	};
+}
+
 export function changeDarkMode(value) {
 	return (dispatch) => {
 		localStorage.setItem("darkmode", value);
@@ -92,8 +135,31 @@ export function userError() {
 	};
 }
 
-export function userLoading() {
+export function userChangeQuerySkip(skip) {
+	return {
+		type: USER_CHANGE_SKIP,
+		skip,
+	};
+}
+
+function updateRole(id, role) {
+	return {
+		type: UPDATE_ROLE,
+		id,
+		role,
+	};
+}
+
+function userLoading() {
 	return {
 		type: USER_LOADING,
+	};
+}
+
+export function getUsersSuccess(users, allUsersCount) {
+	return {
+		type: GET_USERS_SUCCESS,
+		users,
+		allUsersCount,
 	};
 }

@@ -1,20 +1,74 @@
-import React from "react";
-import { SectionHeader } from "../../ui";
-import { MDBContainer } from "mdbreact";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { SectionHeader, Toggle } from "../../ui";
+import { MDBContainer, MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
+import { useSelector, useDispatch } from "react-redux";
+import { getUsers, changeRole, userChangeQuerySkip } from "../../redux/actions/user";
+import { Pagination } from "../../components";
 
 import "./Roles.scss";
 
 const Roles = () => {
-	const { darkmode } = useSelector((state) => state.user);
+	const dispatch = useDispatch();
+	const { darkmode, users, allUsersCount, querySkip } = useSelector((state) => state.user);
 
 	const THEME = darkmode ? "darkmode" : "";
+
+	useEffect(() => {
+		dispatch(getUsers(0));
+	}, [dispatch]);
+
+	const onToggleRole = (id, val) => dispatch(changeRole(id, val));
+
+	const createRows = () => {
+		return users.map((user, index) => (
+			<tr key={user._id}>
+				<td>{index + 1}</td>
+				<td>{user.email}</td>
+				<td>
+					{user.name || (
+						<span className="d-flex" style={{ width: "max-content" }}>
+							Не задано
+						</span>
+					)}
+				</td>
+				<td className="d-flex align-items-center">
+					<span className="mr-2" style={{ width: "max-content" }}>
+						нет прав
+					</span>
+					<Toggle THEME={THEME} active={user.role === "admin"} onToggle={(val) => onToggleRole(user._id, val)} />
+					<span className="ml-2">админ</span>
+				</td>
+			</tr>
+		));
+	};
+
+	// Pagination between pages
+	const onChangePage = (skip) => dispatch(userChangeQuerySkip(skip));
 
 	return (
 		<section className={`roles section_page ${THEME}`}>
 			<MDBContainer>
 				<SectionHeader title="Админка" />
 				<p>Здесь будет распределение прав пользователям</p>
+				<MDBTable striped responsiveSm className="roles__table">
+					<MDBTableHead>
+						<tr>
+							<th>#</th>
+							<th>Email</th>
+							<th>Имя</th>
+							<th>Права</th>
+						</tr>
+					</MDBTableHead>
+					<MDBTableBody>{createRows()}</MDBTableBody>
+				</MDBTable>
+
+				<Pagination
+					arrayLength={allUsersCount}
+					skip={30}
+					THEME={THEME}
+					initialPage={querySkip > 0 ? querySkip / 30 : querySkip}
+					onChangePage={(page) => onChangePage(page)}
+				/>
 			</MDBContainer>
 		</section>
 	);

@@ -41,6 +41,9 @@ export const UPDATE_INFO = "UPDATE_INFO";
 export const USER_CLEAR_MESSAGE = "USER_CLEAR_MESSAGE";
 export const USER_ERROR = "USER_ERROR";
 export const USER_LOADING = "USER_LOADING";
+export const GET_USERS_SUCCESS = "GET_USERS_SUCCESS";
+export const UPDATE_ROLE = "UPDATE_ROLE";
+export const USER_CHANGE_SKIP = "USER_CHANGE_SKIP";
 
 // Messager
 export const TOAST_MESSAGE = "TOAST_MESSAGE";
