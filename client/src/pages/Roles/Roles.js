@@ -2,20 +2,21 @@ import React, { useEffect } from "react";
 import { SectionHeader, Toggle } from "../../ui";
 import { MDBContainer, MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 import { useSelector, useDispatch } from "react-redux";
-import { getUsers, changeRole, userChangeQuerySkip } from "../../redux/actions/user";
+import { getUsers, changeRole, userChangeQuerySkip, changeSearchByEmail } from "../../redux/actions/user";
 import { Pagination } from "../../components";
+import { debounce } from "lodash";
 
 import "./Roles.scss";
 
 const Roles = () => {
 	const dispatch = useDispatch();
-	const { darkmode, users, allUsersCount, querySkip } = useSelector((state) => state.user);
+	const { darkmode, users, allUsersCount, querySkip, particularUser } = useSelector((state) => state.user);
 
 	const THEME = darkmode ? "darkmode" : "";
 
 	useEffect(() => {
-		dispatch(getUsers(0));
-	}, [dispatch]);
+		dispatch(getUsers(querySkip, particularUser));
+	}, [dispatch, querySkip, particularUser]);
 
 	const onToggleRole = (id, val) => dispatch(changeRole(id, val));
 
@@ -45,11 +46,25 @@ const Roles = () => {
 	// Pagination between pages
 	const onChangePage = (skip) => dispatch(userChangeQuerySkip(skip));
 
+	// Search for a particular user
+	const onUserEmailChange = debounce((text) => dispatch(changeSearchByEmail(text)), 1000);
+
 	return (
 		<section className={`roles section_page ${THEME}`}>
 			<MDBContainer>
 				<SectionHeader title="Админка" />
-				<p>Здесь будет распределение прав пользователям</p>
+				<h5 className="roles__header">
+					Всего зарегистрировано пользователей: <span className="roles__bold">{allUsersCount}</span>
+				</h5>
+				<div className="roles__field">
+					<input
+						className="roles__input"
+						onChange={(e) => onUserEmailChange(e.target.value)}
+						defaultValue={particularUser}
+						type="text"
+						placeholder="Поиск по email"
+					/>
+				</div>
 				<MDBTable striped responsiveSm className="roles__table">
 					<MDBTableHead>
 						<tr>

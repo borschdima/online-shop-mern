@@ -5,10 +5,15 @@ const owner = require("../middleware/owner");
 const router = Router();
 
 // /api/user/users?skip=30
+// /api/user/users?email=some@email.com
 router.get("/users", auth, owner, async (req, res) => {
 	try {
 		const match = { role: { $ne: "owner" } };
 		const skip = parseInt(req.query.skip);
+
+		if (req.query.email) {
+			match.email = new RegExp(req.query.email, "i");
+		}
 
 		const users = await User.find(match, null, { limit: 30, skip });
 		const allUsersCount = await User.find(match).countDocuments();

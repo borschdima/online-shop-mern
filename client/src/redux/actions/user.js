@@ -9,6 +9,7 @@ import {
 	GET_USERS_SUCCESS,
 	UPDATE_ROLE,
 	USER_CHANGE_SKIP,
+	CHANGE_SEARCH_BY_EMAIL,
 } from "./actionTypes";
 import { request } from "../requestConfig";
 import { prettifyName } from "../../utils/prettifyName";
@@ -38,11 +39,11 @@ export function getUserData() {
 }
 
 // Get all users for Role page
-export function getUsers(skip) {
+export function getUsers(skip, email) {
 	return async (dispatch) => {
 		dispatch(userLoading());
 		try {
-			const { users, allUsersCount } = await request(`/api/user/users?skip=${skip}`);
+			const { users, allUsersCount } = await request(`/api/user/users?skip=${skip}&email=${email}`);
 
 			dispatch(getUsersSuccess(users, allUsersCount));
 		} catch (error) {
@@ -66,6 +67,14 @@ export function changeRole(id, value) {
 			dispatch(userError());
 			dispatch(toastMessage(error.message));
 		}
+	};
+}
+
+// Change search by email value
+export function changeSearchByEmail(value) {
+	return {
+		type: CHANGE_SEARCH_BY_EMAIL,
+		value,
 	};
 }
 

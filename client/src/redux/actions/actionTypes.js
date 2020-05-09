@@ -44,6 +44,7 @@ export const USER_LOADING = "USER_LOADING";
 export const GET_USERS_SUCCESS = "GET_USERS_SUCCESS";
 export const UPDATE_ROLE = "UPDATE_ROLE";
 export const USER_CHANGE_SKIP = "USER_CHANGE_SKIP";
+export const CHANGE_SEARCH_BY_EMAIL = "CHANGE_SEARCH_BY_EMAIL";
 
 // Messager
 export const TOAST_MESSAGE = "TOAST_MESSAGE";

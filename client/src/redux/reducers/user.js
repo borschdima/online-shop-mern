@@ -10,6 +10,7 @@ import {
 	GET_USERS_SUCCESS,
 	UPDATE_ROLE,
 	USER_CHANGE_SKIP,
+	CHANGE_SEARCH_BY_EMAIL,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
 	darkmode: false,
 	role: "user",
 	querySkip: 0,
+	particularUser: "",
 	users: [],
 	allUsersCount: 0,
 	error: false,
@@ -44,6 +46,9 @@ export default function authReducer(state = initialState, action) {
 
 		case GET_USERS_SUCCESS:
 			return { ...state, users: action.users, allUsersCount: action.allUsersCount, loading: false };
+
+		case CHANGE_SEARCH_BY_EMAIL:
+			return { ...state, particularUser: action.value };
 
 		case USER_CHANGE_SKIP:
 			return { ...state, querySkip: action.skip };
